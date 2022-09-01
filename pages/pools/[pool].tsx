@@ -1,0 +1,467 @@
+import React, { useEffect, useMemo, useState } from 'react'
+import { styled } from 'components/theme'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+import { AppLayout } from 'components/Layout/AppLayout'
+import { Text } from 'components/Text'
+import { Chevron } from 'icons/Chevron'
+import { IconWrapper } from 'components/IconWrapper'
+import {
+  PoolBondedLiquidityCard,
+  UnbondingLiquidityCard,
+  ManagePoolDialog,
+  PoolAvailableLiquidityCard,
+} from 'features/liquidity'
+import { ChakraProvider, Text as ChakraText, Stack } from '@chakra-ui/react'
+import { unsafelyGetTokenInfoFromAddress } from 'hooks/useTokenInfo'
+import { getPoolLiquidity, LiquidityType } from 'hooks/usePoolLiquidity'
+import { parseCurrency } from 'features/liquidity/components/PoolCard'
+import { BondLiquidityDialog } from 'features/liquidity'
+import { __POOL_REWARDS_ENABLED__, APP_NAME } from 'util/constants'
+import { Spinner } from 'components/Spinner'
+import { protectAgainstNaN } from 'util/conversion'
+import { TokenInfo } from 'hooks/useTokenList'
+import { usePoolList } from 'hooks/usePoolList'
+import { PoolInfo } from 'features/liquidity/components/PoolInfo'
+import { stake, unstakeRequest, unstake } from 'util/m-token'
+import db, { FarmDexie } from 'store/RefDatabase'
+import { displayApr } from 'features/liquidity/components/PoolCard'
+import { getUnbondListByAccountId, claimRewardByFarm } from 'util/farm'
+import {
+  ContentWrapper,
+  Container,
+  StyledWrapperForNavigation,
+} from 'components/poolsStyle'
+
+export default function Pool() {
+  const {
+    query: { pool },
+  } = useRouter()
+  const [isManageLiquidityDialogShowing, setIsManageLiquidityDialogShowing] =
+    useState(false)
+  const [isBondingDialogShowing, setIsBondingDialogShowing] = useState(false)
+  const [totalLiquidity, setTotalLiquidity] = useState<LiquidityType>({
+    coins: 0,
+    dollarValue: 0,
+  })
+  const [myLiquidity, setMyLiquidity] = useState<LiquidityType>({
+    coins: 0,
+    dollarValue: 0,
+  })
+  const [tokenDollarValue, setTokenDollarValue] = useState(0)
+  const [myReserve, setMyReserve] = useState<[number, number]>([0, 0])
+  const [reserve, setReserve] = useState<[number, number]>([0, 0])
+  const [isLoading, setIsLoading] = useState(false)
+  const [tokenPrice, setTokenPrice] = useState(0)
+  const [tokenA, setTokenA] = useState<TokenInfo>()
+  const [tokenB, setTokenB] = useState<TokenInfo>()
+  const [poolList] = usePoolList()
+  const [pool_id, setPoolId] = useState(0)
+  const [pool_name, setPoolName] = useState('')
+  const [decimals, setDecimals] = useState(24)
+  const [lpTokenAmount, setLpTokenAmount] = useState(0)
+  const [farmInfo, setFarmInfo] = useState<FarmDexie>()
+  const [unbondings, setUnbondings] = useState<[number, number][]>([])
+
+  useEffect(() => {
+    if (tokenA && tokenB) initialSet()
+    if (!isNaN(Number(pool)) && poolList) {
+      const poolById = poolList?.find((p) => p?.pool_id === Number(pool))
+      setPoolId(poolById?.pool_id)
+      setPoolName(poolById?.name)
+      setDecimals(poolById?.decimals)
+      const tokenA = unsafelyGetTokenInfoFromAddress(poolById?.token_address[0])
+      const tokenB = unsafelyGetTokenInfoFromAddress(poolById?.token_address[1])
+      setTokenA(tokenA)
+      setTokenB(tokenB)
+    }
+    // eslint-disable-line react-hooks/exhaustive-deps
+  }, [pool, poolList, tokenA, tokenB])
+
+  useEffect(() => {
+    if (!isNaN(Number(pool)))
+      db.queryFarms().then((farms) => {
+        const index = farms.map((r) => Number(r.pool_id)).indexOf(Number(pool))
+        const farmInfo = farms[index]
+        setFarmInfo(farmInfo)
+        getUnbondListByAccountId({ seedId: farmInfo?.seed_id })
+          .then((res) => {
+            console.log('Unbonding: ', res)
+            setUnbondings(res)
+          })
+          .catch((err) => console.log('Unbonding err: ', err))
+      })
+  }, [pool])
+
+  const initialSet = () => {
+    setIsLoading(true)
+    // eslint-disable-line react-hooks/rules-of-hooks
+    getPoolLiquidity({
+      poolId: Number(pool),
+      tokenAddress: [tokenA?.token_address, tokenB?.token_address],
+      decimals,
+    })
+      .then(({ liquidity }) => {
+        setTotalLiquidity(liquidity.totalLiquidity)
+        setMyLiquidity(liquidity.myLiquidity)
+        setTokenDollarValue(liquidity.tokenDollarValue)
+        setMyReserve(liquidity.myReserve)
+        setReserve(liquidity.reserve)
+        setIsLoading(false)
+        setTokenPrice(
+          protectAgainstNaN(liquidity.reserve[1] / liquidity.reserve[0])
+        )
+      })
+      .catch((err) => {
+        console.log(err)
+        setIsLoading(false)
+      })
+  }
+
+  const isLoadingInitial = !totalLiquidity || (!totalLiquidity && isLoading)
+
+  const hardRefresh = () => {
+    setTimeout(() => {
+      window.location.reload()
+    }, 1000)
+  }
+
+  const onSubmit = ({ type, amount }) => {
+    const poolById = poolList?.find((p) => p?.pool_id === Number(pool))
+    if (type === 'bond') {
+      stake({
+        token_id: poolById.token_id,
+        poolId: poolById.pool_id.toString(),
+        amount: amount.toString(),
+      })
+    } else {
+      unstakeRequest({
+        seed_id: farmInfo?.seed_id,
+        poolId: poolById.pool_id.toString(),
+        amount: amount.toString(),
+      })
+    }
+  }
+
+  const onWithdraw = (index) => {
+    unstake({ seed_id: farmInfo?.seed_id, farm_id: farmInfo?.id, id: index })
+  }
+
+  const onClaim = () => {
+    claimRewardByFarm(farmInfo?.id)
+  }
+
+  if (!tokenA || !tokenB || !pool) {
+    return null
+  }
+
+  return (
+    <ChakraProvider>
+      {pool && (
+        <ManagePoolDialog
+          isShowing={isManageLiquidityDialogShowing}
+          onRequestClose={() => setIsManageLiquidityDialogShowing(false)}
+          poolInfo={{
+            poolId: pool.toString(),
+            reserve,
+            myReserve,
+            myLiquidity,
+            totalLiquidity,
+          }}
+        />
+      )}
+      {__POOL_REWARDS_ENABLED__ && (
+        <BondLiquidityDialog
+          isShowing={isBondingDialogShowing}
+          lpTokenAmount={myLiquidity.coins}
+          bonded={farmInfo?.userStaked}
+          onRequestClose={() => setIsBondingDialogShowing(false)}
+          onSubmit={onSubmit}
+          poolId={pool}
+        />
+      )}
+
+      {pool && (
+        <Head>
+          <title>
+            {APP_NAME} — Pool {pool_name}
+          </title>
+        </Head>
+      )}
+
+      <AppLayout>
+        <Container>
+          <StyledWrapperForNavigation>
+            <StyledNavElement position="left">
+              <Link href="/pools" passHref>
+                <IconWrapper
+                  as="a"
+                  type="button"
+                  size="20px"
+                  icon={<Chevron />}
+                />
+              </Link>
+            </StyledNavElement>
+            <StyledNavElement position="center">
+              <Header>Pool {pool_name}</Header>
+            </StyledNavElement>
+          </StyledWrapperForNavigation>
+          <Stack padding="0 10px">
+            <PoolInfo
+              poolId={pool as string}
+              onClaim={onClaim}
+              tokenDollarValue={tokenDollarValue}
+              reward_interval={farmInfo?.session_interval}
+              start_at={farmInfo?.start_at}
+              myDailyReward={farmInfo?.userUnclaimedReward}
+            />
+          </Stack>
+
+          {isLoadingInitial && (
+            <StyledDivForSpinner>
+              <Spinner color="black" size={32} />
+            </StyledDivForSpinner>
+          )}
+          {!isLoadingInitial && (
+            <ContentWrapper>
+              <Stack spacing={10}>
+                <LiquidityInfoWrapper>
+                  <StyledRowForTokensInfo
+                    kind="wrapper"
+                    className="pool-wrapper"
+                  >
+                    <StyledRowForTokensInfo kind="column">
+                      <ChakraText fontSize="18px" fontWeight="600" mr="20px">
+                        Pool #{pool_id}
+                      </ChakraText>
+                      <StyledTextForTokens kind="wrapper">
+                        <StyledTextForTokens kind="element">
+                          <StyledImageForToken src="https://i.ibb.co/T0TrSgT/block-logo.png" />
+                          <ChakraText fontSize="14px" fontWeight="400">
+                            {tokenA.symbol}
+                          </ChakraText>
+                        </StyledTextForTokens>
+                        <StyledTextForTokens kind="element">
+                          <StyledImageForToken
+                            as={tokenB.logoURI ? 'img' : 'div'}
+                            src={tokenB.logoURI}
+                          />
+                          <ChakraText fontSize="14px" fontWeight="400">
+                            {tokenB.symbol}
+                          </ChakraText>
+                        </StyledTextForTokens>
+                      </StyledTextForTokens>
+                    </StyledRowForTokensInfo>
+                    <StyledRowForTokensInfo kind="column">
+                      <ChakraText fontSize="14px" fontWeight="400">
+                        {isLoading
+                          ? ''
+                          : `1 ${tokenA.symbol} = ${tokenPrice.toFixed(2)} ${
+                              tokenB.symbol
+                            }`}
+                      </ChakraText>
+                    </StyledRowForTokensInfo>
+                  </StyledRowForTokensInfo>
+
+                  <StyledDivForSeparator />
+
+                  <StyledElementForLiquidity kind="wrapper">
+                    <StyledElementForLiquidity kind="row">
+                      <ChakraText
+                        fontSize="18px"
+                        fontWeight="500"
+                        color="#A1A1A1"
+                      >
+                        Total Liquidity
+                      </ChakraText>
+                      <ChakraText
+                        fontSize="18px"
+                        fontWeight="500"
+                        color="#A1A1A1"
+                      >
+                        APR reward
+                      </ChakraText>
+                    </StyledElementForLiquidity>
+                    <StyledElementForLiquidity kind="row">
+                      <Text variant="header">
+                        {parseCurrency(totalLiquidity?.dollarValue)}
+                      </Text>
+                      <Text variant="header">{displayApr(farmInfo?.apr)}%</Text>
+                    </StyledElementForLiquidity>
+                  </StyledElementForLiquidity>
+                </LiquidityInfoWrapper>
+
+                <Stack>
+                  <ChakraText fontSize="24px" fontWeight="600">
+                    Personal shares
+                  </ChakraText>
+                  <StyledDivForCards className="personal-shares">
+                    <PoolAvailableLiquidityCard
+                      myLiquidity={myLiquidity}
+                      myReserve={myReserve}
+                      totalLiquidity={totalLiquidity}
+                      tokenDollarValue={tokenDollarValue}
+                      tokenASymbol={tokenA.symbol}
+                      tokenBSymbol={tokenB.symbol}
+                      onButtonClick={() =>
+                        setIsManageLiquidityDialogShowing(true)
+                      }
+                    />
+                    <PoolBondedLiquidityCard
+                      onButtonClick={() => setIsBondingDialogShowing(true)}
+                      myLiquidity={myLiquidity}
+                      stakedAmount={farmInfo?.userStaked}
+                      totalLiquidity={totalLiquidity}
+                      tokenASymbol={tokenA.symbol}
+                      tokenBSymbol={tokenB.symbol}
+                    />
+                  </StyledDivForCards>
+                  {__POOL_REWARDS_ENABLED__ && unbondings.length > 0 && (
+                    <>
+                      <ChakraText fontSize="24px" fontWeight="600">
+                        Unbonding Liquidity
+                      </ChakraText>
+                      <StyledElementForUnbonding kind="list">
+                        {unbondings?.map((unbonding, index) => (
+                          <UnbondingLiquidityCard
+                            key={unbonding[1] + index.toString()}
+                            totalLiquidity={totalLiquidity}
+                            unbonding={unbonding}
+                            index={index}
+                            lockInterval={Number(farmInfo?.withdraw_interval)}
+                            onWithdraw={onWithdraw}
+                          />
+                        ))}
+                      </StyledElementForUnbonding>
+                    </>
+                  )}
+                </Stack>
+              </Stack>
+            </ContentWrapper>
+          )}
+        </Container>
+      </AppLayout>
+    </ChakraProvider>
+  )
+}
+
+const Header = styled('div', {
+  fontSize: '40px',
+  fontWeight: '700',
+})
+
+const StyledNavElement = styled('div', {
+  display: 'flex',
+  variants: {
+    position: {
+      left: {
+        flex: 0.1,
+        justifyContent: 'flex-start',
+      },
+      center: {
+        flex: 0.8,
+        justifyContent: 'center',
+      },
+      right: {
+        flex: 0.1,
+        justifyContent: 'flex-end',
+      },
+    },
+  },
+})
+
+const StyledDivForSeparator = styled('hr', {
+  margin: '0 auto',
+  border: 'none',
+  borderTop: '1px solid rgba(25, 29, 32, 0.1)',
+  width: '100%',
+  boxSizing: 'border-box',
+  height: 1,
+})
+
+const StyledRowForTokensInfo = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  color: 'white',
+  variants: {
+    kind: {
+      wrapper: {
+        padding: '17px 36px',
+        justifyContent: 'space-between',
+      },
+      column: {},
+    },
+  },
+})
+
+const StyledTextForTokens = styled('div', {
+  display: 'grid',
+  gridAutoFlow: 'column',
+  alignItems: 'center',
+  fontSize: '14px',
+  variants: {
+    kind: {
+      element: {
+        columnGap: '6px',
+      },
+      wrapper: {
+        columnGap: '23px',
+      },
+    },
+  },
+})
+
+const StyledImageForToken = styled('img', {
+  width: 20,
+  height: 20,
+  borderRadius: '50%',
+  backgroundColor: '#ccc',
+})
+
+const StyledElementForLiquidity = styled('div', {
+  variants: {
+    kind: {
+      wrapper: {
+        padding: '11px 36px',
+      },
+      row: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '5px 0',
+      },
+    },
+  },
+})
+
+const StyledDivForCards = styled('div', {
+  display: 'grid',
+  columnGap: '18px',
+  gridTemplateColumns: '1fr 1fr',
+})
+
+const StyledElementForUnbonding = styled('div', {
+  variants: {
+    kind: {
+      list: {
+        display: 'grid',
+        rowGap: '8px',
+        paddingBottom: 24,
+      },
+    },
+  },
+})
+
+const StyledDivForSpinner = styled('div', {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+})
+
+const LiquidityInfoWrapper = styled('div', {
+  backgroundColor: 'rgba(5,6,22,0.2)',
+  boxShadow: '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6D6D78',
+  backdropFilter: 'blur(40px)',
+  borderRadius: '20px',
+})

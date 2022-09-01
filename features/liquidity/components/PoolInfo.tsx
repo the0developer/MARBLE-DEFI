@@ -1,0 +1,181 @@
+import { styled } from '@stitches/react'
+import DateCountdown from 'components/DateCountdown'
+import { useBaseTokenInfo, useTokenInfoByPoolId } from 'hooks/useTokenInfo'
+import React from 'react'
+import { toast } from 'react-toastify'
+import { Button } from '../../../components/Button'
+import { Text } from '../../../components/Text'
+
+const incentiveStart = 'April 27, 2022 00:00:00 UTC+00:00'
+const incentiveEnd = 'March 27, 2099 00:00:00 UTC+00:00'
+
+interface PoolInfoProps {
+  poolId: string
+  tokenDollarValue: number
+  myDailyReward?: string
+  reward_interval: string
+  start_at: string
+  onClaim?: () => void
+}
+
+export const PoolInfo: React.FC<PoolInfoProps> = ({
+  poolId,
+  tokenDollarValue,
+  myDailyReward,
+  reward_interval,
+  start_at,
+  onClaim,
+}) => {
+  const token = useBaseTokenInfo()
+  const tokenInfo = useTokenInfoByPoolId(Number(poolId))
+
+  // const { bondingInfo } = useBondingInfo(tokenInfo?.incentives_address)
+
+  // const bondingInfo = {
+  //   owner: "MMM",
+  //   reward_token_address: "hera",
+  //   stake_token_address: "dust",
+  //   reward_amount: "dust",
+  //   stake_amount: "12121212",
+  //   daily_reward_amount: "123123123",
+  //   apy_prefix: "123123",
+  //   reward_interval: 123123,
+  //   lock_days: 1212
+  // }
+
+  if (!poolId) return null
+  const currentTimeStamp = Math.floor(new Date().getTime() / 1000)
+  const rewardCount = Math.ceil(
+    (currentTimeStamp - Number(start_at)) / Number(reward_interval)
+  )
+  const dateTo =
+    (Number(start_at) + Number(reward_interval) * rewardCount) * 1000
+
+  const onClaimReward = async () => {
+    const now = new Date()
+    if (
+      now.getTime() < new Date(incentiveStart).getTime() ||
+      now.getTime() > new Date(incentiveEnd).getTime()
+    ) {
+      toast.error('Rewards are not distributed yet!')
+      return
+    }
+    onClaim()
+  }
+
+  console.log(
+    'farm date to: ',
+    dateTo,
+    currentTimeStamp,
+    start_at,
+    reward_interval,
+    rewardCount
+  )
+  return (
+    <StyledElementForCard kind="wrapper">
+      <StyledElementForToken>
+        <Title>Hera Price</Title>
+        <Text variant="title" css={{ fontSize: '$15' }}>
+          ${tokenDollarValue?.toFixed(6)}
+        </Text>
+      </StyledElementForToken>
+      <StyledElementForToken>
+        <Title>Rewards distribution in</Title>
+        <Text variant="title" css={{ fontSize: '$15' }}>
+          <DateCountdown
+            dateTo={dateTo || Number(new Date()) / 1000}
+            loop
+            interval={Number(reward_interval) || 0}
+            mostSignificantFigure="hour"
+            numberOfFigures={3}
+          />
+        </Text>
+      </StyledElementForToken>
+      {myDailyReward !== undefined && (
+        <StyledElementForToken>
+          <Title>Epoch Rewards Estimate</Title>
+          <StyledContainerForToken>
+            <StyledImageForToken
+              as={token?.logoURI ? 'img' : 'div'}
+              src={token?.logoURI}
+              alt=""
+            />
+            <Text variant="title" css={{ fontSize: '$15' }}>
+              {myDailyReward}
+            </Text>
+            <Button
+              css={{
+                padding: '6px 15px',
+                borderRadius: '10px',
+                margin: '0 10px',
+                fontSize: '12px',
+                fontWeight: '600',
+                color: 'black',
+                background:
+                  'linear-gradient(94.95deg, rgba(153, 227, 158, 0.7) 7.64%, rgba(153, 227, 158, 0.7) 97.65%)',
+                boxShadow:
+                  '0px 10px 20px rgba(42, 47, 50, 0.1), inset 0px -4px 12px rgba(45, 126, 50, 0.26), inset 0px 4px 12px rgba(45, 126, 50, 0.26)',
+              }}
+              disabled={!Number(myDailyReward)}
+              onClick={() => {
+                if (!Number(myDailyReward)) return
+                onClaimReward()
+              }}
+            >
+              Claim
+            </Button>
+          </StyledContainerForToken>
+        </StyledElementForToken>
+      )}
+    </StyledElementForCard>
+  )
+}
+
+const StyledElementForCard = styled('div', {
+  variants: {
+    kind: {
+      wrapper: {
+        padding: '20px 100px',
+        marginBottom: '20px',
+        borderRadius: '20px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        position: 'relative',
+        overflow: 'hidden',
+        backgroundColor: 'rgba(5,6,22,0.2)',
+        boxShadow:
+          '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6D6D78',
+        backdropFilter: 'blur(40px)',
+      },
+    },
+  },
+})
+
+const StyledElementForToken = styled('div', {
+  display: 'flex',
+  flex: 1,
+  minWidth: 200,
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+})
+
+const StyledImageForToken = styled('img', {
+  width: 20,
+  height: 20,
+  borderRadius: '50%',
+  backgroundColor: '#ccc',
+  marginRight: 10,
+})
+
+const StyledContainerForToken = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+})
+const Title = styled('div', {
+  fontSize: '18px',
+  fontWeight: '500',
+  color: '#A1A1A1',
+})
