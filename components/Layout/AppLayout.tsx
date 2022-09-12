@@ -49,8 +49,6 @@ const StyledContainer = styled.div`
   background: rgba(255, 255, 255, 0.06);
   box-shadow: 0px 7px 14px rgba(0, 0, 0, 0.1),
     inset 0px 14px 24px rgba(17, 20, 29, 0.4);
-  backdrop-filter: blur(30px);
-  /* Note: backdrop-filter has minimal browser support */
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 30px;
   @media (max-width: 1550px) {

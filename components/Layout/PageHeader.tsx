@@ -20,6 +20,7 @@ export const PageHeader = ({ title, subtitle, align = 'center' }) => {
           lineHeight: '$5',
           textAlign: `${align}`,
           color: '#FFFFFF',
+          fontFamily: 'Trajan',
         }}
       >
         {title}

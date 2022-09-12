@@ -15,9 +15,12 @@ export const PoolBondedLiquidityCard = ({
   const tokenA = useTokenInfo(tokenASymbol)
   const tokenB = useTokenInfo(tokenBSymbol)
   return (
-    <StyledElementForCardLayout kind="wrapper">
+    <StyledElementForCardLayout
+      kind="wrapper"
+      css={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}
+    >
       <StyledElementForCardLayout kind="content" name="liquidity">
-        <Text fontSize="22px">Bonded liquidity</Text>
+        <Title>Bonded liquidity</Title>
         <StyledStakedText>
           $
           {dollarValueFormatterWithDecimals(
@@ -38,10 +41,8 @@ export const PoolBondedLiquidityCard = ({
           unstaked tokens
         </StyledUnstakedText>
       </StyledElementForCardLayout>
-      <StyledElementForCardLayout kind="borderContent">
-        <Text fontSize="20px" fontWeight="500">
-          Current reward incentive
-        </Text>
+      <StyledElementForCardLayout kind="wrapper">
+        <>Current reward incentive</>
 
         <StyledElementForTokens kind="wrapper">
           <StyledElementForTokens kind="column">
@@ -56,8 +57,9 @@ export const PoolBondedLiquidityCard = ({
         <Button
           disabled={!__POOL_REWARDS_ENABLED__}
           onClick={__POOL_REWARDS_ENABLED__ ? onButtonClick : undefined}
+          css={{ fontFamily: 'Trajan', fontSize: '14px' }}
         >
-          {__POOL_REWARDS_ENABLED__ ? 'Bond / Unbond tokens' : 'Coming soon'}
+          {__POOL_REWARDS_ENABLED__ ? 'Bond/Unbond tokens' : 'Coming soon'}
         </Button>
       </StyledElementForCardLayout>
     </StyledElementForCardLayout>
@@ -74,19 +76,17 @@ const StyledElementForCardLayout = styled('div', {
         boxShadow:
           '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6D6D78',
         backdropFilter: 'blur(40px)',
+        '@media (max-width: 1550px)': {
+          padding: '10px 28px',
+        },
+        fontFamily: 'Trajan',
+        fontSize: '16px',
       },
       content: {
         flexDirection: 'row',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '17px 0',
-      },
-      borderContent: {
-        border: '0.5px solid #FFCDCD',
-        borderRadius: '26px',
-        padding: '17px 35px',
-        marginTop: '15px',
       },
     },
     name: {
@@ -96,18 +96,24 @@ const StyledElementForCardLayout = styled('div', {
 })
 
 const StyledStakedText = styled('p', {
-  fontSize: '30px',
+  fontSize: '22px',
   lineHeight: '$2',
   fontWeight: 600,
+  '@media (max-width: 1550px)': {
+    fontSize: '18px',
+  },
 })
-const StyledUnstakedText = styled('p', {
+const StyledUnstakedText = styled('div', {
   position: 'absolute',
   right: '35px',
-  top: '64px',
-  paddingTop: '$2',
-  fontSize: '18px',
+  top: '45px',
+  fontSize: '15px',
   fontWeight: '500',
-  color: '$textColors$secondary',
+  '@media (max-width: 1550px)': {
+    right: '28px',
+    top: '34px',
+    fontSize: '12px',
+  },
 })
 const Button = styled('button', {
   cursor: 'pointer',
@@ -119,7 +125,7 @@ const Button = styled('button', {
   fontSize: '18px',
   fontWeight: '600',
   textAlign: 'center',
-  margin: '0 auto',
+  margin: 'auto auto 20px auto',
   variants: {
     disabled: {
       true: {
@@ -152,5 +158,12 @@ const StyledImageForToken = styled('img', {
   boxShadow: '0 0 0 1px #e7d9e3',
   '&:not(&:first-of-type)': {
     marginLeft: -3,
+  },
+})
+const Title = styled('div', {
+  fontFamily: 'Trajan',
+  fontSize: '22px',
+  '@media (max-width: 1550px)': {
+    fontSize: '18px',
   },
 })

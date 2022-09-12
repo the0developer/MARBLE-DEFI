@@ -52,13 +52,13 @@ export const useTokenInfo = (tokenSymbol: string) => {
 }
 export const useTokenInfoFromAddress = (tokenAddress: string) => {
   const [tokenList] = useTokenList()
-  if(tokenAddress==='near') return unsafelyGetBaseToken()
+  if (tokenAddress === 'near') return unsafelyGetBaseToken()
   return unsafelyGetTokenInfoFromAddress(tokenAddress, tokenList?.tokens)
 }
 /* hook for token info retrieval based on `poolId` */
 export const useTokenInfoByPoolId = (poolId: number) => {
   const [poolList] = usePoolList()
-  const pool = poolList.find(p => p.pool_id === poolId)
+  const pool = poolList.find((p) => p.pool_id === poolId)
   const tokenA = unsafelyGetTokenInfoFromAddress(pool?.token_address[0])
   const tokenB = unsafelyGetTokenInfoFromAddress(pool?.token_address[1])
   return [tokenA, tokenB]

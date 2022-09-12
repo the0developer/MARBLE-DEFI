@@ -28,15 +28,16 @@ const Container = styled.div`
 const IconWrapper = styled.div<{ color: string }>`
   border-radius: 20px;
   width: 60px;
-  height: 72px;
+  height: 60px;
   background: ${({ color }) => color};
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px;
+  margin-right: 10px;
   @media (max-width: 1550px) {
     width: 48px;
-    height: 60px;
+    height: 48px;
+    border-radius: 15px;
   }
 `
 export default StyledCard

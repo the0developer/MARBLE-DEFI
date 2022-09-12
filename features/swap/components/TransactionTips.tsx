@@ -1,14 +1,7 @@
 import { IconWrapper } from '../../../components/IconWrapper'
 import { Exchange } from '../../../icons/Exchange'
-import { Text } from '../../../components/Text'
 import React, { useState } from 'react'
-import { styled } from 'components/theme'
-import {
-  dollarValueFormatterWithDecimals,
-  formatTokenBalance,
-  valueFormatter18,
-  valueFormatter6,
-} from '../../../util/conversion'
+import styled from 'styled-components'
 import { useRecoilValue } from 'recoil'
 import { tokenSwapAtom } from '../swapAtoms'
 // import { useTxRates } from '../hooks/useTxRates'
@@ -28,15 +21,6 @@ export const TransactionTips = ({
 }: TransactionTipsProps) => {
   const [swappedPosition, setSwappedPositions] = useState(false)
   const [tokenA, tokenB] = useRecoilValue(tokenSwapAtom)
-
-  // const { isShowing, conversionRate, conversionRateInDollar, dollarValue } =
-  //   useTxRates({
-  //     tokenASymbol: tokenA?.tokenSymbol,
-  //     tokenBSymbol: tokenB?.tokenSymbol,
-  //     tokenAAmount: tokenA?.amount,
-  //     tokenToTokenPrice,
-  //     isLoading: isPriceLoading,
-  //   })
   return (
     <StyledDivForWrapper>
       <StyledDivForRateWrapper>
@@ -60,43 +44,37 @@ export const TransactionTips = ({
   )
 }
 
-const StyledDivForWrapper = styled('div', {
-  textAlign: '-webkit-center',
-  zIndex: '100',
-  height: '20px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-})
+const StyledDivForWrapper = styled.div`
+  text-align: -webkit-center;
+  z-index: 100;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
-const StyledDivForRateWrapper = styled('div', {
-  background: '#050616',
-  backdropFilter: 'blur(40px)',
-  borderRadius: '20px',
-  transform: 'rotate(-45deg)',
-  border: '1px solid rgba(255, 255, 255, 0.23)',
-  width: '77px',
-  height: '77px',
-  zIndex: '10',
-  display: 'flex',
-  boxShadow:
-    '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px rgba(109, 109, 120, 0.47)',
-  justifyContent: 'center',
-  alignItems: 'center',
-})
+const StyledDivForRateWrapper = styled.div`
+  background: #ffffff;
+  backdrop-filter: blur(40px);
+  border-radius: 20px;
+  transform: rotate(-45deg);
+  border: 1px solid rgba(255, 255, 255, 0.23);
+  width: 77px;
+  height: 77px;
+  z-index: 10;
+  display: flex;
+  box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09),
+    inset 0px 7px 24px rgba(109, 109, 120, 0.47);
+  justify-content: center;
+  align-items: center;
+  @media (max-width: 1550px) {
+    width: 60px;
+    height: 60px;
+  }
+`
 
-const StyledIconWrapper = styled(IconWrapper, {
-  stroke: '#FFFFFF',
-  transform: 'rotate(45deg)',
-  width: '30px',
-  variants: {
-    flipped: {
-      true: {
-        transform: 'rotate(45deg)',
-      },
-      false: {
-        transform: 'rotate(45deg)',
-      },
-    },
-  },
-})
+const StyledIconWrapper = styled(IconWrapper)`
+  stroke: #000000;
+  transform: rotate(45deg);
+  width: 30px;
+`

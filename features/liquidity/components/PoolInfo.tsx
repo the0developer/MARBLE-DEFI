@@ -75,13 +75,11 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
     <StyledElementForCard kind="wrapper">
       <StyledElementForToken>
         <Title>Hera Price</Title>
-        <Text variant="title" css={{ fontSize: '$15' }}>
-          ${tokenDollarValue?.toFixed(6)}
-        </Text>
+        <Value>${tokenDollarValue?.toFixed(6)}</Value>
       </StyledElementForToken>
       <StyledElementForToken>
         <Title>Rewards distribution in</Title>
-        <Text variant="title" css={{ fontSize: '$15' }}>
+        <Value>
           <DateCountdown
             dateTo={dateTo || Number(new Date()) / 1000}
             loop
@@ -89,7 +87,7 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
             mostSignificantFigure="hour"
             numberOfFigures={3}
           />
-        </Text>
+        </Value>
       </StyledElementForToken>
       {myDailyReward !== undefined && (
         <StyledElementForToken>
@@ -100,21 +98,24 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
               src={token?.logoURI}
               alt=""
             />
-            <Text variant="title" css={{ fontSize: '$15' }}>
-              {myDailyReward}
-            </Text>
+            <Value>{myDailyReward}</Value>
             <Button
               css={{
-                padding: '6px 15px',
+                width: '68px',
+                height: '28px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
                 borderRadius: '10px',
                 margin: '0 10px',
-                fontSize: '12px',
+                fontSize: '10px',
                 fontWeight: '600',
                 color: 'black',
-                background:
-                  'linear-gradient(94.95deg, rgba(153, 227, 158, 0.7) 7.64%, rgba(153, 227, 158, 0.7) 97.65%)',
-                boxShadow:
-                  '0px 10px 20px rgba(42, 47, 50, 0.1), inset 0px -4px 12px rgba(45, 126, 50, 0.26), inset 0px 4px 12px rgba(45, 126, 50, 0.26)',
+                background: 'white',
+                '@media (max-width: 1550px)': {
+                  width: '50px',
+                  height: '24px',
+                },
               }}
               disabled={!Number(myDailyReward)}
               onClick={() => {
@@ -135,7 +136,7 @@ const StyledElementForCard = styled('div', {
   variants: {
     kind: {
       wrapper: {
-        padding: '20px 100px',
+        padding: '20px 40px',
         marginBottom: '20px',
         borderRadius: '20px',
         display: 'flex',
@@ -148,6 +149,9 @@ const StyledElementForCard = styled('div', {
         boxShadow:
           '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6D6D78',
         backdropFilter: 'blur(40px)',
+        '@media (max-width: 1550px)': {
+          padding: '10px 40px',
+        },
       },
     },
   },
@@ -160,6 +164,10 @@ const StyledElementForToken = styled('div', {
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+  rowGap: '10px',
+  '@media (max-width: 1550px)': {
+    rowGap: '5px',
+  },
 })
 
 const StyledImageForToken = styled('img', {
@@ -175,7 +183,18 @@ const StyledContainerForToken = styled('div', {
   alignItems: 'center',
 })
 const Title = styled('div', {
-  fontSize: '18px',
+  fontSize: '16px',
   fontWeight: '500',
   color: '#A1A1A1',
+  fontFamily: 'Trajan',
+  '@media (max-width: 1550px)': {
+    fontSize: '16px',
+  },
+})
+const Value = styled('div', {
+  fontSize: '20px',
+  fontWeight: '600',
+  '@media (max-width: 1550px)': {
+    fontSize: '20px',
+  },
 })

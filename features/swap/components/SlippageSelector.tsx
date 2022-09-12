@@ -29,9 +29,7 @@ export const SlippageSelector = ({
           setShowingSettings(!isShowingSettings)
         }}
       >
-        <Text variant="primary" css={{ fontWeight: '$bold' }} color="primary">
-          Slippage {slippage * 100}%
-        </Text>
+        <Title>Slippage {slippage * 100}%</Title>
         <IconWrapper
           size="16px"
           color="white"
@@ -68,15 +66,14 @@ export const SlippageSelector = ({
 const StyledDivForWrapper = styled('div', {
   position: 'relative',
   borderRight: '1px solid white',
+  width: 'fit-content',
 })
 
 const StyledDivForSelector = styled('button', {
   textTransform: 'uppercase',
   display: 'flex',
   columnGap: '$space$4',
-  background:
-    'radial-gradient(0.17% 59.87% at 50.17% 40.13%, rgba(255, 255, 255, 0) 0%, rgba(236, 246, 255, 0.0858) 100%)',
-  padding: '$8 $13',
+  padding: '16px 40px 16px 24px',
   userSelect: 'none',
   borderRadius: '18px',
   transition: 'background-color .1s ease-out',
@@ -140,5 +137,12 @@ const StyledButton = styled('button', {
   },
   '&:active': {
     backgroundColor: '$dark5',
+  },
+})
+const Title = styled('div', {
+  fontSize: '24px',
+  fontFamily: 'Trajan',
+  '@media (max-width: 1550px)': {
+    fontSize: '20px',
   },
 })

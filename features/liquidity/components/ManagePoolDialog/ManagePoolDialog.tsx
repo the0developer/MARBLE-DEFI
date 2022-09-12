@@ -169,15 +169,10 @@ export const ManagePoolDialog = ({
         onRequestClose={onRequestClose}
         kind="blank"
       >
-        <StyledCloseIcon onClick={onRequestClose} offset={19} size="16px" />
+        <StyledCloseIcon onClick={onRequestClose} offset={19} size="40px" />
 
         <StyledDivForContent>
-          <Text
-            variant="header"
-            css={{ paddingBottom: canManageLiquidity ? '$8' : '$12' }}
-          >
-            Manage liquidity
-          </Text>
+          <Title>Manage liquidity</Title>
         </StyledDivForContent>
 
         {canManageLiquidity && (
@@ -196,7 +191,14 @@ export const ManagePoolDialog = ({
         )}
         <Stack padding="0 36px">
           <Stack textAlign="left">
-            <Text variant="body" css={{ paddingBottom: '$6' }}>
+            <Text
+              variant="body"
+              css={{
+                paddingBottom: '$6',
+                fontFamily: 'Trajan',
+                fontSize: '16px',
+              }}
+            >
               Choose how much to {isAddingLiquidity ? 'add' : 'remove'}
             </Text>
           </Stack>
@@ -228,9 +230,6 @@ export const ManagePoolDialog = ({
               />
             )}
           </AddOrRemoveLiquidityWrapper>
-          <StyledDivForDivider>
-            <Divider />
-          </StyledDivForDivider>
           <StyledDivForContent>
             <StyledDivForFooter>
               <PrimaryButton onClick={onRequestClose}>Cancel</PrimaryButton>
@@ -309,12 +308,14 @@ function AddLiquidityContent({
           onAmountChange={handleTokenBAmountChange}
         />
       </StyledDivForLiquidityInputs>
-      <MaxButton
-        onClick={handleApplyMaximumAmount}
-        leftIcon={<IconWrapper icon={<RoundedPlus />} />}
-      >
-        Provide max liquidity
-      </MaxButton>
+      <StyledDivForLiquidityInputs>
+        <MaxButton
+          onClick={handleApplyMaximumAmount}
+          leftIcon={<IconWrapper icon={<RoundedPlus />} />}
+        >
+          Provide max liquidity
+        </MaxButton>
+      </StyledDivForLiquidityInputs>
     </Stack>
   )
 }
@@ -348,56 +349,72 @@ function RemoveLiquidityContent({
 
   return (
     <>
-      <StyledDivForContent>
-        <LiquidityInputSelector
-          inputRef={percentageInputRef}
-          maxLiquidity={availableLiquidityDollarValue}
-          liquidity={liquidityAmount}
-          onChangeLiquidity={handleChangeLiquidity}
-        />
-        <StyledGridForDollarValueTxInfo>
-          <Text variant="caption" color="primary" css={{ padding: '$6 0 $9' }}>
-            Available liquidity: $
-            {dollarValueFormatterWithDecimals(availableLiquidityDollarValue, {
-              includeCommaSeparation: true,
-            })}
-          </Text>
-          <Text variant="caption" color="primary" css={{ padding: '$6 0 $9' }}>
-            ≈ ${' '}
-            {dollarValueFormatterWithDecimals(liquidityAmount, {
-              includeCommaSeparation: true,
-            })}
-          </Text>
-        </StyledGridForDollarValueTxInfo>
+      <StyledDivForRemoveLiquidityInputs>
+        <StyledDivForRemoveLiquidityInputsWrapper>
+          <LiquidityInputSelector
+            inputRef={percentageInputRef}
+            maxLiquidity={availableLiquidityDollarValue}
+            liquidity={liquidityAmount}
+            onChangeLiquidity={handleChangeLiquidity}
+          />
+          <StyledGridForDollarValueTxInfo>
+            <Text
+              variant="caption"
+              color="primary"
+              css={{ padding: '$6 0 $9', fontFamily: 'Trajan' }}
+            >
+              Available liquidity: $
+              {dollarValueFormatterWithDecimals(availableLiquidityDollarValue, {
+                includeCommaSeparation: true,
+              })}
+            </Text>
+            <Text
+              variant="caption"
+              color="primary"
+              css={{ padding: '$6 0 $9' }}
+            >
+              ≈ ${' '}
+              {dollarValueFormatterWithDecimals(liquidityAmount, {
+                includeCommaSeparation: true,
+              })}
+            </Text>
+          </StyledGridForDollarValueTxInfo>
+        </StyledDivForRemoveLiquidityInputsWrapper>
+
+        <Divider />
         <PercentageSelection
           maxLiquidity={availableLiquidityDollarValue}
           liquidity={liquidityAmount}
           onChangeLiquidity={handleChangeLiquidity}
         />
-      </StyledDivForContent>
-      <Divider offsetY={16} />
+      </StyledDivForRemoveLiquidityInputs>
+
       <StyledDivForContent>
-        <Text variant="body" css={{ paddingBottom: '$7' }}>
+        <Text
+          variant="body"
+          css={{
+            padding: '20px 0',
+            textAlign: 'left',
+            fontFamily: 'Trajan',
+            fontSize: '16px',
+          }}
+        >
           Removing
         </Text>
         <StyledDivForLiquiditySummary>
           <StyledDivForToken>
             <StyledImageForTokenLogo src={tokenA?.logoURI} alt={tokenA?.name} />
-            <Text variant="caption">
-              {formatTokenBalance(
-                (tokenAReserve * liquidityAmount) / myLiquidity.dollarValue
-              )}{' '}
-              {tokenA?.symbol}
-            </Text>
+            {formatTokenBalance(
+              (tokenAReserve * liquidityAmount) / myLiquidity.dollarValue
+            )}{' '}
+            {tokenA?.symbol}
           </StyledDivForToken>
           <StyledDivForToken>
             <StyledImageForTokenLogo src={tokenB.logoURI} alt={tokenB?.name} />
-            <Text variant="caption">
-              {formatTokenBalance(
-                (tokenBReserve * liquidityAmount) / myLiquidity.dollarValue
-              )}{' '}
-              {tokenB.symbol}
-            </Text>
+            {formatTokenBalance(
+              (tokenBReserve * liquidityAmount) / myLiquidity.dollarValue
+            )}{' '}
+            {tokenB.symbol}
           </StyledDivForToken>
         </StyledDivForLiquiditySummary>
       </StyledDivForContent>
@@ -408,44 +425,57 @@ function RemoveLiquidityContent({
 const PrimaryButton = styled(Button)`
   background: rgba(5, 6, 22, 0.2) !important;
   border-radius: 20px !important;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid white;
   height: 50px !important;
   width: 143px !important;
   color: white;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 14px !important;
 `
 const SecondaryButton = styled(Button)`
-  background: linear-gradient(
-    94.95deg,
-    #ffffff 7.64%,
-    rgba(255, 255, 255, 0.2) 97.65%
-  ) !important;
   box-shadow: 0px 10px 30px rgba(42, 47, 50, 0.2) !important;
   backdrop-filter: blur(14px);
   /* Note: backdrop-filter has minimal browser support */
-  border: 1px solid white;
   border-radius: 20px !important;
   height: 50px !important;
-  width: 143px !important;
+  width: 170px !important;
   color: black;
+  font-size: 14px !important;
 `
 
 const StyledDivForContent = styled.div``
 
 const MaxButton = styled(Button)`
-  background: #ffffff;
-  border-radius: 16px !important;
-  color: black !important;
-  width: 346px !important;
+  background: rgba(5, 6, 22, 0.2) !important;
+  border-radius: 20px !important;
+  color: white !important;
+  width: 100% !important;
   height: 54px !important;
-  justify-content: center;
+  box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6d6d78;
 `
 
 const StyledDivForLiquidityInputs = styled.div`
   display: flex;
   flex-wrap: wrap;
   row-gap: 16px;
+  width: 100%;
+  background: rgba(5, 6, 22, 0.2);
+  box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6d6d78;
+  border-radius: 20px;
+  padding: 25px 30px;
+  @media (max-width: 1550px) {
+    padding: 25px 20px;
+  }
+`
+const StyledDivForRemoveLiquidityInputs = styled.div`
+  background: rgba(5, 6, 22, 0.2);
+  box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6d6d78;
+  border-radius: 20px;
+`
+const StyledDivForRemoveLiquidityInputsWrapper = styled.div`
+  padding: 25px 30px 0 30px;
+  @media (max-width: 1550px) {
+    padding: 25px 20px 0 25px;
+  }
 `
 
 const StyledDivForFooter = styled.div`
@@ -453,6 +483,7 @@ const StyledDivForFooter = styled.div`
   justify-content: center;
   column-gap: 10px;
   padding: 10px 0 40px 0;
+  font-family: Trajan;
 `
 
 const StyledDivForDivider = styled.div`
@@ -467,20 +498,34 @@ const StyledGridForDollarValueTxInfo = styled.div`
 const StyledDivForLiquiditySummary = styled.div`
   display: flex;
   align-items: center;
-  column-gap: 10px;
+  column-gap: 30px;
+  background: rgba(5, 6, 22, 0.2);
+  box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6d6d78;
+  border-radius: 20px;
+  padding: 25px 30px 25px 30px;
+  @media (max-width: 1550px) {
+    padding: 25px 20px 25px 25px;
+  }
 `
 
-const StyledDivForToken = styled(StyledDivForLiquiditySummary)``
+const StyledDivForToken = styled.div`
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+  font-size: 12px;
+  font-family: Trajan;
+  color: white;
+`
 
 const StyledImageForTokenLogo = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
 `
 
-const AddOrRemoveLiquidityWrapper = styled.div`
-  background: rgba(5, 6, 22, 0.2);
-  padding: 25px 30px;
-  border-radius: 20px;
-  backdrop-filter: blur(40px);
+const AddOrRemoveLiquidityWrapper = styled.div``
+const Title = styled.div`
+  font-size: 20px;
+  font-family: Trajan;
+  color: white;
 `

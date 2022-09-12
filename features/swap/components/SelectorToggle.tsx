@@ -35,7 +35,7 @@ export const SelectorToggle = ({
     >
       {(isSelecting || !hasTokenSelected) && (
         <>
-          <Text variant="body">Select a token</Text>
+          <TokenTitle>Select a token</TokenTitle>
           <IconWrapper
             size="16px"
             rotation={tokenSymbol ? '90deg' : '-90deg'}
@@ -51,7 +51,7 @@ export const SelectorToggle = ({
             alt={tokenSymbol}
           />
           <div>
-            <Text variant="body">{tokenSymbol}</Text>
+            <TokenTitle>{tokenSymbol}</TokenTitle>
             <Text variant="caption">{formattedAvailableAmount} available</Text>
           </div>
           <IconWrapper size="16px" rotation="-90deg" icon={<Chevron />} />
@@ -99,4 +99,11 @@ const StyledImgForTokenLogo = styled('img', {
   height: '30px',
   borderRadius: '50%',
   backgroundColor: '#ccc',
+})
+const TokenTitle = styled('div', {
+  fontSize: '24px',
+  fontFamily: 'Trajan',
+  '@media (max-width: 1550px)': {
+    fontSize: '20px',
+  },
 })

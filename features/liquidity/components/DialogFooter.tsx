@@ -12,13 +12,24 @@ export const DialogFooter = ({ title, text, buttons }: DialogFooterProps) => {
   return (
     <StyledDivForFooter>
       {title && (
-        <Text variant="body" css={{ paddingBottom: '$4' }}>
+        <Text
+          variant="body"
+          css={{
+            paddingBottom: '$4',
+            textAlign: 'left',
+            fontSize: '14px',
+            fontFamily: 'Trajan',
+          }}
+        >
           {title}
         </Text>
       )}
 
       {text && (
-        <Text variant="body" css={{ paddingBottom: '$12' }}>
+        <Text
+          variant="body"
+          css={{ paddingBottom: '$12', textAlign: 'left', fontSize: '14px' }}
+        >
           {text}
         </Text>
       )}
@@ -28,7 +39,7 @@ export const DialogFooter = ({ title, text, buttons }: DialogFooterProps) => {
 }
 
 const StyledDivForFooter = styled('div', {
-  padding: '$8 0 $12',
+  padding: '$8 0 $4',
 })
 
 const StyledGridForButtons = styled('div', {

@@ -1,12 +1,3 @@
-import { useQuery, QueryKey } from 'react-query'
-import {
-  unsafelyGetTokenInfo,
-  useBaseTokenInfo,
-  useTokenInfo,
-} from './useTokenInfo'
-import { getIBCAssetInfo } from './useIBCAssetInfo'
-import { DEFAULT_TOKEN_BALANCE_REFETCH_INTERVAL } from '../util/constants'
-
 export const useNearDollarValue = () => {
   // const url = "https://api.coingecko.com/api/v3/simple/price?ids=near&include_last_updated_at=true&vs_currencies=usd"
   // const res = await axios.get(url)

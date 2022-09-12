@@ -80,41 +80,33 @@ export const PoolCard = ({
         <StyledDivForLiquidityRows highlighted={true}>
           <StyledDivForRowWrapper>
             <StyledDivForRow>
-              <Text color="secondary" variant="body">
-                Total liquidity
-              </Text>
-              <Text>{parseCurrency(totalLiquidity.dollarValue)}</Text>
+              <CardTitle>Total liquidity</CardTitle>
+              <CardValue>{parseCurrency(totalLiquidity.dollarValue)}</CardValue>
             </StyledDivForRow>
           </StyledDivForRowWrapper>
           <StyledDivForRowWrapper>
             <StyledDivForRow>
-              <Text color="secondary" variant="body">
-                APR
-              </Text>
-              <Text>{displayApr(farmInfo.apr)}%</Text>
+              <CardTitle>APR</CardTitle>
+              <CardValue>{displayApr(farmInfo.apr)}%</CardValue>
             </StyledDivForRow>
           </StyledDivForRowWrapper>
           <StyledDivForRowWrapper>
             <StyledDivForRow>
-              <Text color="secondary" variant="body">
-                My liquidity
-              </Text>
-              <Text>{parseCurrency(myLiquidity.dollarValue)}</Text>
+              <CardTitle>My liquidity</CardTitle>
+              <CardValue>{parseCurrency(myLiquidity.dollarValue)}</CardValue>
             </StyledDivForRow>
           </StyledDivForRowWrapper>
           <StyledDivForRowWrapper>
             <StyledDivForRow>
-              <Text color="secondary" variant="body">
-                Bonded
-              </Text>
-              <Text
+              <CardTitle>Bonded</CardTitle>
+              <CardValue
                 css={{
                   display: 'flex',
                   alignItems: 'center',
                   columnGap: '$space$1',
                 }}
               >
-                <IconWrapper icon={<Note />} />$
+                $
                 {dollarValueFormatterWithDecimals(
                   (Number(farmInfo.userStaked) / totalLiquidity?.coins) *
                     totalLiquidity.dollarValue,
@@ -123,7 +115,7 @@ export const PoolCard = ({
                     applyNumberConversion: false,
                   }
                 )}
-              </Text>
+              </CardValue>
             </StyledDivForRow>
           </StyledDivForRowWrapper>
         </StyledDivForLiquidityRows>
@@ -157,10 +149,10 @@ export const PoolCardFetching = ({ hasLiquidityProvided = true }) => {
 const StyledLinkForCard = styled('a', {
   cursor: 'pointer',
   borderRadius: '$radii$4',
-  background: 'rgb(5,6,22)',
+  background: 'rgba(5,6,22, 0.2)',
   position: 'relative',
   transition: 'background-color 0.1s ease-out',
-
+  boxShadow: '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6D6D78',
   '&:active': {
     backgroundColor: '$colors$dark5',
   },
@@ -183,8 +175,8 @@ const StyledDivForTokenLogos = styled('div', {
 })
 
 const StyledImageForTokenLogo = styled('img', {
-  width: '$space$22',
-  height: '$space$22',
+  width: '40px',
+  height: '40px',
   borderRadius: '50%',
   objectFit: 'fit',
   backgroundColor: '#ccc',
@@ -197,13 +189,16 @@ const StyledImageForTokenLogo = styled('img', {
   '&:last-child': {
     left: '-$space$4',
   },
+  '@media (max-width: 1550px)': {
+    width: '30px',
+    height: '30px',
+  },
 })
 
-const StyledTextForTokenNames: typeof Text = styled(Text, {
-  paddingTop: '$8',
-  paddingBottom: '$2',
+const StyledTextForTokenNames: typeof Text = styled('div', {
   display: 'flex',
   alignItems: 'center',
+  fontSize: '16px',
   '& span': {
     width: 4,
     height: 4,
@@ -213,12 +208,9 @@ const StyledTextForTokenNames: typeof Text = styled(Text, {
   },
 })
 
-const StyledDivForSeparator = styled('hr', {
-  margin: '0 auto',
-  border: 'none',
-  borderTop: '1px solid rgba(25, 29, 32, 0.1)',
-  boxSizing: 'border-box',
-  height: 1,
+const StyledDivForSeparator = styled('div', {
+  border: '1px solid rgba(255, 255, 255, 0.1)',
+  height: 0,
 })
 
 const StyledDivForRowWrapper = styled('div', {
@@ -270,4 +262,13 @@ const StyledDivForLiquidityRows = styled('div', {
       },
     },
   },
+})
+
+const CardTitle = styled('div', {
+  fontFamily: 'Trajan',
+  fontSize: '14px',
+})
+
+const CardValue = styled('div', {
+  fontSize: '14px',
 })

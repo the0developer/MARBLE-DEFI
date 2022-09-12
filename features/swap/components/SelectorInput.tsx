@@ -1,6 +1,6 @@
 import React, { Ref } from 'react'
 import { Text } from 'components/Text'
-import { styled } from 'components/theme'
+import styled from 'styled-components'
 import { useAmountChangeController } from 'hooks/useAmountChangeController'
 
 type SelectorInputProps = {
@@ -41,4 +41,11 @@ export const SelectorInput = ({
   )
 }
 
-const StyledInput = styled('input', { width: 'auto', textAlign: 'right' })
+const StyledInput = styled.input`
+  width: auto;
+  text-align: right;
+  font-size: 30px;
+  @media (max-width: 1550px) {
+    font-size: 20px;
+  }
+`

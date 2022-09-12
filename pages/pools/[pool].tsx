@@ -207,60 +207,52 @@ export default function Pool() {
               <Header>Pool {pool_name}</Header>
             </StyledNavElement>
           </StyledWrapperForNavigation>
-          <Stack padding="0 10px">
-            <PoolInfo
-              poolId={pool as string}
-              onClaim={onClaim}
-              tokenDollarValue={tokenDollarValue}
-              reward_interval={farmInfo?.session_interval}
-              start_at={farmInfo?.start_at}
-              myDailyReward={farmInfo?.userUnclaimedReward}
-            />
-          </Stack>
+          <ContentWrapper>
+            <Stack>
+              <PoolInfo
+                poolId={pool as string}
+                onClaim={onClaim}
+                tokenDollarValue={tokenDollarValue}
+                reward_interval={farmInfo?.session_interval}
+                start_at={farmInfo?.start_at}
+                myDailyReward={farmInfo?.userUnclaimedReward}
+              />
+            </Stack>
 
-          {isLoadingInitial && (
-            <StyledDivForSpinner>
-              <Spinner color="black" size={32} />
-            </StyledDivForSpinner>
-          )}
-          {!isLoadingInitial && (
-            <ContentWrapper>
-              <Stack spacing={10}>
+            {isLoadingInitial && (
+              <StyledDivForSpinner>
+                <Spinner color="black" size={32} />
+              </StyledDivForSpinner>
+            )}
+            {!isLoadingInitial && (
+              <Stack spacing="10px">
                 <LiquidityInfoWrapper>
                   <StyledRowForTokensInfo
                     kind="wrapper"
                     className="pool-wrapper"
                   >
                     <StyledRowForTokensInfo kind="column">
-                      <ChakraText fontSize="18px" fontWeight="600" mr="20px">
-                        Pool #{pool_id}
-                      </ChakraText>
+                      <PoolTitle>Pool #{pool_id}</PoolTitle>
                       <StyledTextForTokens kind="wrapper">
                         <StyledTextForTokens kind="element">
                           <StyledImageForToken src="https://i.ibb.co/T0TrSgT/block-logo.png" />
-                          <ChakraText fontSize="14px" fontWeight="400">
-                            {tokenA.symbol}
-                          </ChakraText>
+                          {tokenA.symbol}
                         </StyledTextForTokens>
                         <StyledTextForTokens kind="element">
                           <StyledImageForToken
                             as={tokenB.logoURI ? 'img' : 'div'}
                             src={tokenB.logoURI}
                           />
-                          <ChakraText fontSize="14px" fontWeight="400">
-                            {tokenB.symbol}
-                          </ChakraText>
+                          {tokenB.symbol}
                         </StyledTextForTokens>
                       </StyledTextForTokens>
                     </StyledRowForTokensInfo>
                     <StyledRowForTokensInfo kind="column">
-                      <ChakraText fontSize="14px" fontWeight="400">
-                        {isLoading
-                          ? ''
-                          : `1 ${tokenA.symbol} = ${tokenPrice.toFixed(2)} ${
-                              tokenB.symbol
-                            }`}
-                      </ChakraText>
+                      {isLoading
+                        ? ''
+                        : `1 ${tokenA.symbol} = ${tokenPrice.toFixed(2)} ${
+                            tokenB.symbol
+                          }`}
                     </StyledRowForTokensInfo>
                   </StyledRowForTokensInfo>
 
@@ -268,32 +260,24 @@ export default function Pool() {
 
                   <StyledElementForLiquidity kind="wrapper">
                     <StyledElementForLiquidity kind="row">
-                      <ChakraText
-                        fontSize="18px"
-                        fontWeight="500"
-                        color="#A1A1A1"
-                      >
-                        Total Liquidity
-                      </ChakraText>
-                      <ChakraText
-                        fontSize="18px"
-                        fontWeight="500"
-                        color="#A1A1A1"
-                      >
-                        APR reward
-                      </ChakraText>
+                      <LHeader>Total Liquidity</LHeader>
+                      <LHeader>APR reward</LHeader>
                     </StyledElementForLiquidity>
                     <StyledElementForLiquidity kind="row">
-                      <Text variant="header">
+                      <LValue>
                         {parseCurrency(totalLiquidity?.dollarValue)}
-                      </Text>
-                      <Text variant="header">{displayApr(farmInfo?.apr)}%</Text>
+                      </LValue>
+                      <LValue>{displayApr(farmInfo?.apr)}%</LValue>
                     </StyledElementForLiquidity>
                   </StyledElementForLiquidity>
                 </LiquidityInfoWrapper>
 
                 <Stack>
-                  <ChakraText fontSize="24px" fontWeight="600">
+                  <ChakraText
+                    fontSize="24px"
+                    fontWeight="600"
+                    fontFamily="Trajan"
+                  >
                     Personal shares
                   </ChakraText>
                   <StyledDivForCards className="personal-shares">
@@ -338,8 +322,8 @@ export default function Pool() {
                   )}
                 </Stack>
               </Stack>
-            </ContentWrapper>
-          )}
+            )}
+          </ContentWrapper>
         </Container>
       </AppLayout>
     </ChakraProvider>
@@ -349,6 +333,10 @@ export default function Pool() {
 const Header = styled('div', {
   fontSize: '40px',
   fontWeight: '700',
+  fontFamily: 'Trajan',
+  '@media (max-width: 1550px)': {
+    fontSize: '30px',
+  },
 })
 
 const StyledNavElement = styled('div', {
@@ -372,12 +360,9 @@ const StyledNavElement = styled('div', {
 })
 
 const StyledDivForSeparator = styled('hr', {
-  margin: '0 auto',
-  border: 'none',
-  borderTop: '1px solid rgba(25, 29, 32, 0.1)',
+  height: 0,
+  borderTop: '1px solid rgba(255,255,255,0.1)',
   width: '100%',
-  boxSizing: 'border-box',
-  height: 1,
 })
 
 const StyledRowForTokensInfo = styled('div', {
@@ -389,8 +374,16 @@ const StyledRowForTokensInfo = styled('div', {
       wrapper: {
         padding: '17px 36px',
         justifyContent: 'space-between',
+        '@media (max-width: 1550px)': {
+          padding: '10px 36px',
+        },
       },
-      column: {},
+      column: {
+        fontSize: '20px',
+        '@media (max-width: 1550px)': {
+          fontSize: '18px',
+        },
+      },
     },
   },
 })
@@ -399,7 +392,7 @@ const StyledTextForTokens = styled('div', {
   display: 'grid',
   gridAutoFlow: 'column',
   alignItems: 'center',
-  fontSize: '14px',
+  fontSize: '16px',
   variants: {
     kind: {
       element: {
@@ -409,6 +402,9 @@ const StyledTextForTokens = styled('div', {
         columnGap: '23px',
       },
     },
+  },
+  '@media (max-width: 1550px)': {
+    fontSize: '14px',
   },
 })
 
@@ -423,13 +419,12 @@ const StyledElementForLiquidity = styled('div', {
   variants: {
     kind: {
       wrapper: {
-        padding: '11px 36px',
+        padding: '10px 36px',
       },
       row: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '5px 0',
       },
     },
   },
@@ -464,4 +459,29 @@ const LiquidityInfoWrapper = styled('div', {
   boxShadow: '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6D6D78',
   backdropFilter: 'blur(40px)',
   borderRadius: '20px',
+})
+
+const PoolTitle = styled('div', {
+  fontFamily: 'Trajan',
+  fontSize: '16px',
+  marginRight: '20px',
+  '@media (max-width: 1550px)': {
+    fontSize: '16px',
+  },
+})
+
+const LHeader = styled('div', {
+  fontFamily: 'Trajan',
+  fontSize: '18px',
+  color: '#A1A1A1',
+  '@media (max-width: 1550px)': {
+    fontSize: '18px',
+  },
+})
+
+const LValue = styled('div', {
+  fontSize: '20px',
+  '@media (max-width: 1550px)': {
+    fontSize: '20px',
+  },
 })

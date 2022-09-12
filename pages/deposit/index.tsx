@@ -77,28 +77,32 @@ export default function Deposit() {
         />
         <StyledDivForWrapper>
           <SelectorPart>
-            <TokenSelector
-              tokenSymbol={tokenA?.tokenInfo.symbol}
-              tokenAddress={tokenA?.tokenInfo.token_address}
-              amount={amount}
-              balance={tokenA?.balance}
-              isDeposit={true}
-              onChange={(updateTokenA) => {
-                onChangeToken([updateTokenA, tokenB])
-              }}
-            />
+            <HeightFix>
+              <TokenSelector
+                tokenSymbol={tokenA?.tokenInfo.symbol}
+                tokenAddress={tokenA?.tokenInfo.token_address}
+                amount={amount}
+                balance={tokenA?.balance}
+                isDeposit={true}
+                onChange={(updateTokenA) => {
+                  onChangeToken([updateTokenA, tokenB])
+                }}
+              />
+            </HeightFix>
             <TransactionTips onTokenSwaps={handleSwapTokenPositions} />
-            <TokenSelector
-              readOnly
-              tokenSymbol={tokenB?.tokenInfo.symbol}
-              tokenAddress={tokenB?.tokenInfo.token_address}
-              amount={amount}
-              isDeposit={true}
-              balance={tokenB?.balance}
-              onChange={(updatedTokenB) => {
-                onChangeToken([tokenA, updatedTokenB])
-              }}
-            />
+            <HeightFix>
+              <TokenSelector
+                readOnly
+                tokenSymbol={tokenB?.tokenInfo.symbol}
+                tokenAddress={tokenB?.tokenInfo.token_address}
+                amount={amount}
+                isDeposit={true}
+                balance={tokenB?.balance}
+                onChange={(updatedTokenB) => {
+                  onChangeToken([tokenA, updatedTokenB])
+                }}
+              />
+            </HeightFix>
           </SelectorPart>
           <ButtonWrapper>
             <PrimaryButton
@@ -149,4 +153,10 @@ const PrimaryButton = styled(Button, {
   backdropFilter: 'blur(14px)',
   background: 'white',
   color: 'black',
+})
+const HeightFix = styled('div', {
+  height: '115px',
+  '@media (max-width: 1550px)': {
+    height: '90px',
+  },
 })

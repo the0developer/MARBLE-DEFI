@@ -22,7 +22,6 @@ const Accordion = ({ label, icon, children, isActive }) => {
   const handleClick = () => {
     setIsOpen((prevState) => !prevState)
   }
-
   return (
     <Container>
       <MenuEntry onClick={handleClick} isActive={isActive}>
@@ -64,6 +63,27 @@ export const MenuEntry = styled.div<{ isActive: boolean }>`
   font-size: 16px;
   font-weight: ${({ isActive }) => (isActive ? '700' : '400')};
   position: relative;
+  font-family: Trajan;
+  @media (max-width: 1550px) {
+    font-size: 14px;
+  }
+`
+
+export const SubMenuEntry = styled.div<{ isActive: boolean }>`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: ${MENU_ENTRY_HEIGHT}px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: ${({ isActive }) => (isActive ? '700' : '400')};
+  position: relative;
+  font-family: Trajan;
+  @media (max-width: 1550px) {
+    font-size: 14px;
+  }
+  margin-left: 10px;
+  opacity: ${({ isActive }) => (isActive ? '1' : '0.6')};
 `
 
 export default Accordion

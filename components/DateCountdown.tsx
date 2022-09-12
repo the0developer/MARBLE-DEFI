@@ -4,8 +4,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable class-methods-use-this */
-import React, { Component, ReactInstance } from 'react'
-import { styled } from './theme'
+import { Component } from 'react'
 const calculateStateFromProps = (
   props: DateCountdownProps = defaultDateCountdownProps
 ): DateCountdownStates => {
@@ -316,7 +315,6 @@ class DateCountdown extends Component<DateCountdownProps, DateCountdownStates> {
                     <span ref={unit} className={`${unit} dcd-val`}>
                       00
                     </span>
-                    <span className="dcd-comment">{locales[key]}</span>
                   </span>
                   <span>{unit != 'sec' && ':'}</span>
                 </span>
@@ -337,10 +335,6 @@ class DateCountdown extends Component<DateCountdownProps, DateCountdownStates> {
                 <span className="dcd-info">
                   <span ref={unit} className={`${unit} dcd-val`}>
                     {this.dissect(state[unit])}
-                  </span>
-                  <span className="dcd-comment">
-                    {state[unit] <= 1 && locales[key]}
-                    {state[unit] > 1 && locales_plural[key]}
                   </span>
                 </span>
                 <span>

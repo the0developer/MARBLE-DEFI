@@ -1,5 +1,4 @@
-import { styled } from 'components/theme'
-import { SecondaryButton } from './SecondaryButton'
+import styled from 'styled-components'
 
 type PercentageSelectionProps = {
   maxLiquidity: number
@@ -19,13 +18,11 @@ export const PercentageSelection = ({
       {valuesForSteps.map((valueForStep) => {
         return (
           <SecondaryButton
-            size="small"
             active={Number(percentage.toFixed(4)) === valueForStep}
             key={valueForStep}
             onClick={() => {
               onChangeLiquidity(valueForStep * maxLiquidity)
             }}
-            color="black"
           >
             {valueForStep * 100}%
           </SecondaryButton>
@@ -35,9 +32,23 @@ export const PercentageSelection = ({
   )
 }
 
-const StyledDivForGrid = styled('div', {
-  display: 'grid',
-  color: 'black',
-  gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
-  width: '100%',
-})
+const StyledDivForGrid = styled.div`
+  display: flex;
+  color: black;
+  justify-content: space-around;
+  width: 100%;
+  padding: 25px 0;
+  @media (max-width: 1550px) {
+    padding: 15px 0;
+  }
+`
+
+const SecondaryButton = styled.button<{ active: boolean }>`
+  width: 50px;
+  height: 27px;
+  color: ${({ active }) => (active ? 'black' : 'white')};
+  background: ${({ active }) => (active ? 'white' : '')};
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+`

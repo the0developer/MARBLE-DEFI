@@ -32,7 +32,8 @@ export const StateSwitchButtons = ({
 const StyledDivForGrid = styled('div', {
   display: 'flex',
   alignItems: 'center',
-  background: 'white',
+  background: '#51525E',
   borderRadius: '16px',
   width: 'fit-content',
+  marginTop: '20px',
 })

@@ -4,8 +4,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable class-methods-use-this */
-import React, { Component, ReactInstance } from 'react'
-import { styled } from './theme'
+import { Component } from 'react'
 const calculateStateFromProps = (
   props: DateCountdownProps = defaultDateCountdownProps
 ): DateCountdownStates => {

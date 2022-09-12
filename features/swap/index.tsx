@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { styled } from 'components/theme'
+import styled from 'styled-components'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import {
   TransactionStatus,
@@ -55,22 +55,10 @@ export const TokenSwap = () => {
         tokenB,
       ])
     }
-    // getPoolLiquidity({
-    //   poolId: Number(pool),
-    //   tokenAddress: [tokenA?.token_address, tokenB?.token_address],
-    //   decimals,
-    // })
   }, [tokenList, tokenA, tokenB, setTokenSwapState])
 
   const isUiDisabled =
     transactionStatus === TransactionStatus.EXECUTING || isTokenListLoading
-
-  // /* fetch token to token price */
-  // const [currentTokenPrice, isPriceLoading] = useTokenToTokenPrice({
-  //   tokenASymbol: tokenA?.tokenAddress,
-  //   tokenBSymbol: tokenB?.tokenAddress,
-  //   tokenAmount: tokenA?.amount,
-  // })
 
   /* persist token price when querying a new one */
   const persistTokenPrice = usePersistance(
@@ -139,18 +127,21 @@ export const TokenSwap = () => {
   )
 }
 
-const StyledDivForWrapper = styled('div', {
-  padding: '20px 20px',
-  position: 'relative',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  height: '100%',
-})
-const SelectorPart = styled('div', {
-  position: 'relative',
-  height: '250px',
-})
-const HeightFix = styled('div', {
-  height: '115px',
-})
+const StyledDivForWrapper = styled.div`
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+`
+const SelectorPart = styled.div`
+  position: relative;
+  height: 250px;
+`
+const HeightFix = styled.div`
+  height: 115px;
+  @media (max-width: 1550px) {
+    height: 90px;
+  }
+`

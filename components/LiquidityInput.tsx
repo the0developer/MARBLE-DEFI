@@ -62,10 +62,10 @@ const StyledDivForWrapper = styled('div', {
   alignItems: 'center',
   justifyContent: 'space-between',
   backgroundColor: 'rgba(5,6,22,0.2)',
-  borderRadius: '12px',
-  border: '0.5px solid #A0A0A0',
+  borderRadius: '20px',
   padding: '12px 24px 10px 10px',
   width: '100%',
+  boxShadow: '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6D6D78',
   transition: 'background 0.1s ease-out',
   '&:hover': {
     backgroundColor: 'rgba(25, 29, 32, 0.15)',

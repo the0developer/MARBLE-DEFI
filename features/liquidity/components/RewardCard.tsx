@@ -54,15 +54,19 @@ export const RewardCard: React.FC = ({}) => {
 }
 
 const StyledHeader = styled.div`
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
+  font-family: Trajan;
 `
 const StyledDollar = styled.div`
   font-size: 20px;
   padding-top: 10px;
   font-weight: 700;
 `
-const StyledDust = styled.div``
+const StyledDust = styled.div`
+  font-family: Trajan;
+  font-size: 16px;
+`
 
 const StyledElementForCard = styled.div`
   display: flex;
@@ -77,7 +81,7 @@ const StyledElementForCard = styled.div`
   align-items: center;
   position: relative;
   overflow: hidden;
-  background-color: rgba(5, 6, 22, 0.6);
+  background-color: rgba(5, 6, 22, 0.2);
 `
 
 const StyledRewardWrapper = styled.div`
@@ -92,6 +96,9 @@ const PrimaryButton = styled(Button)`
     inset 0px 7px 24px rgba(109, 109, 120, 0.47);
   backdrop-filter: blur(40px);
   /* Note: backdrop-filter has minimal browser support */
-  background: #050616;
+  background: rgba(5, 6, 21, 0.2);
   border-radius: 10px;
+  font-family: Trajan;
+  font-size: 16px;
+  font-weight: 500;
 `

@@ -26,9 +26,12 @@ export const PoolAvailableLiquidityCard = ({
   const tokenA = useTokenInfo(tokenASymbol)
   const tokenB = useTokenInfo(tokenBSymbol)
   return (
-    <StyledElementForCardLayout kind="wrapper">
+    <StyledElementForCardLayout
+      kind="wrapper"
+      css={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}
+    >
       <StyledElementForCardLayout kind="content" name="liquidity">
-        <Text fontSize="22px">
+        <Title>
           {typeof myLiquidity === 'number'
             ? `You own ${formatTokenBalance(
                 ((myLiquidity as LiquidityInfoType['myLiquidity']).coins /
@@ -36,7 +39,7 @@ export const PoolAvailableLiquidityCard = ({
                   100
               )}% of the pool`
             : 'Your liquidity'}
-        </Text>
+        </Title>
         <StyledTextForAmount>
           {parseCurrency(
             convertMicroDenomToDenom(myReserve[0]) * tokenDollarValue * 2 ||
@@ -45,12 +48,10 @@ export const PoolAvailableLiquidityCard = ({
         </StyledTextForAmount>
       </StyledElementForCardLayout>
       <StyledElementForCardLayout
-        kind="borderContent"
+        kind="wrapper"
         css={{ flexDirection: 'column', alignItems: 'flex-start' }}
       >
-        <Text fontSize="20px" fontWeight="500">
-          Underlying assets
-        </Text>
+        <>Underlying assets</>
         <StyledElementForTokens kind="wrapper">
           <StyledElementForTokens kind="element">
             <StyledImageForToken
@@ -75,7 +76,10 @@ export const PoolAvailableLiquidityCard = ({
         </StyledElementForTokens>
       </StyledElementForCardLayout>
       <StyledElementForCardLayout kind="content">
-        <Button onClick={onButtonClick}>
+        <Button
+          onClick={onButtonClick}
+          css={{ fontFamily: 'Trajan', fontSize: '14px' }}
+        >
           {myReserve[1] > 0 ? 'Manage liquidity' : 'Add liquidity'}
         </Button>
       </StyledElementForCardLayout>
@@ -93,19 +97,17 @@ const StyledElementForCardLayout = styled('div', {
         boxShadow:
           '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6D6D78',
         backdropFilter: 'blur(40px)',
+        '@media (max-width: 1550px)': {
+          padding: '10px 28px',
+        },
+        fontFamily: 'Trajan',
+        fontSize: '16px',
       },
       content: {
         flexDirection: 'row',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '17px 0',
-      },
-      borderContent: {
-        border: '0.5px solid #FFCDCD',
-        borderRadius: '26px',
-        padding: '17px 35px',
-        marginTop: '15px',
       },
     },
     name: {
@@ -126,9 +128,12 @@ const Button = styled('div', {
   margin: '0 auto',
 })
 const StyledTextForAmount = styled('p', {
-  fontSize: '30px',
+  fontSize: '22px',
   lineHeight: '$2',
   fontWeight: 600,
+  '@media (max-width: 1550px)': {
+    fontSize: '18px',
+  },
 })
 
 const StyledElementForTokens = styled('div', {
@@ -155,4 +160,12 @@ const StyledImageForToken = styled('img', {
   height: 20,
   borderRadius: '50%',
   backgroundColor: '#ccc',
+})
+
+const Title = styled('div', {
+  fontFamily: 'Trajan',
+  fontSize: '22px',
+  '@media (max-width: 1550px)': {
+    fontSize: '18px',
+  },
 })

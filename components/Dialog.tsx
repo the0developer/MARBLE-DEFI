@@ -1,8 +1,7 @@
 import Portal from '@reach/portal'
-import styled from 'styled-components'
 import gsap from 'gsap'
-import { useEffect, useState, useRef, ReactNode } from 'react'
-import { colorTokens } from '../util/constants'
+import { ReactNode, useEffect, useRef, useState } from 'react'
+import styled from 'styled-components'
 
 type DialogProps = {
   children: ReactNode
@@ -96,10 +95,13 @@ const StyledDivForModal = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(5, 6, 22, 0.6);
+  background-color: rgb(49, 49, 56);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 30px;
-  backdrop-filter: blur(14px);
   text-align: -webkit-center;
+  box-shadow: 0px 7px 14px rgba(0, 0, 0, 0.1),
+    inset 0px 14px 24px rgba(17, 20, 29, 0.4);
+  padding-top: 20px;
 `
 
 const StyledDivForOverlay = styled.div`
@@ -130,16 +132,21 @@ const CloseIcon = (props) => (
 )
 
 export const StyledCloseIcon = styled(CloseIcon)`
-  width: ${(p) => p.size || '24px'};
-  height: ${(p) => p.size || '24px'};
+  width: ${(p) => p.size || '40px'};
+  height: ${(p) => p.size || '40px'};
   color: #323232;
   display: block;
   transition: opacity 0.15s ease-out;
   cursor: pointer;
+  border-radius: 50%;
+  background: white;
   margin-left: auto;
   margin-right: ${(p) => p.offset}px;
   margin-top: ${(p) => p.offset}px;
   &:hover {
     opacity: 0.75;
   }
+  position: absolute;
+  right: -30px;
+  top: -30px;
 `

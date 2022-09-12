@@ -5,7 +5,7 @@ export const Divider = ({ offsetY = 0 }) => (
 )
 
 const StyledHR = styled('div', {
-  backgroundColor: '#EBEBEB',
+  backgroundColor: 'rgba(255,255,255,0.1)',
   width: '100%',
   height: '1px',
   margin: 0,

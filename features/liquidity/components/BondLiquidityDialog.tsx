@@ -11,8 +11,7 @@ import { PercentageSelection } from './PercentageSelection'
 import { BondingSummary } from './BondingSummary'
 import { Divider } from './Divider'
 import { DialogFooter } from './DialogFooter'
-import { SecondaryButton } from './SecondaryButton'
-import { PrimaryButton } from './PrimaryButton'
+import { Button } from 'components/Button'
 import { unsafelyGetTokenInfoFromAddress } from 'hooks/useTokenInfo'
 import { TokenInfo } from 'hooks/useTokenList'
 import { StateSwitchButtons } from './StateSwitchButtons'
@@ -139,19 +138,22 @@ export const BondLiquidityDialog = ({
   }
   return (
     <Dialog kind="blank" isShowing={isShowing} onRequestClose={onRequestClose}>
-      <StyledCloseIcon onClick={onRequestClose} offset={19} size="16px" />
+      <StyledCloseIcon onClick={onRequestClose} offset={19} size="40px" />
 
       <StyledDivForContent>
         {canManageBonding ? (
-          <Text variant="header" css={{ paddingBottom: '$8' }}>
-            Manage LP Tokens
-          </Text>
+          <Title>Manage LP Tokens</Title>
         ) : (
           <>
-            <Text variant="header" css={{ paddingBottom: '$2' }}>
-              Bond tokens
-            </Text>
-            <Text variant="body" css={{ paddingBottom: '$10' }}>
+            <Title>Bond tokens</Title>
+            <Text
+              variant="body"
+              css={{
+                paddingBottom: '$6',
+                fontFamily: 'Trajan',
+                fontSize: '16px',
+              }}
+            >
               Choose how many tokens to bond
             </Text>
           </>
@@ -171,7 +173,15 @@ export const BondLiquidityDialog = ({
           </StyledDivForContent>
           <Divider />
           <StyledDivForContent>
-            <Text variant="body" css={{ padding: '$8 0 $6' }}>
+            <Text
+              variant="body"
+              css={{
+                padding: '$6 0',
+                fontFamily: 'Trajan',
+                fontSize: '16px',
+                textAlign: 'left',
+              }}
+            >
               Choose your token amount
             </Text>
           </StyledDivForContent>
@@ -183,19 +193,23 @@ export const BondLiquidityDialog = ({
           liquidity={liquidityDollarAmount}
           onChangeLiquidity={(value) => setLiquidityDollarAmount(value)}
         />
-        <Text variant="caption" color="tertiary" css={{ padding: '$6 0 $9' }}>
+        <Text
+          variant="caption"
+          color="primary"
+          css={{ padding: '$6 0 $9', fontFamily: 'Trajan', textAlign: 'left' }}
+        >
           Max available for bonding is worth $
           {dollarValueFormatterWithDecimals(maxDollarValueLiquidity, {
             includeCommaSeparation: true,
           })}
         </Text>
+        <Divider />
         <PercentageSelection
           maxLiquidity={maxDollarValueLiquidity}
           liquidity={liquidityDollarAmount}
           onChangeLiquidity={setLiquidityDollarAmount}
         />
       </StyledDivForContent>
-      <Divider />
       <StyledDivForContent>
         <BondingSummary
           label={dialogState === 'bond' ? 'Bonding' : 'Unbonding'}
@@ -207,7 +221,6 @@ export const BondLiquidityDialog = ({
           onChangeLiquidity={setLiquidityDollarAmount}
         />
       </StyledDivForContent>
-      <Divider />
       <StyledDivForContent>
         <DialogFooter
           title={
@@ -229,15 +242,17 @@ export const BondLiquidityDialog = ({
           }
           buttons={
             <>
-              <PrimaryButton onClick={onRequestClose}>Cancel</PrimaryButton>
-              <SecondaryButton
+              <PrimaryButton kind="primary" onClick={onRequestClose}>
+                Cancel
+              </PrimaryButton>
+              <PrimaryButton
                 onClick={handleClick}
                 loading={isLoading}
                 disabled={isLoading || !liquidityDollarAmount}
-                size="Forbond"
+                kind="secondary"
               >
                 {dialogState === 'bond' ? 'Bond' : 'Unbond'}
-              </SecondaryButton>
+              </PrimaryButton>
             </>
           }
         />
@@ -251,13 +266,46 @@ const StyledDivForContent = styled('div', {
   variants: {
     kind: {
       form: {
-        paddingBottom: 24,
+        background: 'rgba(5, 6, 22, 0.2)',
+        boxShadow:
+          '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6d6d78',
+        borderRadius: '20px',
+        padding: '25px 30px 0 30px',
+        '@media (max-width: 1550px)': {
+          padding: '25px 20px 0 20px',
+        },
+        margin: '0 25px',
       },
       bondingHeader: {
         paddingBottom: 16,
       },
       text: {
         fontSize: 5,
+      },
+    },
+  },
+})
+const Title = styled('div', {
+  fontSize: '20px',
+  fontFamily: 'Trajan',
+  color: 'white',
+})
+const PrimaryButton = styled(Button, {
+  width: '140px',
+  fontFamily: 'Trajan',
+  fontSize: '14px',
+  borderRadius: '20px',
+  height: '50px',
+  variants: {
+    kind: {
+      primary: {
+        border: '1px solid #FFFFFF',
+        color: 'white',
+        background: 'none',
+      },
+      secondary: {
+        background: 'white',
+        color: 'black',
       },
     },
   },

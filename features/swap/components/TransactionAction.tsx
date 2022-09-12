@@ -14,6 +14,7 @@ import { IconWrapper } from '../../../components/IconWrapper'
 import { TokenInfo } from 'hooks/useTokenList'
 import { useSwap } from 'state/swap'
 import { WalletStatusType } from '../../../state/atoms/walletAtoms'
+import { TokenRateWrapper } from './styled'
 
 type TransactionTipsProps = {
   isPriceLoading?: boolean
@@ -120,7 +121,7 @@ export const TransactionAction = ({
           )}
         </StyledDivColumnForInfo>
         <StyledDivColumnForInfo className="fee-selector" kind="fees">
-          <Text variant="primary" css={{ fontWeight: '$bold' }} color="primary">
+          <Text variant="primary" color="primary">
             Swap fee ({NETWORK_FEE * 100}%)
           </Text>
         </StyledDivColumnForInfo>
@@ -132,13 +133,12 @@ export const TransactionAction = ({
             background: '#FFFFFF',
             color: 'black',
             stroke: '$black',
-            borderRadius: '60px',
-            padding: '20px 40px',
+            borderRadius: '20px',
+            padding: '15px 30px',
             boxShadow: '0px 4px 40px rgba(42, 47, 50, 0.09)',
           }}
           iconLeft={<IconWrapper icon={<Exchange />} />}
           variant="primary"
-          size="large"
           disabled={loadingTrigger || !canSwap}
           onClick={
             !loadingTrigger && !isPriceLoading ? handleSubmit : undefined
@@ -166,11 +166,13 @@ const StyledDivForInfo = styled('div', {
   alignItems: 'center',
   textTransform: 'uppercase',
   borderRadius: '20px',
-  backgroundColor: 'rgba(5,6,22,0.6)',
-  padding: '5px 5px',
-  boxShadow: '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6D6D78',
+  backgroundColor: '#2e303e',
+  padding: '15px',
+  boxShadow:
+    '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px rgba(109, 109, 120,0.2)',
   justifyContent: 'space-between',
   backdropFilter: 'blur(40px)',
+  border: '1px solid rgba(255,255,255,0.2)',
 })
 
 const StyledDivColumnForInfo = styled('div', {
@@ -178,12 +180,12 @@ const StyledDivColumnForInfo = styled('div', {
   variants: {
     kind: {
       slippage: {
-        minWidth: '240px',
         borderRadius: '0px',
       },
       fees: {
-        padding: '16px 25px',
+        padding: '16px 25px 16px 40px',
         borderRadius: '0px',
+        borderLeft: '1px solid white',
       },
     },
   },
@@ -211,13 +213,4 @@ const PrimaryButton = styled(Button, {
   backdropFilter: 'blur(14px)',
   background: 'white',
   color: 'black',
-})
-
-const TokenRateWrapper = styled('div', {
-  padding: '0 80px',
-  borderRight: '1px solid black',
-  fontSize: '24px',
-  height: '52px',
-  alignItems: 'center',
-  display: 'flex',
 })

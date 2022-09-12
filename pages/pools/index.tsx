@@ -1,27 +1,30 @@
-import React, { useEffect, useMemo, useState, useRef } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 // import { styled } from 'components/theme'
 import { AppLayout } from 'components/Layout/AppLayout'
-import { useBaseTokenInfo } from 'hooks/useTokenInfo'
+import { Spinner } from 'components/Spinner'
+import { Text } from 'components/Text'
 import { PoolCard } from 'features/liquidity/components/PoolCard'
 import { RewardCard } from 'features/liquidity/components/RewardCard'
-import { PageHeader } from 'components/Layout/PageHeader'
-import { getMultiplePoolsLiquidity } from 'hooks/usePoolLiquidity'
-import { Text } from 'components/Text'
-import { Spinner } from 'components/Spinner'
-import { LiquidityInfoType, LiquidityReturnType } from 'hooks/usePoolLiquidity'
-import { useTokenList } from 'hooks/useTokenList'
-import { unsafelyGetTokenInfoFromAddress } from 'hooks/useTokenInfo'
 import {
+  getMultiplePoolsLiquidity,
+  LiquidityInfoType,
+  LiquidityReturnType,
+} from 'hooks/usePoolLiquidity'
+import {
+  unsafelyGetTokenInfoFromAddress,
+  useBaseTokenInfo,
+} from 'hooks/useTokenInfo'
+import { useTokenList } from 'hooks/useTokenList'
+import db from 'store/RefDatabase'
+import {
+  FarmInfo,
   getFarms,
+  getRewards,
   getSeeds,
   getStakedListByAccountId,
-  getRewards,
-  FarmInfo,
 } from 'util/farm'
-import { useNearDollarValue } from 'hooks/useTokenDollarValue'
 import { DEFAULT_PAGE_LIMIT } from 'util/pool'
-import db from 'store/RefDatabase'
 
 export default function Pools() {
   const [tokenList] = useTokenList()
@@ -174,6 +177,7 @@ export default function Pools() {
             trade.
           </p>
         </Header>
+        <Divider />
         <StyledGrid>
           <StyledDivForWrapper>
             {shouldShowFetchingState && (
@@ -247,18 +251,36 @@ const Container = styled.div`
   padding: 60px 60px 0px 60px;
   // height: 100%;
   @media (max-width: 1550px) {
-    padding: 20px 40px 0px 40px;
+    padding: 20px 20px 0px 20px;
   }
+`
+const Divider = styled.div`
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 10px 10px 0 10px;
 `
 const Header = styled.div`
   text-align: center;
   h1 {
-    font-size: 35px;
+    font-size: 40px;
     font-weight: 700;
+    font-family: Trajan;
   }
   p {
-    font-size: 18px;
-    font-weight: 400;
+    font-size: 20px;
+    font-family: Trajan;
+    opacity: 0.8;
+  }
+  @media (max-width: 1550px) {
+    h1 {
+      font-size: 30px;
+      font-weight: 300;
+      font-weight: 700;
+    }
+    p {
+      font-size: 15px;
+      font-weight: 300;
+    }
   }
 `
 const StyledDivForFullSpace = styled.div`
@@ -274,6 +296,10 @@ const StyledDivForPoolsGrid = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 20px;
   row-gap: 20px;
+  @media (max-width: 1550px) {
+    column-gap: 15px;
+    row-gap: 15px;
+  }
 `
 
 const SectionTitle = ({ variant = 'my', children }) => {
@@ -282,10 +308,11 @@ const SectionTitle = ({ variant = 'my', children }) => {
       variant="primary"
       css={{
         fontWeight: '$bold',
+        fontFamily: 'Trajan',
         color: '#FFFFFF',
         fontSize: '$fontSizes$9',
-        paddingBottom: '$11',
-        paddingTop: variant === 'all' ? '$19' : '0px',
+        paddingBottom: '20px',
+        paddingTop: variant === 'all' ? '$19' : '10px',
       }}
     >
       {children}
@@ -296,18 +323,18 @@ const StyledDivForWrapper = styled.div`
   overflow: auto;
   height: 600px;
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
   ::-webkit-scrollbar-thumb {
-    background: black;
+    background: white;
     border-radius: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: white;
+    background: rgba(255, 255, 255, 0.1);
   }
   padding: 0 10px;
   @media (max-width: 1550px) {
-    height: 400px;
+    height: 450px;
   }
 `
 

@@ -150,12 +150,18 @@ const ColumnFlex = styled.div`
   display: flex;
   flex-direction: column;
   text-align: -webkit-right;
+  justify-content: space-between;
+  row-gap: 20px;
 `
 
 const Text = styled.div`
   font-size: 22px;
-  font-weight: 500;
   color: white;
+  opacity: 0.6;
+  font-family: Trajan;
+  @media (max-width: 1550px) {
+    font-size: 14px;
+  }
 `
 
 const StyledDivForSelector = styled.div`
@@ -173,11 +179,11 @@ const StyledDivForAmountWrapper = styled.div`
 
 const StyledDivForTokensListWrapper = styled.div`
   padding: 2px 12px 24px;
-  // position: absolute;
-  // background: black;
-  // background-color: rgba(5, 6, 22, 1);
-  // box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6d6d78;
-  // backdrop-filter: blur(40px);
+  overflow: auto;
+  max-height: 300px;
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
 `
 
 const StyledDivForOverlay = styled.div<{ interactive: boolean }>`
@@ -206,10 +212,12 @@ const StyledDivForContainer = styled.div<{
   isOpened: boolean
 }>`
   border-radius: 20px;
-  padding: 20px;
-  background-color: rgba(5, 6, 22, 0.6);
-  box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6d6d78;
-  backdrop-filter: blur(100px);
+  padding: 0 20px;
+  background-color: #2e303e;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09),
+    inset 0px 7px 24px rgba(109, 109, 120, 0.2);
+  backdrop-filter: blur(400px);
   color: white;
   position: relative;
   z-index: ${({ isFirst, isOpened }) =>

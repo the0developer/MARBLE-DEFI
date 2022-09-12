@@ -1,17 +1,15 @@
-import { useEffect, useState } from 'react'
-import { Text } from '../Text'
-import { styled } from '../theme'
 import Link from 'next/link'
-import { Button } from '../Button'
-import { UpRightArrow, CollapseUp, CollapseDown } from '../../icons'
-import { IconWrapper } from '../IconWrapper'
-import { APP_NAME } from '../../util/constants'
+import { useState } from 'react'
+import { CollapseDown, CollapseUp } from '../../icons'
+import { Discord } from '../../icons/Discord'
 import { Github } from '../../icons/Github'
 import { Medium } from '../../icons/Medium'
-import { Discord } from '../../icons/Discord'
 import { Telegram } from '../../icons/Telegram'
 import { Twitter } from '../../icons/Twitter'
-import { flexbox } from '@chakra-ui/react'
+import { Button } from '../Button'
+import { IconWrapper } from '../IconWrapper'
+import { Text } from '../Text'
+import { styled } from '../theme'
 
 export const FooterBar = () => {
   const [openQuickNav, setOpenQuickNav] = useState(false)
@@ -39,7 +37,11 @@ export const FooterBar = () => {
           </Link>
           <Text
             className="footer-desc"
-            css={{ color: '$textColors$secondary', fontSize: '$7.5', padding: '$space$10 0' }}
+            css={{
+              color: '$textColors$secondary',
+              fontSize: '$7.5',
+              padding: '$space$10 0',
+            }}
           >
             Marble is the first community-driven DAO on Juno Network. Marble is
             an all-in-one platform with DeFi products, NFT Marketplace and
@@ -117,8 +119,9 @@ export const FooterBar = () => {
         <ContainerForColumn className="bottom-community-section">
           <h3 className="desktop-section">Community</h3>
           <h3
-            className={`mobile-section collapse-header ${openCommunityNav ? 'open' : 'close'
-              }`}
+            className={`mobile-section collapse-header ${
+              openCommunityNav ? 'open' : 'close'
+            }`}
             onClick={() => {
               setOpenCommunityNav(!openCompanyNav)
             }}
@@ -130,7 +133,9 @@ export const FooterBar = () => {
               <IconWrapper icon={<CollapseDown />} />
             )}
           </h3>
-          <ContainerForFooterLinks className={`footer-links ${openCommunityNav ? 'open' : 'close'}`}>
+          <ContainerForFooterLinks
+            className={`footer-links ${openCommunityNav ? 'open' : 'close'}`}
+          >
             <Link href={process.env.NEXT_PUBLIC_MEDIUM_LINK} passHref>
               Medium
             </Link>
@@ -148,8 +153,9 @@ export const FooterBar = () => {
         <ContainerForColumn className="bottom-company-section">
           <h3 className="desktop-section">Company</h3>
           <h3
-            className={`mobile-section collapse-header ${openCompanyNav ? 'open' : 'close'
-              }`}
+            className={`mobile-section collapse-header ${
+              openCompanyNav ? 'open' : 'close'
+            }`}
             onClick={() => {
               setOpenCompanyNav(!openCompanyNav)
             }}
@@ -161,11 +167,16 @@ export const FooterBar = () => {
               <IconWrapper icon={<CollapseDown />} />
             )}
           </h3>
-          <ContainerForFooterLinks className={`footer-links ${openCompanyNav ? 'open' : 'close'}`}>
+          <ContainerForFooterLinks
+            className={`footer-links ${openCompanyNav ? 'open' : 'close'}`}
+          >
             <Link href="https://marbledao.finance" passHref>
               Home
             </Link>
-            <Link href="https://daodao.zone/dao/juno1zz3gc2p9ntzgjt8dh4dfqnlptdynxlgd4j7u2lutwdg5xwlm4pcqyxnecp" passHref>
+            <Link
+              href="https://daodao.zone/dao/juno1zz3gc2p9ntzgjt8dh4dfqnlptdynxlgd4j7u2lutwdg5xwlm4pcqyxnecp"
+              passHref
+            >
               DAO
             </Link>
             <Link href={process.env.NEXT_PUBLIC_INTERFACE_GITHUB_LINK} passHref>
@@ -227,10 +238,9 @@ export const FooterBar = () => {
           />
         </StyledDivForFooter>
         <Container className="align-items-center">
-          <Text
-            css={{ fontSize: '$7.5', padding: '$space$10 0' }}
-          >
-            Copyright © {new Date().getFullYear()} Marble Dao</Text>
+          <Text css={{ fontSize: '$7.5', padding: '$space$10 0' }}>
+            Copyright © {new Date().getFullYear()} Marble Dao
+          </Text>
         </Container>
         {/*  <Container className="align-items-center">
           <Button className="underline"
@@ -264,10 +274,10 @@ const Container = styled('div', {
 })
 const StyledImage = styled('img', {
   // width: "50px",
-  marginRight: "10px"
+  marginRight: '10px',
 })
 const StyledLogo = styled('div', {
-  display: "flex",
+  display: 'flex',
   flexDirection: 'row',
   // alignItems: "center",
   // fontSize: "30px",

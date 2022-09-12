@@ -15,7 +15,7 @@ import {
   Telegram,
   Twitter,
 } from '../../icons'
-import Accordion, { MenuEntry } from '../Accordion'
+import Accordion, { MenuEntry, SubMenuEntry } from '../Accordion'
 import { Button } from '../Button'
 import { ConnectedWalletButton } from '../ConnectedWalletButton'
 import { IconWrapper as LinkIconWrapper } from '../IconWrapper'
@@ -27,13 +27,10 @@ export function NavigationSidebar() {
   const { pathname, push } = useRouter()
 
   useEffect(() => {
-    console.log('Rerenders')
     setAccount().then((id) => {
       setAccountId(formatId(id))
     })
   }, [])
-
-  console.log('Render navbar')
 
   const formatId = (id) => {
     if (!id) return ''
@@ -52,7 +49,7 @@ export function NavigationSidebar() {
   const buttonIconCss = {
     borderRadius: '50%',
     background:
-      'linear-gradient(180deg, #FFBFBF 0%, rgba(255, 255, 255, 0) 100%) padding-box,linear-gradient(180deg, rgba(255, 255, 255, 0.43) 0%, rgba(255, 255, 255, 0.38) 100%) border-box',
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.43) 0%, rgba(255, 255, 255, 0.38) 100%)',
     border: '2px solid transparent',
     width: linkWidth,
     height: linkWidth,
@@ -88,20 +85,22 @@ export function NavigationSidebar() {
                 isActive={isActive('/swap') || isActive('/pools')}
               >
                 <Link href="/swap" passHref>
-                  <MenuEntry isActive={isActive('/swap')}>Swap</MenuEntry>
+                  <SubMenuEntry isActive={isActive('/swap')}>Swap</SubMenuEntry>
                 </Link>
                 <Link href="/pools" passHref>
-                  <MenuEntry isActive={isActive('/pools')}>Liquidity</MenuEntry>
+                  <SubMenuEntry isActive={isActive('/pools')}>
+                    Liquidity
+                  </SubMenuEntry>
                 </Link>
               </Accordion>
-              <Link href="/" passHref>
+              <a href="https://marbledao-near.web.app/" target="__blank">
                 <MenuEntry isActive={false}>
                   <IconWrapper isActive={false}>
                     <Marketplace />
                   </IconWrapper>
                   &nbsp;&nbsp;NFT Marketplace
                 </MenuEntry>
-              </Link>
+              </a>
             </Stack>
           </Stack>
           <MenuFooter>
@@ -115,7 +114,7 @@ export function NavigationSidebar() {
                 css={{ marginBottom: '$6' }}
               />
             </ButtonField>
-            <HStack marginTop="40px">
+            <HStack marginTop="20px">
               <Button
                 as="a"
                 href={process.env.NEXT_PUBLIC_DISCORD_LINK}
@@ -175,7 +174,7 @@ const StyledWrapper = styled.div`
   background: rgba(255, 252, 252, 0.06);
   border-radius: 50px;
   backdrop-filter: blur(20px);
-  padding: 40px 60px;
+  padding: 40px 40px;
   position: relative;
   border: 1px solid rgba(255, 255, 255, 0.2);
   @media (max-width: 1550px) {
@@ -209,6 +208,7 @@ const ButtonField = styled.div`
 
 const StyledImageForLogoText = styled.img`
   height: 50px;
+  margin: 0 auto;
   @media (max-width: 1550px) {
     height: 40px;
   }

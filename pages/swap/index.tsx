@@ -28,12 +28,24 @@ const Container = styled.div`
 `
 const Header = styled.div`
   text-align: center;
+  margin-bottom: 40px;
   h1 {
-    font-size: 35px;
+    font-size: 45px;
     font-weight: 700;
+    font-family: Trajan;
+    @media (max-width: 1550px) {
+      font-size: 30px;
+    }
   }
   p {
-    font-size: 18px;
+    font-size: 24px;
     font-weight: 400;
+    font-family: Trajan;
+    @media (max-width: 1550px) {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: 1550px) {
+    margin-bottom: 0px;
   }
 `

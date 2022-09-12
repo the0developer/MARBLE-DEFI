@@ -41,7 +41,15 @@ export const BondingSummary = ({
 
   return (
     <>
-      <Text variant="body" css={{ padding: '$8 0 $6' }}>
+      <Text
+        variant="body"
+        css={{
+          padding: '$8 0 $6',
+          fontFamily: 'Trajan',
+          textAlign: 'left',
+          fontSize: '16px',
+        }}
+      >
         {label}
       </Text>
       <StyledDivForGrid>
@@ -129,6 +137,13 @@ const StyledDivForGrid = styled('div', {
   alignItems: 'center',
   justifyContent: 'space-between',
   paddingBottom: '$8',
+  background: 'rgba(5, 6, 22, 0.2)',
+  boxShadow: '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6d6d78',
+  borderRadius: '20px',
+  padding: '25px 30px',
+  '@media (max-width: 1550px)': {
+    padding: '25px 20px',
+  },
 })
 
 const StyledDivForTokensGrid = styled('div', {
@@ -159,4 +174,13 @@ const StyledTextForInputWithSymbol: any = styled(Text, {
   padding: '$4 $7',
   columnGap: '$space$2',
   minWidth: '107px',
+})
+const BondingSummaryWrapper = styled('div', {
+  background: 'rgba(5, 6, 22, 0.2)',
+  boxShadow: '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6d6d78',
+  borderRadius: '20px',
+  padding: '25px 30px 0 30px',
+  '@media (max-width: 1550px)': {
+    padding: '25px 20px 0 20px',
+  },
 })

@@ -34,15 +34,16 @@ const StyledButton = styled(Button, {
   columnGap: 8,
   display: 'flex',
   alignItems: 'center',
+  width: '140px',
   variants: {
     active: {
       true: {
-        backgroundColor: 'black',
-        color: 'white',
-      },
-      false: {
         backgroundColor: 'white',
         color: 'black',
+      },
+      false: {
+        backgroundColor: '#51525E',
+        color: '#A1A1A1',
       },
     },
     size: {
@@ -62,6 +63,7 @@ const StyledButton = styled(Button, {
   },
 })
 const Text = styled('div', {
-  fontSize: '18px',
+  fontSize: '16px',
   fontWeight: '500',
+  fontFamily: 'Trajan',
 })
