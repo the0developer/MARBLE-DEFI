@@ -35,21 +35,17 @@ export const TokenOptionsList = ({
                   alt={tokenInfo.symbol}
                 />
                 <div data-token-info="">
-                  <Text variant="body" css={{ fontWeight: '$bold' }}>
-                    {tokenInfo.symbol}
-                  </Text>
+                  <Symbol>{tokenInfo.symbol}</Symbol>
                   <Text variant="caption" color="disabled">
                     {tokenInfo?.name}
                   </Text>
                 </div>
               </StyledDivForColumn>
               <StyledDivForColumn kind="balance">
-                <Text variant="body" css={{ fontWeight: '$bold' }}>
+                <Symbol>
                   <FetchBalanceTextForTokenSymbol tokenInfo={tokenInfo} />
-                </Text>
-                <Text variant="caption" color="disabled">
-                  available
-                </Text>
+                </Symbol>
+                <TokenValue>available</TokenValue>
               </StyledDivForColumn>
             </StyledDivForRow>
           )
@@ -120,4 +116,16 @@ const StyledImgForTokenLogo = styled('img', {
   height: '30px',
   borderRadius: '50%',
   backgroundColor: '#ccc',
+})
+const Symbol = styled('div', {
+  fontSize: '24px',
+  fontFamily: 'Trajan',
+  '@media (max-width: 1550px)': {
+    fontSize: '20px',
+  },
+})
+const TokenValue = styled('div', {
+  fontFamily: 'Trajan',
+  fontSize: '12px',
+  opacity: '0.5',
 })

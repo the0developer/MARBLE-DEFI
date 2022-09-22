@@ -1,5 +1,4 @@
 import { styled } from 'components/theme'
-import { Text } from '../../../components/Text'
 import { Button } from '../../../components/Button'
 import { useNearDollarValue } from 'hooks/useTokenDollarValue'
 import React, { useEffect, useState } from 'react'
@@ -121,9 +120,7 @@ export const TransactionAction = ({
           )}
         </StyledDivColumnForInfo>
         <StyledDivColumnForInfo className="fee-selector" kind="fees">
-          <Text variant="primary" color="primary">
-            Swap fee ({NETWORK_FEE * 100}%)
-          </Text>
+          <Text>Swap fee ({NETWORK_FEE * 100}%)</Text>
         </StyledDivColumnForInfo>
       </StyledDivForInfo>
       {status === WalletStatusType.connected ? (
@@ -136,6 +133,9 @@ export const TransactionAction = ({
             borderRadius: '20px',
             padding: '15px 30px',
             boxShadow: '0px 4px 40px rgba(42, 47, 50, 0.09)',
+            fontFamily: 'Trajan',
+            fontSize: '24px',
+            fontWidth: '700',
           }}
           iconLeft={<IconWrapper icon={<Exchange />} />}
           variant="primary"
@@ -164,7 +164,6 @@ const StyledDivForWrapper = styled('div', {
 const StyledDivForInfo = styled('div', {
   display: 'flex',
   alignItems: 'center',
-  textTransform: 'uppercase',
   borderRadius: '20px',
   backgroundColor: '#2e303e',
   padding: '15px',
@@ -213,4 +212,12 @@ const PrimaryButton = styled(Button, {
   backdropFilter: 'blur(14px)',
   background: 'white',
   color: 'black',
+})
+const Text = styled('div', {
+  fontSize: '20px',
+  fontFamily: 'Trajan',
+  fontWeight: '400',
+  '@media (max-width: 1550px)': {
+    fontSize: '16px',
+  },
 })

@@ -199,6 +199,7 @@ const StyledTextForTokenNames: typeof Text = styled('div', {
   display: 'flex',
   alignItems: 'center',
   fontSize: '16px',
+  fontFamily: 'Trajan',
   '& span': {
     width: 4,
     height: 4,

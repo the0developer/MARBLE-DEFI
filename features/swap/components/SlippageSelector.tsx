@@ -39,10 +39,10 @@ export const SlippageSelector = ({
       </StyledDivForSelector>
       {isShowingSettings && (
         <StyledDivForPopover>
-          <Text variant="primary" color="primary">
+          <p>
             Your transaction will not complete if price slips below target
             threshold.
-          </Text>
+          </p>
           <StyledDivForSlippageList>
             {SLIPPAGE_OPTIONS.map((tolerance) => (
               <StyledButton
@@ -83,7 +83,7 @@ const StyledDivForSelector = styled('button', {
   '&:active': {
     backgroundColor: '$colors$dark5',
   },
-
+  alignItems: 'center',
   variants: {
     active: {
       true: {},
@@ -109,6 +109,9 @@ const StyledDivForPopover = styled('div', {
   rowGap: '13px',
   border: '1px solid rgba(25, 29, 32, 0.25)',
   boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.1)',
+  ' p': {
+    fontFamily: 'Trajan',
+  },
 })
 
 const StyledDivForSlippageList = styled('div', {

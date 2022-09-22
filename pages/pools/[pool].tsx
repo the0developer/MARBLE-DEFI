@@ -369,6 +369,7 @@ const StyledRowForTokensInfo = styled('div', {
   display: 'flex',
   alignItems: 'center',
   color: 'white',
+  fontFamily: 'Trajan',
   variants: {
     kind: {
       wrapper: {
@@ -393,6 +394,7 @@ const StyledTextForTokens = styled('div', {
   gridAutoFlow: 'column',
   alignItems: 'center',
   fontSize: '16px',
+  fontFamily: 'Trajan',
   variants: {
     kind: {
       element: {

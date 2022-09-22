@@ -114,7 +114,9 @@ const StyledDivForColumn = styled('div', {
       value: {
         borderRadius: '$1',
         transition: 'background-color .1s ease-out',
-        backgroundColor: '$colors$dark10',
+        boxShadow:
+          '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6D6D78',
+        backgroundColor: 'rgba(5,6,21,0.2)',
         '&:hover': {
           backgroundColor: '$colors$dark15',
         },

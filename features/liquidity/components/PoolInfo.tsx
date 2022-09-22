@@ -112,6 +112,7 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
                 fontWeight: '600',
                 color: 'black',
                 background: 'white',
+                fontFamily: 'Trajan',
                 '@media (max-width: 1550px)': {
                   width: '50px',
                   height: '24px',

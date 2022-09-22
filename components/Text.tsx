@@ -68,6 +68,7 @@ const StyledText = styled('p', {
         fontSize: '$7',
         lineHeight: '$4',
         fontWeight: '$light',
+        fontFamily: 'Trajan',
       },
     },
     color: Object.assign(

@@ -52,7 +52,7 @@ export const SelectorToggle = ({
           />
           <div>
             <TokenTitle>{tokenSymbol}</TokenTitle>
-            <Text variant="caption">{formattedAvailableAmount} available</Text>
+            <TokenValue>{formattedAvailableAmount} available</TokenValue>
           </div>
           <IconWrapper size="16px" rotation="-90deg" icon={<Chevron />} />
         </>
@@ -106,4 +106,9 @@ const TokenTitle = styled('div', {
   '@media (max-width: 1550px)': {
     fontSize: '20px',
   },
+})
+const TokenValue = styled('div', {
+  fontFamily: 'Trajan',
+  fontSize: '12px',
+  opacity: '0.5',
 })

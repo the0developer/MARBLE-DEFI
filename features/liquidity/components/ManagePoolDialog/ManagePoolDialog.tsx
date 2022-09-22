@@ -451,6 +451,7 @@ const MaxButton = styled(Button)`
   width: 100% !important;
   height: 54px !important;
   box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6d6d78;
+  font-family: Trajan;
 `
 
 const StyledDivForLiquidityInputs = styled.div`
