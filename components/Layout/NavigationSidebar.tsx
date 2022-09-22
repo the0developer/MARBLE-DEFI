@@ -93,7 +93,7 @@ export function NavigationSidebar() {
                   </SubMenuEntry>
                 </Link>
               </Accordion>
-              <a href="https://marbledao-near.web.app/" target="__blank">
+              <a href="https://near-nft.marbledao.finance/" target="__blank">
                 <MenuEntry isActive={false}>
                   <IconWrapper isActive={false}>
                     <Marketplace />
