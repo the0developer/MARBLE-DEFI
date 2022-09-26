@@ -178,78 +178,74 @@ export default function Pools() {
           </p>
         </Header>
         <Divider />
-        <StyledGrid>
-          <StyledDivForWrapper>
-            {shouldShowFetchingState && (
-              <>
-                <StyledDivForFullSpace>
-                  <Spinner size={32} color="black" />
-                </StyledDivForFullSpace>
-              </>
-            )}
+        <StyledDivForWrapper>
+          {shouldShowFetchingState && (
+            <>
+              <StyledDivForFullSpace>
+                <Spinner size={32} color="black" />
+              </StyledDivForFullSpace>
+            </>
+          )}
 
-            {shouldRenderPools && (
-              <>
-                <RewardCard />
-                {Boolean(myPools?.length) && (
-                  <>
-                    <SectionTitle>My Pools</SectionTitle>
-                    <StyledDivForPoolsGrid className="pool-list">
-                      {myPools.map(
-                        (
-                          { liquidityInfo, farmInfo, tokenInfo, poolId },
-                          key
-                        ) => {
-                          return (
-                            <PoolCard
-                              key={key}
-                              tokenA={tokenInfo[0]}
-                              poolId={poolId}
-                              tokenB={tokenInfo[1]}
-                              farmInfo={farmInfo}
-                              myLiquidity={liquidityInfo.myLiquidity}
-                              tokenDollarValue={liquidityInfo.tokenDollarValue}
-                              totalLiquidity={liquidityInfo.totalLiquidity}
-                            />
-                          )
-                        }
-                      )}
-                    </StyledDivForPoolsGrid>
-                    {Boolean(allPools?.length) && (
-                      <SectionTitle variant="all">All pools</SectionTitle>
+          {shouldRenderPools && (
+            <>
+              <RewardCard />
+              {Boolean(myPools?.length) && (
+                <>
+                  <SectionTitle>My Pools</SectionTitle>
+                  <StyledDivForPoolsGrid className="pool-list">
+                    {myPools.map(
+                      ({ liquidityInfo, farmInfo, tokenInfo, poolId }, key) => {
+                        return (
+                          <PoolCard
+                            key={key}
+                            tokenA={tokenInfo[0]}
+                            poolId={poolId}
+                            tokenB={tokenInfo[1]}
+                            farmInfo={farmInfo}
+                            myLiquidity={liquidityInfo.myLiquidity}
+                            tokenDollarValue={liquidityInfo.tokenDollarValue}
+                            totalLiquidity={liquidityInfo.totalLiquidity}
+                          />
+                        )
+                      }
                     )}
-                  </>
-                )}
-                <StyledDivForPoolsGrid className="pool-list">
-                  {allPools?.map(
-                    ({ liquidityInfo, farmInfo, tokenInfo, poolId }, key) => {
-                      return (
-                        <PoolCard
-                          key={key}
-                          tokenA={tokenInfo[0]}
-                          poolId={poolId}
-                          tokenB={tokenInfo[1]}
-                          myLiquidity={liquidityInfo.myLiquidity}
-                          farmInfo={farmInfo}
-                          tokenDollarValue={liquidityInfo.tokenDollarValue}
-                          totalLiquidity={liquidityInfo.totalLiquidity}
-                        />
-                      )
-                    }
+                  </StyledDivForPoolsGrid>
+                  {Boolean(allPools?.length) && (
+                    <SectionTitle variant="all">All pools</SectionTitle>
                   )}
-                </StyledDivForPoolsGrid>
-              </>
-            )}
-          </StyledDivForWrapper>
-        </StyledGrid>
+                </>
+              )}
+              <StyledDivForPoolsGrid className="pool-list">
+                {allPools?.map(
+                  ({ liquidityInfo, farmInfo, tokenInfo, poolId }, key) => {
+                    return (
+                      <PoolCard
+                        key={key}
+                        tokenA={tokenInfo[0]}
+                        poolId={poolId}
+                        tokenB={tokenInfo[1]}
+                        myLiquidity={liquidityInfo.myLiquidity}
+                        farmInfo={farmInfo}
+                        tokenDollarValue={liquidityInfo.tokenDollarValue}
+                        totalLiquidity={liquidityInfo.totalLiquidity}
+                      />
+                    )
+                  }
+                )}
+              </StyledDivForPoolsGrid>
+            </>
+          )}
+        </StyledDivForWrapper>
       </Container>
     </AppLayout>
   )
 }
 
 const Container = styled.div`
-  padding: 60px 60px 0px 60px;
-  // height: 100%;
+  padding: 20px 60px 0px 60px;
+  height: 100%;
+  position: relative;
   @media (max-width: 1550px) {
     padding: 20px 20px 0px 20px;
   }
@@ -321,7 +317,12 @@ const SectionTitle = ({ variant = 'my', children }) => {
 }
 const StyledDivForWrapper = styled.div`
   overflow: auto;
-  height: 600px;
+  margin-top: 20px;
+  position: absolute;
+  right: 20px;
+  left: 20px;
+  bottom: 20px;
+  top: 120px;
   ::-webkit-scrollbar {
     width: 6px;
   }
@@ -333,13 +334,4 @@ const StyledDivForWrapper = styled.div`
     background: rgba(255, 255, 255, 0.1);
   }
   padding: 0 10px;
-  @media (max-width: 1550px) {
-    height: 450px;
-  }
-`
-
-const StyledGrid = styled.div`
-  display: grid;
-  row-gap: 35px;
-  padding-top: 20px;
 `

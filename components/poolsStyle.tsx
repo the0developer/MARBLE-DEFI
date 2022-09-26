@@ -2,7 +2,11 @@ import styled from 'styled-components'
 
 export const ContentWrapper = styled.div`
   overflow: auto;
-  height: 600px;
+  position: absolute;
+  right: 20px;
+  left: 20px;
+  bottom: 20px;
+  top: 140px;
   ::-webkit-scrollbar {
     width: 6px;
   }
@@ -15,11 +19,13 @@ export const ContentWrapper = styled.div`
   }
   padding: 0 10px;
   @media (max-width: 1550px) {
-    height: 450px;
+    top: 80px;
   }
 `
 export const Container = styled.div`
   padding: 60px;
+  position: relative;
+  height: 100%;
   @media (max-width: 1550px) {
     padding: 30px;
   }

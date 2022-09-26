@@ -214,10 +214,9 @@ const PrimaryButton = styled(Button, {
   color: 'black',
 })
 const Text = styled('div', {
-  fontSize: '20px',
+  fontSize: '24px',
   fontFamily: 'Trajan',
-  fontWeight: '400',
   '@media (max-width: 1550px)': {
-    fontSize: '16px',
+    fontSize: '20px',
   },
 })

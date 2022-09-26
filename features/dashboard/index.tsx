@@ -104,13 +104,11 @@ export const Dashboard = () => {
     let tvl = 0
     if (!farms) return '0'
     farms.forEach((farm) => {
-      console.log('farm: ', farm)
       if (!farm) return
       tvl += farm.pool.tvl
     })
-    return tvl.toFixed(2)
+    return tvl.toLocaleString()
   }
-  console.log('farmsList: ', farms)
   return (
     <StyledDivForWrapper>
       <StyldedGrid>
@@ -193,7 +191,7 @@ export const Dashboard = () => {
 }
 
 const StyledDivForWrapper = styled.div`
-  padding: 0 80px;
+  padding: 0 0px;
   position: relative;
   display: flex;
   flex-direction: column;

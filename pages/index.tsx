@@ -11,7 +11,9 @@ export default function Home() {
         <Header>
           <h1>Dashboard</h1>
         </Header>
-        <Dashboard />
+        <StyledDivForWrapper>
+          <Dashboard />
+        </StyledDivForWrapper>
       </Container>
     </AppLayout>
   )
@@ -38,4 +40,28 @@ const Header = styled.div`
 `
 const Container = styled.div`
   padding: 20px 0;
+  position: relative;
+  height: 100%;
+`
+const StyledDivForWrapper = styled.div`
+  overflow: auto;
+  position: absolute;
+  right: 20px;
+  left: 20px;
+  bottom: 20px;
+  top: 100px;
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  @media (max-width: 1550px) {
+    top: 60px;
+  }
+  padding: 0 10px;
 `
