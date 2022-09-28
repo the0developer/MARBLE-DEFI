@@ -20,7 +20,7 @@ import {
   protectAgainstNaN,
 } from 'util/conversion'
 import { IconWrapper } from '../../../../components/IconWrapper'
-import { useRemoveLiquidity } from '../../../../state/pool'
+import { UseRemoveLiquidity } from '../../../../state/pool'
 import { addLiquidityToPool, Pool } from '../../../../util/pool'
 import { Divider } from '../Divider'
 import { LiquidityInputSelector } from '../LiquidityInputSelector'
@@ -152,7 +152,7 @@ export const ManagePoolDialog = ({
       tokenIds: [tokenA.token_address, tokenB.token_address],
     }
 
-    const { minimumAmounts, removeLiquidity } = useRemoveLiquidity({
+    const { minimumAmounts, removeLiquidity } = UseRemoveLiquidity({
       pool,
       slippageTolerance: slippage,
       shares: sharesInMicro.toString(),
@@ -445,12 +445,14 @@ const SecondaryButton = styled(Button)`
 const StyledDivForContent = styled.div``
 
 const MaxButton = styled(Button)`
-  background: rgba(5, 6, 22, 0.2) !important;
+  background-color: rgb(49, 49, 56) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0px 4px 40px rgb(42 47 50 / 9%),
+    inset 0px 7px 24px rgb(109 109 120 / 20%) !important;
   border-radius: 20px !important;
   color: white !important;
   width: 100% !important;
   height: 54px !important;
-  box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6d6d78;
   font-family: Trajan;
 `
 
@@ -459,8 +461,10 @@ const StyledDivForLiquidityInputs = styled.div`
   flex-wrap: wrap;
   row-gap: 16px;
   width: 100%;
-  background: rgba(5, 6, 22, 0.2);
-  box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6d6d78;
+  background-color: rgb(49, 49, 56);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 4px 40px rgb(42 47 50 / 9%),
+    inset 0px 7px 24px rgb(109 109 120 / 20%);
   border-radius: 20px;
   padding: 25px 30px;
   @media (max-width: 1550px) {
@@ -468,8 +472,10 @@ const StyledDivForLiquidityInputs = styled.div`
   }
 `
 const StyledDivForRemoveLiquidityInputs = styled.div`
-  background: rgba(5, 6, 22, 0.2);
-  box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6d6d78;
+  background-color: rgb(49, 49, 56);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 4px 40px rgb(42 47 50 / 9%),
+    inset 0px 7px 24px rgb(109 109 120 / 20%);
   border-radius: 20px;
 `
 const StyledDivForRemoveLiquidityInputsWrapper = styled.div`
@@ -500,8 +506,10 @@ const StyledDivForLiquiditySummary = styled.div`
   display: flex;
   align-items: center;
   column-gap: 30px;
-  background: rgba(5, 6, 22, 0.2);
-  box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6d6d78;
+  background-color: rgb(49, 49, 56);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 4px 40px rgb(42 47 50 / 9%),
+    inset 0px 7px 24px rgb(109 109 120 / 20%);
   border-radius: 20px;
   padding: 25px 30px 25px 30px;
   @media (max-width: 1550px) {

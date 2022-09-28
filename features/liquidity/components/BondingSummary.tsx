@@ -114,9 +114,10 @@ const StyledDivForColumn = styled('div', {
       value: {
         borderRadius: '$1',
         transition: 'background-color .1s ease-out',
+        border: '1px solid rgba(255, 255, 255, 0.2)',
+        background: 'rgb(49, 49, 56)',
         boxShadow:
-          '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6D6D78',
-        backgroundColor: 'rgba(5,6,21,0.2)',
+          '0px 4px 40px rgb(42 47 50 / 9%), inset 0px 7px 24px rgb(109 109 120 / 20%)',
         '&:hover': {
           backgroundColor: '$colors$dark15',
         },
@@ -139,8 +140,10 @@ const StyledDivForGrid = styled('div', {
   alignItems: 'center',
   justifyContent: 'space-between',
   paddingBottom: '$8',
-  background: 'rgba(5, 6, 22, 0.2)',
-  boxShadow: '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6d6d78',
+  border: '1px solid rgba(255, 255, 255, 0.2)',
+  background: 'rgb(49, 49, 56)',
+  boxShadow:
+    '0px 4px 40px rgb(42 47 50 / 9%), inset 0px 7px 24px rgb(109 109 120 / 20%)',
   borderRadius: '20px',
   padding: '25px 30px',
   '@media (max-width: 1550px)': {

@@ -60,7 +60,6 @@ export default function Pool() {
   const [pool_id, setPoolId] = useState(0)
   const [pool_name, setPoolName] = useState('')
   const [decimals, setDecimals] = useState(24)
-  const [lpTokenAmount, setLpTokenAmount] = useState(0)
   const [farmInfo, setFarmInfo] = useState<FarmDexie>()
   const [unbondings, setUnbondings] = useState<[number, number][]>([])
 
@@ -457,8 +456,10 @@ const StyledDivForSpinner = styled('div', {
 })
 
 const LiquidityInfoWrapper = styled('div', {
-  backgroundColor: 'rgba(5,6,22,0.2)',
-  boxShadow: '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6D6D78',
+  border: '1px solid rgba(255, 255, 255, 0.2)',
+  background: '#2e303e',
+  boxShadow:
+    '0px 4px 40px rgb(42 47 50 / 9%),inset 0px 7px 24px rgb(109 109 120 / 20%)',
   backdropFilter: 'blur(40px)',
   borderRadius: '20px',
 })

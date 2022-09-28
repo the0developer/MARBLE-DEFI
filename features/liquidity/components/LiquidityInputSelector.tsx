@@ -113,7 +113,8 @@ const useDrag = ({ getIsException, onProgressUpdate }) => {
 
 const StyledDivForSelector = styled('div', {
   cursor: 'col-resize',
-  background: 'rgba(5,6,22,0.2)',
+  background: 'rgb(49, 49, 56)',
+  border: '1px solid rgba(255, 255, 255, 0.2)',
   borderRadius: '20px',
   overflow: 'hidden',
   position: 'relative',
@@ -121,7 +122,8 @@ const StyledDivForSelector = styled('div', {
   alignItems: 'center',
   width: '100%',
   padding: '20px 20px',
-  boxShadow: '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6D6D78',
+  boxShadow:
+    '0px 4px 40px rgb(42 47 50 / 9%),inset 0px 7px 24px rgb(109 109 120 / 20%)',
 })
 
 const StyledTextForInputWithSymbol: any = styled(Text, {

@@ -93,9 +93,10 @@ const StyledElementForCardLayout = styled('div', {
       wrapper: {
         borderRadius: '20px',
         padding: '17px 35px',
-        backgroundColor: 'rgba(5,6,22,0.2)',
+        border: '1px solid rgba(255, 255, 255, 0.2)',
+        background: '#2e303e',
         boxShadow:
-          '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6D6D78',
+          '0px 4px 40px rgb(42 47 50 / 9%),inset 0px 7px 24px rgb(109 109 120 / 20%)',
         backdropFilter: 'blur(40px)',
         '@media (max-width: 1550px)': {
           padding: '10px 28px',

@@ -247,11 +247,13 @@ const CValue = styled.div`
 `
 const StateContent = styled.div`
   padding: 20px;
-  background: rgba(5, 6, 22, 0.2);
   border-radius: 20px;
   display: flex;
-  box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6d6d78;
   backdrop-filter: blur(40px);
+  background-color: #2e303e;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 4px 40px rgb(42 47 50 / 9%),
+    inset 0px 7px 24px rgb(109 109 120 / 20%);
   justify-content: space-around;
   @media (max-width: 1550px) {
     padding: 12px;
