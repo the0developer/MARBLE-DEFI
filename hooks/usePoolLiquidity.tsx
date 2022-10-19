@@ -85,6 +85,7 @@ export const getMultiplePoolsLiquidity = async ({
 
     // Todo: Add TOken price calculation algorithm
     const nearPrice: number = await useNearDollarValue()
+    console.log('nearPrice: ', nearPrice)
 
     const liquidity: LiquidityInfoType[] = pools.map((p, index) => {
       const decimals = p.token_address.map(

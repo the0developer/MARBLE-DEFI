@@ -111,6 +111,8 @@ export const BondLiquidityDialog = ({
   const canManageBonding = true
 
   const handleClick = async () => {
+    if (isLoading || !liquidityDollarAmount) return
+    console.log('here')
     setIsLoading(true)
     const now = new Date()
     if (

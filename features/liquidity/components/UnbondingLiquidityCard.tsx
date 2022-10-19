@@ -6,7 +6,7 @@ import {
 import { Text } from '../../../components/Text'
 import { Button } from 'components/Button'
 import { toReadableNumber } from 'util/numbers'
-import { LP_TOKEN_DECIMALS } from 'util/m-token';
+import { LP_TOKEN_DECIMALS } from 'util/m-token'
 
 interface UnbondingLiquidityCardProps {
   totalLiquidity: {
@@ -25,13 +25,10 @@ export const UnbondingLiquidityCard = ({
   unbonding,
   onWithdraw,
 }: UnbondingLiquidityCardProps) => {
-  console.log("unbonding in: ", unbonding)
   const currentTimestamp = Math.floor(new Date().getTime() / 1000)
   const remainingTimestamp =
     Number(unbonding[0]) + lockInterval - currentTimestamp
-  const remainingPercent = Math.floor(
-    (remainingTimestamp * 100) / lockInterval
-  )
+  const remainingPercent = Math.floor((remainingTimestamp * 100) / lockInterval)
   return (
     <StyledElementForCard kind="wrapper">
       <StyledElementForCard kind="content">
@@ -42,8 +39,11 @@ export const UnbondingLiquidityCard = ({
           <Text variant="body" css={{ padding: '$2 $6' }} color="body">
             $
             {dollarValueFormatterWithDecimals(
-              (Number(toReadableNumber(LP_TOKEN_DECIMALS, unbonding[1].toString())) / totalLiquidity?.coins) *
-              totalLiquidity.dollarValue ?? 0
+              (Number(
+                toReadableNumber(LP_TOKEN_DECIMALS, unbonding[1].toString())
+              ) /
+                totalLiquidity?.coins) *
+                totalLiquidity.dollarValue ?? 0
             )}
           </Text>
         </StyledElementForCard>

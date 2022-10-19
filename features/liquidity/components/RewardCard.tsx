@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { getRewardByTokenId } from 'util/farm'
 import { toReadableNumber } from 'util/numbers'
@@ -11,24 +12,13 @@ export const RewardCard: React.FC = ({}) => {
   const rewardToken = 'dust.cmdev0.testnet'
   const decimals = 8
   const REWARD_TOKEN_DECIMAL = 8
-  const [dustPrice, setDustPrice] = useState(0)
-
+  const dustPrice = useSelector((state: any) => state.coinData.dust_value)
   useEffect(() => {
     getRewardByTokenId(rewardToken).then((reward) => {
       console.log('rewards: ', reward)
       setReward(reward)
     })
-    // Todo: fix this with dust price
-    getNearDollarValue().then((val) => setDustPrice(val))
   }, [])
-
-  const getNearDollarValue = async () => {
-    // const url = "https://api.coingecko.com/api/v3/simple/price?ids=near&include_last_updated_at=true&vs_currencies=usd"
-    // const res = await axios.get(url)
-    // if (res.data?.near.usd)
-    //   return res.data?.near.usd
-    return 3.4
-  }
 
   const withdraw = () => {
     withdrawReward({ token_id: rewardToken, amount: reward })

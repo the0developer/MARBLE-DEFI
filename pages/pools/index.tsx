@@ -25,6 +25,7 @@ import {
   getStakedListByAccountId,
 } from 'util/farm'
 import { DEFAULT_PAGE_LIMIT } from 'util/pool'
+import { useSelector } from 'react-redux'
 
 export default function Pools() {
   const [tokenList] = useTokenList()
@@ -38,6 +39,7 @@ export default function Pools() {
   const [rewardList, setRewardList] = useState<Record<string, string>>({})
   const [seeds, setSeeds] = useState<Record<string, string>>({})
   const [farms, setFarms] = useState<FarmInfo[]>()
+  const nearValue = useSelector((state: any) => state.coinData.near_value)
   const page = 1
   const perPage = DEFAULT_PAGE_LIMIT
   const rewardToken = 'dust.cmdev0.testnet'
@@ -66,15 +68,6 @@ export default function Pools() {
   }, [tokenList?.pools])
 
   // Todo: Change this to Dust vaule
-  const getNearDollarValue = async () => {
-    // const url = "https://api.coingecko.com/api/v3/simple/price?ids=near&include_last_updated_at=true&vs_currencies=usd"
-    // const res = await axios.get(url)
-    // let res
-    // if (res.data?.near.usd)
-    //   return res.data?.near.usd
-    // else
-    return '4.5405'
-  }
 
   useEffect(() => {
     setIsloading(true)
@@ -101,7 +94,7 @@ export default function Pools() {
       getStakedListByAccountId({}),
       getRewards({}),
       getSeeds({}),
-      getNearDollarValue(),
+      nearValue.toString(),
     ]
 
     const resolvedParams: [
@@ -162,11 +155,10 @@ export default function Pools() {
     return pools
     // eslint-disable-line react-hooks/exhaustive-deps
   }, [liquidity, accountId, farms, supportedTokens])
-
   const { symbol: baseTokenSymbol } = useBaseTokenInfo() || {}
-
   const shouldShowFetchingState = isLoading || !liquidity?.length
   const shouldRenderPools = !isLoading && Boolean(liquidity?.length)
+
   return (
     <AppLayout>
       <Container>

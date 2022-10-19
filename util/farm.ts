@@ -3,92 +3,88 @@ import {
   refFarmViewFunction,
   Transaction,
   executeFarmMultipleTransactions,
-} from './near';
-import {
-  toPrecision,
-  toReadableNumber,
-  toNonDivisibleNumber,
-} from './numbers';
-import { LP_TOKEN_DECIMALS } from './m-token';
-import * as math from 'mathjs';
+} from './near'
+import { toPrecision, toReadableNumber, toNonDivisibleNumber } from './numbers'
+import { LP_TOKEN_DECIMALS } from './m-token'
+import * as math from 'mathjs'
 import {
   ftGetTokenMetadata,
   TokenMetadata,
   ftGetStorageBalance,
-} from './ft-contract';
+} from './ft-contract'
 import { LiquidityInfoType } from 'hooks/usePoolLiquidity'
-import { PoolRPCView, currentTokensPrice } from './api';
-import { BigNumber } from 'bignumber.js';
-import { getPoolsByIds } from './indexer';
+import { PoolRPCView, currentTokensPrice } from './api'
+import { BigNumber } from 'bignumber.js'
+import { getPoolsByIds } from './indexer'
 import {
   storageDepositAction,
   STORAGE_TO_REGISTER_WITH_MFT,
-} from './creators/storage';
-import getConfig from './config';
+} from './creators/storage'
+import getConfig from './config'
 import {
   getCurrentWallet,
   SENDER_WALLET_SIGNEDIN_STATE_KEY,
-} from './sender-wallet';
-import { PoolInfo } from 'hooks/usePoolList';
-const config = getConfig();
-export const DEFAULT_PAGE_LIMIT = 150;
-const STABLE_POOL_ID = getConfig().STABLE_POOL_ID;
-const STABLE_POOL_IDS = getConfig().STABLE_POOL_IDS;
-const STABLE_POOL_USN_ID = getConfig().STABLE_POOL_USN_ID;
-const expand = 6;
+} from './sender-wallet'
+import { PoolInfo } from 'hooks/usePoolList'
+const config = getConfig()
+export const DEFAULT_PAGE_LIMIT = 150
+const STABLE_POOL_ID = getConfig().STABLE_POOL_ID
+const STABLE_POOL_IDS = getConfig().STABLE_POOL_IDS
+const STABLE_POOL_USN_ID = getConfig().STABLE_POOL_USN_ID
+const expand = 6
 export interface Seed {
-  seed_id: string;
-  amount: number;
+  seed_id: string
+  amount: number
 }
 
 export interface Farm {
-  farm_id: string;
-  farm_kind: string;
-  farm_status: string;
-  seed_id: string;
-  reward_token: string;
-  start_at: number;
-  reward_per_session: number;
-  session_interval: number;
-  total_reward: number;
-  cur_round: number;
-  last_round: number;
-  claimed_reward: number;
-  unclaimed_reward: number;
-  current_user_reward: number;
+  farm_id: string
+  farm_kind: string
+  farm_status: string
+  seed_id: string
+  reward_token: string
+  start_at: number
+  reward_per_session: number
+  session_interval: number
+  total_reward: number
+  cur_round: number
+  last_round: number
+  claimed_reward: number
+  unclaimed_reward: number
+  current_user_reward: number
 }
 
 export interface FarmInfo extends Farm {
-  pool: PoolRPCView;
-  lpTokenId: string;
-  rewardNumber: string;
-  userStaked: string;
-  rewardsPerWeek: string;
-  userRewardsPerWeek: string;
-  userUnclaimedReward: string;
-  rewardToken: TokenMetadata;
-  totalStaked: number;
-  apr: string;
-  tokenIds: string[];
-  show?: boolean;
-  seedAmount: string;
+  pool: PoolRPCView
+  lpTokenId: string
+  rewardNumber: string
+  userStaked: string
+  rewardsPerWeek: string
+  userRewardsPerWeek: string
+  userUnclaimedReward: string
+  rewardToken: TokenMetadata
+  totalStaked: number
+  apr: string
+  tokenIds: string[]
+  show?: boolean
+  seedAmount: string
 }
 
 export const getSeeds = async ({
   page = 1,
   perPage = DEFAULT_PAGE_LIMIT,
 }: {
-  page?: number;
-  perPage?: number;
+  page?: number
+  perPage?: number
 }): Promise<Record<string, string>> => {
-  const index = (page - 1) * perPage;
+  const index = (page - 1) * perPage
   const seedDatas = await refFarmViewFunction({
     methodName: 'list_seeds',
     args: { from_index: index, limit: perPage },
-  });
+  })
 
-  return seedDatas;
-};
+  return seedDatas
+}
 
 export const getStakedListByAccountId = async ({
   accountId = getCurrentWallet().wallet.getAccountId(),
@@ -96,26 +92,26 @@ export const getStakedListByAccountId = async ({
   const stakedList = await refFarmViewFunction({
     methodName: 'list_user_seeds',
     args: { account_id: accountId },
-  });
+  })
 
-  return stakedList;
-};
+  return stakedList
+}
 
 export const getUnbondListByAccountId = async ({
   accountId = getCurrentWallet().wallet.getAccountId(),
-  seedId
+  seedId,
 }): Promise<[number, number][]> => {
   const unbondingList = await refFarmViewFunction({
     methodName: 'list_user_withdraw_requests',
     args: { account_id: accountId, seed_id: seedId },
-  });
+  })
 
-  return unbondingList;
-};
+  return unbondingList
+}
 
 export const getLPTokenId = (farm_id: string) => {
-  return farm_id.slice(farm_id.indexOf('@') + 1, farm_id.lastIndexOf('#'));
-};
+  return farm_id.slice(farm_id.indexOf('@') + 1, farm_id.lastIndexOf('#'))
+}
 
 export const getFarms = async ({
   page = 1,
@@ -125,35 +121,35 @@ export const getFarms = async ({
   tokenPriceList,
   seeds,
   liquidity,
-  pools
+  pools,
 }: {
-  page?: number;
-  perPage?: number;
-  stakedList: Record<string, string>;
-  rewardList: Record<string, string>;
-  tokenPriceList: any;
-  seeds: Record<string, string>;
-  liquidity: LiquidityInfoType[];
-  pools: PoolInfo[];
+  page?: number
+  perPage?: number
+  stakedList: Record<string, string>
+  rewardList: Record<string, string>
+  tokenPriceList: any
+  seeds: Record<string, string>
+  liquidity: LiquidityInfoType[]
+  pools: PoolInfo[]
 }): Promise<FarmInfo[]> => {
-  const index = (page - 1) * perPage;
+  const index = (page - 1) * perPage
   let farms: Farm[] = await refFarmViewFunction({
     methodName: 'list_farms',
     args: { from_index: index, limit: perPage },
-  });
+  })
   // filter  unexpected farm data
-  const blackFarmList = new Set(config.blackList || []);
+  const blackFarmList = new Set(config.blackList || [])
   farms = farms.filter((item) => {
-    const { farm_id } = item;
-    const arr = farm_id.split('@');
+    const { farm_id } = item
+    const arr = farm_id.split('@')
     if (!blackFarmList.has(arr[1])) {
-      return true;
+      return true
     }
-  });
+  })
   const pool_ids = farms.map((f) => {
-    return getLPTokenId(f.farm_id);
-  });
-  console.log("farm pool Id: ", pool_ids)
+    return getLPTokenId(f.farm_id)
+  })
+  console.log('farm pool Id: ', pool_ids)
   // let poolList: Record<string, PoolRPCView> = {};
   // const pools = await getPoolsByIds({ pool_ids });
   // console.log("farm pool pools: ", pools)
@@ -164,9 +160,9 @@ export const getFarms = async ({
   //   );
   // }
   const tasks = farms.map(async (f) => {
-    const poolId = getLPTokenId(f.farm_id);
-    const index = liquidity.map(l => l.pool_id).indexOf(Number(poolId))
-    console.log("farm liquidity: ", liquidity[index].totalLiquidity)
+    const poolId = getLPTokenId(f.farm_id)
+    const index = liquidity.map((l) => l.pool_id).indexOf(Number(poolId))
+    console.log('farm liquidity: ', liquidity[index].totalLiquidity)
     const pool: PoolRPCView = {
       id: Number(poolId),
       token_account_ids: pools[index].token_address,
@@ -177,7 +173,7 @@ export const getFarms = async ({
       tvl: liquidity[index].totalLiquidity.dollarValue,
       token0_ref_price: '0',
       share: '0',
-    };
+    }
     const fi: FarmInfo = await getFarmInfo(
       f,
       pool,
@@ -186,12 +182,12 @@ export const getFarms = async ({
       rewardList[f.reward_token],
       seeds[f.seed_id],
       getLPTokenId(f.farm_id)
-    );
-    return fi;
-  });
+    )
+    return fi
+  })
 
-  return Promise.all(tasks);
-};
+  return Promise.all(tasks)
+}
 
 export const getFarmInfo = async (
   farm: Farm,
@@ -202,8 +198,8 @@ export const getFarmInfo = async (
   seed: string,
   lpTokenId: string
 ): Promise<FarmInfo> => {
-  const isSignedIn: boolean = getCurrentWallet().wallet.isSignedIn();
-  const { tvl, token_account_ids, id } = pool;
+  const isSignedIn: boolean = getCurrentWallet().wallet.isSignedIn()
+  const { tvl, token_account_ids, id } = pool
   // if (new Set(STABLE_POOL_IDS || []).has(id?.toString())) {
   //   staked = toNonDivisibleNumber(expand, staked ?? '0');
   //   seed = toNonDivisibleNumber(expand, seed ?? '0');
@@ -216,81 +212,85 @@ export const getFarmInfo = async (
   //   }
   // }
 
-  const poolTvl = tvl;
-  const poolSts = Number(
-    pool.shares_total_supply
-  );
-  console.log("farm tvl: ", tvl, poolSts)
-  const userStaked = toReadableNumber(LP_TOKEN_DECIMALS, staked ?? '0');
-  const rewardToken = await ftGetTokenMetadata(farm.reward_token);
-  console.log("farm reward", rewardToken)
+  const poolTvl = tvl
+  const poolSts = Number(pool.shares_total_supply)
+  console.log('farm tvl: ', tvl, poolSts)
+  const userStaked = toReadableNumber(LP_TOKEN_DECIMALS, staked ?? '0')
+  const rewardToken = await ftGetTokenMetadata(farm.reward_token)
+  console.log('farm reward', rewardToken)
   const rewardTokenPrice = tokenPriceList
     ? tokenPriceList[rewardToken.id]?.price || 0
-    : 0;
-  console.log("farm reward price", tokenPriceList, tokenPriceList[rewardToken.id], rewardToken.id, rewardTokenPrice)
-  const rewardNumber = toReadableNumber(rewardToken.decimals, reward) ?? '0';
-  const seedAmount = seed ?? '0';
-  const totalSeed = toReadableNumber(LP_TOKEN_DECIMALS, seedAmount);
+    : 0
+  console.log(
+    'farm reward price',
+    tokenPriceList,
+    tokenPriceList[rewardToken.id],
+    rewardToken.id,
+    rewardTokenPrice
+  )
+  const rewardNumber = toReadableNumber(rewardToken.decimals, reward) ?? '0'
+  const seedAmount = seed ?? '0'
+  const totalSeed = toReadableNumber(LP_TOKEN_DECIMALS, seedAmount)
 
   const rewardNumberPerWeek = math.round(
     math.evaluate(
       `(${farm.reward_per_session} / ${farm.session_interval}) * 604800`
     )
-  );
+  )
   const rewardsPerWeek = new BigNumber(
     toReadableNumber(
       rewardToken.decimals,
       new BigNumber(rewardNumberPerWeek.toString()).toFixed()
     )
-  ).toFixed(0);
+  ).toFixed(0)
 
   const userRewardNumberPerWeek =
     seedAmount !== '0'
       ? math.round(
-        math.evaluate(
-          `${rewardNumberPerWeek} * (${staked ?? 0} / ${seedAmount})`
+          math.evaluate(
+            `${rewardNumberPerWeek} * (${staked ?? 0} / ${seedAmount})`
+          )
         )
-      )
-      : 0;
+      : 0
 
   const userRewardsPerWeek = toReadableNumber(
     rewardToken.decimals,
     userRewardNumberPerWeek.toString()
-  );
+  )
 
   let userUnclaimedRewardNumber: string =
     isSignedIn && staked && Number(staked) > 0
       ? await getUnclaimedReward(farm.farm_id)
-      : '0';
+      : '0'
   const userUnclaimedReward = toReadableNumber(
     rewardToken.decimals,
     userUnclaimedRewardNumber
-  );
+  )
 
   const totalStaked =
     poolSts === 0
       ? 0
       : Number(
-        toPrecision(((Number(totalSeed) * poolTvl) / poolSts).toString(), 1)
-      );
+          toPrecision(((Number(totalSeed) * poolTvl) / poolSts).toString(), 1)
+        )
 
-  console.log("farm apr calculation:", totalSeed, poolTvl, poolSts, totalStaked)
-  console.log("farm apr calcu: ", rewardsPerWeek, rewardTokenPrice)
+  console.log('farm apr calculation:', totalSeed, poolTvl, poolSts, totalStaked)
+  console.log('farm apr calcu: ', rewardsPerWeek, rewardTokenPrice)
   const apr =
     totalStaked === 0
       ? '0'
       : toPrecision(
-        (
-          (1 / totalStaked) *
-          (Number(rewardsPerWeek) * Number(rewardTokenPrice)) *
-          52 *
-          100
-        ).toString(),
-        2
-      );
-  console.log("far total apr: ", apr)
+          (
+            (1 / totalStaked) *
+            (Number(rewardsPerWeek) * Number(rewardTokenPrice)) *
+            52 *
+            100
+          ).toString(),
+          2
+        )
+  console.log('far total apr: ', apr)
 
-  if (farm.farm_status === 'Created') farm.farm_status = 'Pending';
+  if (farm.farm_status === 'Created') farm.farm_status = 'Pending'
   return {
     ...farm,
     pool,
@@ -305,8 +305,8 @@ export const getFarmInfo = async (
     apr,
     tokenIds: token_account_ids,
     seedAmount,
-  };
-};
+  }
+}
 
 export const getUnclaimedFarms = async ({
   page = 1,
@@ -316,19 +316,19 @@ export const getUnclaimedFarms = async ({
   tokenPriceList,
   seeds,
   liquidity,
-  pools
+  pools,
 }: {
-  page?: number;
-  perPage?: number;
-  stakedList: Record<string, string>;
-  rewardList: Record<string, string>;
-  tokenPriceList: any;
-  seeds: Record<string, string>;
-  liquidity: LiquidityInfoType[];
+  page?: number
+  perPage?: number
+  stakedList: Record<string, string>
+  rewardList: Record<string, string>
+  tokenPriceList: any
+  seeds: Record<string, string>
+  liquidity: LiquidityInfoType[]
   pools: PoolInfo[]
 }): Promise<FarmInfo[]> => {
   const { wallet } = getCurrentWallet()
-  const isSignedIn = wallet.isSignedIn();
+  const isSignedIn = wallet.isSignedIn()
   let farms: FarmInfo[] = await getFarms({
     page,
     perPage,
@@ -337,37 +337,37 @@ export const getUnclaimedFarms = async ({
     tokenPriceList,
     seeds,
     liquidity,
-    pools
-  });
+    pools,
+  })
   await Promise.all(
     farms.map(async (farm: any, i: number) => {
       const current_user_reward = isSignedIn
         ? await getUnclaimedReward(farm.farm_id)
-        : 0;
-      farms[i].current_user_reward = current_user_reward;
+        : 0
+      farms[i].current_user_reward = current_user_reward
     })
-  );
+  )
 
   return farms.filter((farm) => {
-    return Number(farm.current_user_reward) > 0;
-  });
-};
+    return Number(farm.current_user_reward) > 0
+  })
+}
 
 export const getFarmsBySeedId = async (seed_id: number): Promise<Farm[]> => {
   const farms: Farm[] = await refFarmViewFunction({
     methodName: 'list_farms_by_seed',
     args: { seed_id: seed_id },
-  });
+  })
 
-  return farms;
-};
+  return farms
+}
 
 export const getFarm = async (id: number): Promise<Farm> => {
   return refFarmViewFunction({
     methodName: 'get_farm',
     args: { farm_id: id },
-  });
-};
+  })
+}
 
 export const getRewards = async ({
   accountId = getCurrentWallet().wallet.getAccountId(),
@@ -375,8 +375,8 @@ export const getRewards = async ({
   return refFarmViewFunction({
     methodName: 'list_rewards',
     args: { account_id: accountId },
-  });
-};
+  })
+}
 
 export const getRewardByTokenId = async (
   token_id: string,
@@ -385,8 +385,8 @@ export const getRewardByTokenId = async (
   return refFarmViewFunction({
     methodName: 'get_reward',
     args: { account_id: accountId, token_id: token_id },
-  });
-};
+  })
+}
 
 export const getUnclaimedReward = async (
   farm_id: string,
@@ -395,8 +395,8 @@ export const getUnclaimedReward = async (
   return refFarmViewFunction({
     methodName: 'get_unclaimed_reward',
     args: { account_id: accountId, farm_id: farm_id },
-  });
-};
+  })
+}
 
 export const listRewards = async (
   accountId = getCurrentWallet().wallet.getAccountId()
@@ -404,46 +404,48 @@ export const listRewards = async (
   return refFarmViewFunction({
     methodName: 'list_rewards',
     args: { account_id: accountId },
-  });
-};
+  })
+}
 
 export const claimRewardByFarm = async (farm_id: string): Promise<any> => {
   return refFarmFunctionCall({
     methodName: 'claim_reward_by_farm',
     args: { farm_id: farm_id },
-  });
-};
+  })
+}
 
 export const claimRewardBySeed = async (seed_id: string): Promise<any> => {
   return refFarmFunctionCall({
     methodName: 'claim_reward_by_seed',
     args: { seed_id: seed_id },
-  });
-};
+  })
+}
 
 export const getAllSinglePriceByTokenIds = async (
   token_ids: string
 ): Promise<any> => {
-  return await currentTokensPrice(token_ids);
-};
+  return await currentTokensPrice(token_ids)
+}
 
 export const claimAndWithDrawReward = async (
   farmsData: any[]
 ): Promise<any> => {
-  const token_ids: string[] = [];
-  const transactions: Transaction[] = [];
-  const ftBalanceListPromise: any[] = [];
+  const token_ids: string[] = []
+  const transactions: Transaction[] = []
+  const ftBalanceListPromise: any[] = []
   const { wallet } = getCurrentWallet()
   farmsData.forEach((farm) => {
-    const { userUnclaimedReward, rewardToken } = farm;
+    const { userUnclaimedReward, rewardToken } = farm
     if (Number(userUnclaimedReward) > 0) {
-      token_ids.push(rewardToken.id);
+      token_ids.push(rewardToken.id)
     }
-  });
+  })
   token_ids.forEach((tokenId) => {
-    ftBalanceListPromise.push(ftGetStorageBalance(tokenId, wallet.getAccountId()));
-  });
-  const ftBalanceList = await Promise.all(ftBalanceListPromise);
+    ftBalanceListPromise.push(
+      ftGetStorageBalance(tokenId, wallet.getAccountId())
+    )
+  })
+  const ftBalanceList = await Promise.all(ftBalanceListPromise)
   ftBalanceList.forEach((balance, index) => {
     if (!balance || balance.total === '0') {
       transactions.unshift({
@@ -454,9 +456,9 @@ export const claimAndWithDrawReward = async (
             amount: STORAGE_TO_REGISTER_WITH_MFT,
           }),
         ],
-      });
+      })
     }
-  });
+  })
   if (farmsData.length > 1) {
     transactions.push({
       receiverId: config.REF_FARM_CONTRACT_ID,
@@ -466,7 +468,7 @@ export const claimAndWithDrawReward = async (
           args: { seed_id: farmsData[0]['seed_id'] },
         },
       ],
-    });
+    })
   } else {
     transactions.push({
       receiverId: config.REF_FARM_CONTRACT_ID,
@@ -476,16 +478,16 @@ export const claimAndWithDrawReward = async (
           args: { farm_id: farmsData[0]['farm_id'], withdraw_all_tokens: true },
         },
       ],
-    });
+    })
   }
-  return executeFarmMultipleTransactions(transactions);
-};
+  return executeFarmMultipleTransactions(transactions)
+}
 export const get_seed_info = async (seed_id: string): Promise<any> => {
   return refFarmViewFunction({
     methodName: 'get_seed_info',
     args: { seed_id },
-  });
-};
+  })
+}
 export const classificationOfCoins = {
   stablecoin: ['USDT', 'USDC', 'DAI', 'nUSDO', 'cUSD', 'USN'],
   near_ecosystem: [
@@ -540,14 +542,14 @@ export const classificationOfCoins = {
   ],
   gaming: ['PXT', 'sPXT', 'SHRM', 'GOLD', 'GEM', 'ELIXIR'],
   nft: ['PARAS', '1MIL'],
-};
+}
 export const classificationOfCoins_key = [
   'stablecoin',
   'near_ecosystem',
   'bridged_tokens',
   'gaming',
   'nft',
-];
+]
 export const incentiveLpTokenConfig = {
   '1207': '4',
   '4': '4',
@@ -557,7 +559,7 @@ export const incentiveLpTokenConfig = {
   '3': '4',
   '2734': '4',
   '974': '4',
-};
+}
 export const defaultConfig = {
   '3364': '102',
   '1195': '101',
@@ -576,10 +578,10 @@ export const defaultConfig = {
   '3': '4',
   '2734': '4',
   '974': '4',
-};
+}
 
 export const frontConfig = {
   '3020': '100',
   '3433': '99',
   '79': '98',
-};
+}

@@ -1,9 +1,11 @@
+import { useSelector } from 'react-redux'
+
 export const useNearDollarValue = () => {
   // const url = "https://api.coingecko.com/api/v3/simple/price?ids=near&include_last_updated_at=true&vs_currencies=usd"
   // const res = await axios.get(url)
   // if (res.data?.near.usd)
   //   return res.data?.near.usd
-  return 4.5405
+  return 2.89
 }
 
 export const useHeraDollarValue = async () => {

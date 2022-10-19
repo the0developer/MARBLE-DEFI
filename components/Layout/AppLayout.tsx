@@ -4,6 +4,8 @@ import { FooterBar } from './FooterBar'
 import { useEffect, useState } from 'react'
 import TagManager from 'react-gtm-module'
 import { ChakraProvider, HStack, Stack } from '@chakra-ui/react'
+import { FetchCoinInfo } from 'hooks/useTokenBalance'
+
 const tagManagerArgs = {
   gtmId: process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID,
 }
@@ -15,6 +17,7 @@ export const AppLayout = ({
   children,
   fullWidth = true,
 }) => {
+  FetchCoinInfo()
   useEffect(() => {
     TagManager.initialize(tagManagerArgs)
   }, [])

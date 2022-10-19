@@ -4,9 +4,8 @@ import { Dashboard } from '../features/dashboard'
 import styled from 'styled-components'
 
 export default function Home() {
-  const [fullWidth, setFullWidth] = React.useState(true)
   return (
-    <AppLayout fullWidth={fullWidth}>
+    <AppLayout fullWidth={true}>
       <Container>
         <Header>
           <h1>Dashboard</h1>

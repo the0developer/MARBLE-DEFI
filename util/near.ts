@@ -352,6 +352,7 @@ export const refFarmFunctionCall = ({
       process.env.NEXT_PUBLIC_FARM_CONTRACT_NAME,
       methodName,
       args,
+      getGas(gas),
       getAmount(amount)
     )
 }

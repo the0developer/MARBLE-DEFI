@@ -12,12 +12,12 @@ import {
   UnbondingLiquidityCard,
   ManagePoolDialog,
   PoolAvailableLiquidityCard,
+  BondLiquidityDialog,
 } from 'features/liquidity'
 import { ChakraProvider, Text as ChakraText, Stack } from '@chakra-ui/react'
 import { unsafelyGetTokenInfoFromAddress } from 'hooks/useTokenInfo'
 import { getPoolLiquidity, LiquidityType } from 'hooks/usePoolLiquidity'
 import { parseCurrency } from 'features/liquidity/components/PoolCard'
-import { BondLiquidityDialog } from 'features/liquidity'
 import { __POOL_REWARDS_ENABLED__, APP_NAME } from 'util/constants'
 import { Spinner } from 'components/Spinner'
 import { protectAgainstNaN } from 'util/conversion'
@@ -150,11 +150,9 @@ export default function Pool() {
   const onClaim = () => {
     claimRewardByFarm(farmInfo?.id)
   }
-
   if (!tokenA || !tokenB || !pool) {
     return null
   }
-
   return (
     <ChakraProvider>
       {pool && (

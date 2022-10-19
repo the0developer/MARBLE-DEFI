@@ -24,8 +24,9 @@ export const spaces = {
   24: '24px',
 }
 
-export const contractName = "hera.cmdev0.testnet"
-
+export const contractName = 'hera.cmdev0.testnet'
+export const rewardToken = 'dust.cmdev0.testnet'
+export const wNearToken = 'wrap.testnet'
 export const DEFAULT_TOKEN_BALANCE_REFETCH_INTERVAL = 10000
 export const SLIPPAGE_OPTIONS = [0.01, 0.02, 0.03, 0.05]
 export const NETWORK_FEE = 0.003

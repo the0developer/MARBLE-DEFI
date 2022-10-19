@@ -4,6 +4,7 @@ import { useBaseTokenInfo, useTokenInfoByPoolId } from 'hooks/useTokenInfo'
 import React from 'react'
 import { toast } from 'react-toastify'
 import { Button } from '../../../components/Button'
+import { useSelector } from 'react-redux'
 import { Text } from '../../../components/Text'
 
 const incentiveStart = 'April 27, 2022 00:00:00 UTC+00:00'
@@ -28,7 +29,7 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
 }) => {
   const token = useBaseTokenInfo()
   const tokenInfo = useTokenInfoByPoolId(Number(poolId))
-
+  const dustPrice = useSelector((state: any) => state.coinData.dust_value)
   // const { bondingInfo } = useBondingInfo(tokenInfo?.incentives_address)
 
   // const bondingInfo = {
@@ -74,8 +75,8 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
   return (
     <StyledElementForCard kind="wrapper">
       <StyledElementForToken>
-        <Title>Hera Price</Title>
-        <Value>${tokenDollarValue?.toFixed(6)}</Value>
+        <Title>Dust Price</Title>
+        <Value>${dustPrice.toFixed(2)}</Value>
       </StyledElementForToken>
       <StyledElementForToken>
         <Title>Rewards distribution in</Title>
