@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import { Button } from '../../../components/Button'
 import { useSelector } from 'react-redux'
 import { Text } from '../../../components/Text'
+import { rewardToken } from 'util/constants'
 
 const incentiveStart = 'April 27, 2022 00:00:00 UTC+00:00'
 const incentiveEnd = 'March 27, 2099 00:00:00 UTC+00:00'
@@ -29,7 +30,11 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
 }) => {
   const token = useBaseTokenInfo()
   const tokenInfo = useTokenInfoByPoolId(Number(poolId))
-  const dustPrice = useSelector((state: any) => state.coinData.dust_value)
+  const nearPrice = useSelector((state: any) => state.coinData.near_value)
+  const dustPriceInNear = useSelector(
+    (state: any) => state.uiData.token_value[rewardToken]
+  )
+  const dustPrice = dustPriceInNear * nearPrice
   // const { bondingInfo } = useBondingInfo(tokenInfo?.incentives_address)
 
   // const bondingInfo = {

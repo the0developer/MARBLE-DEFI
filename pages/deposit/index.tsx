@@ -67,7 +67,6 @@ export default function Deposit() {
       return nearDeposit(amount.toString())
     else return nearWithdraw(amount.toString())
   }
-
   return (
     <AppLayout fullWidth={true}>
       <Container className="middle mauto">

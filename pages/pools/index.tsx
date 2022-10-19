@@ -40,6 +40,7 @@ export default function Pools() {
   const [seeds, setSeeds] = useState<Record<string, string>>({})
   const [farms, setFarms] = useState<FarmInfo[]>()
   const nearValue = useSelector((state: any) => state.coinData.near_value)
+
   const page = 1
   const perPage = DEFAULT_PAGE_LIMIT
   const rewardToken = 'dust.cmdev0.testnet'
@@ -68,7 +69,6 @@ export default function Pools() {
   }, [tokenList?.pools])
 
   // Todo: Change this to Dust vaule
-
   useEffect(() => {
     setIsloading(true)
     console.log('loading called: ')

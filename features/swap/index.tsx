@@ -16,10 +16,11 @@ import { tokenSwapAtom } from './swapAtoms'
 import { useTokenList } from '../../hooks/useTokenList'
 import { useTokenInfo } from 'hooks/useTokenInfo'
 import { getTokenBalance } from 'hooks/useTokenBalance'
-import { getTokenPriceInUsd } from 'store/actions/uiAction'
 export const TokenSwap = () => {
   /* connect to recoil */
   const tokenValues = useSelector((state: any) => state.uiData.token_value)
+  const state = useSelector((state) => state)
+  console.log('state-------: ', state)
   const [[tokenA, tokenB], setTokenSwapState] = useRecoilState(tokenSwapAtom)
   const [balances, setBalances] = useState([0, 0])
   const [tokenRate, setTokenRate] = useState(0)
@@ -39,9 +40,6 @@ export const TokenSwap = () => {
       }
     )
   }, [token0, token1])
-  useEffect(() => {
-    getTokenPriceInUsd(dispatch)
-  }, [])
   useEffect(() => {
     const shouldSetDefaultTokenAState =
       !tokenA?.tokenSymbol && !tokenB.tokenSymbol && tokenList
@@ -75,7 +73,6 @@ export const TokenSwap = () => {
       tokenA ? { ...tokenA, amount: tokenB.amount } : tokenA,
     ])
   }
-
   return (
     <StyledDivForWrapper>
       <SelectorPart>

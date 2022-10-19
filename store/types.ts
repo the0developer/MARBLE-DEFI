@@ -4,6 +4,7 @@ export const TOKEN_IN_USD = 'TOKEN_IN_USD'
 export const NEAR_STATUS = 'NEAR_STATUS'
 export const DUST_STATUS = 'DUST_STATUS'
 export const FILTER_STATUS = 'FILTER_STATUS'
+export const USDN_IN_HERA = 'USDN_IN_HERA'
 export const FILTER_STATUS_BUY_NOW = 0
 export const FILTER_STATUS_ON_AUCTION = 1
 export const FILTER_STATUS_NEW = 2

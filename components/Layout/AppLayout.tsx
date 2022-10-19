@@ -21,6 +21,7 @@ export const AppLayout = ({
   useEffect(() => {
     TagManager.initialize(tagManagerArgs)
   }, [])
+
   return (
     <ChakraProvider>
       <StyledWrapper spacing={10}>

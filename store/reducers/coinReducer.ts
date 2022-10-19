@@ -1,8 +1,7 @@
-import { NEAR_STATUS, DUST_STATUS } from '../types'
+import { NEAR_STATUS } from '../types'
 
 const initialState = {
   near_value: 0,
-  dust_value: 0,
 }
 
 const coinReducer = (state = initialState, action) => {
@@ -11,11 +10,6 @@ const coinReducer = (state = initialState, action) => {
       return {
         ...state,
         near_value: action.payload,
-      }
-    case DUST_STATUS:
-      return {
-        ...state,
-        dust_value: action.payload * state.near_value,
       }
     default:
       return state

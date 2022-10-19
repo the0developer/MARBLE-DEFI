@@ -47,7 +47,10 @@ export const TokenSelector = ({
     setTokenListShowing(false)
   })
 
-  const balanceInUsd = tokenValues[tokenAddress] * NearValue * balance
+  const balanceInUsd =
+    tokenSymbol === 'NEAR'
+      ? NearValue * balance
+      : tokenValues[tokenAddress] * NearValue * balance
   const formattedAvailableAmount = formatTokenBalance(balanceInUsd, {
     includeCommaSeparation: true,
   })

@@ -13,6 +13,7 @@ import {
 } from 'hooks/usePoolLiquidity'
 import { useTokenList } from 'hooks/useTokenList'
 import { rewardToken, wNearToken } from 'util/constants'
+import { getTokenPriceInUsd } from 'store/actions/uiAction'
 
 export const getTokenBalance = async (tokenInfo) => {
   const { wallet } = getCurrentWallet()
@@ -43,42 +44,7 @@ export const getTokenBalance = async (tokenInfo) => {
 }
 
 export const FetchCoinInfo = () => {
-  const [tokenList] = useTokenList()
   const dispatch = useDispatch()
-  // axios.get('https://')
-  const [supportedTokens, pools] = useMemo(() => {
-    const safePoolList = tokenList?.pools || []
-
-    const poolIdsCollection = safePoolList
-      .map(({ pool_id, token_address, decimals }) => {
-        return { pool_id, token_address, decimals }
-      })
-      .filter(({ pool_id }) => {
-        return !isNaN(pool_id)
-      })
-
-    return [tokenList, poolIdsCollection]
-    // eslint-disable-line react-hooks/exhaustive-deps
-  }, [tokenList?.pools])
-  useEffect(() => {
-    // eslint-disable-line react-hooks/rules-of-hooks
-    getMultiplePoolsLiquidity({
-      pools,
-    }).then(({ liquidity }: LiquidityReturnType) => {
-      const near_dust =
-        liquidity &&
-        liquidity.filter(
-          (_liquidity) =>
-            _liquidity.tokens.includes(rewardToken) &&
-            _liquidity.tokens.includes(wNearToken)
-        )[0]
-      const dustInNear =
-        near_dust &&
-        near_dust.reserve[near_dust.tokens.indexOf(wNearToken)] /
-          near_dust.reserve[near_dust.tokens.indexOf(rewardToken)]
-      setCoinData(DUST_STATUS, dustInNear, dispatch)
-    })
-  }, [pools])
   const url =
     'https://api.coingecko.com/api/v3/simple/price?ids=near&include_last_updated_at=true&vs_currencies=usd'
   useEffect(() => {
@@ -87,6 +53,7 @@ export const FetchCoinInfo = () => {
     //   // setNearData(NEAR_STATUS, data.near.usd, dispatch)
     //   setNearData(NEAR_STATUS, 2.89, dispatch)
     // })
+    getTokenPriceInUsd(dispatch)
     setCoinData(NEAR_STATUS, 2.89, dispatch)
   }, [])
   return null

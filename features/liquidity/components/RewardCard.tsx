@@ -6,13 +6,19 @@ import { toReadableNumber } from 'util/numbers'
 import { Button } from 'components/Button'
 import { formatTokenBalance } from 'util/conversion'
 import { withdrawReward } from 'util/m-token'
+import { rewardToken } from 'util/constants'
 
 export const RewardCard: React.FC = ({}) => {
   const [reward, setReward] = useState('0')
   const rewardToken = 'dust.cmdev0.testnet'
   const decimals = 8
   const REWARD_TOKEN_DECIMAL = 8
-  const dustPrice = useSelector((state: any) => state.coinData.dust_value)
+  const nearPrice = useSelector((state: any) => state.coinData.near_value)
+  const dustPriceInNear = useSelector(
+    (state: any) => state.uiData.token_value[rewardToken]
+  )
+  const dustPrice = dustPriceInNear * nearPrice
+
   useEffect(() => {
     getRewardByTokenId(rewardToken).then((reward) => {
       console.log('rewards: ', reward)
