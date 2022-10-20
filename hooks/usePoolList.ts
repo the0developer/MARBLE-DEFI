@@ -66,7 +66,6 @@ export const usePoolList = () => {
     ;(async () => {
       const response = await fetch(process.env.NEXT_PUBLIC_TOKEN_BLOCK_LIST_URL)
       const jsonData = await response.json()
-      console.log('response: ', response, jsonData)
       setData(jsonData)
       setIsLoading(false)
     })()
