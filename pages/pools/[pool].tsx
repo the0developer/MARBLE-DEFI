@@ -76,6 +76,7 @@ export default function Pool() {
     if (!isNaN(Number(pool)) && poolList) {
       const poolById = poolList?.find((p) => p?.pool_id === Number(pool))
       // console.log('poolList: ', poolList, poolById, pool)
+      if (!poolById) return
       setPoolId(poolById?.pool_id)
       setPoolName(poolById?.name)
       setDecimals(poolById?.decimals)
