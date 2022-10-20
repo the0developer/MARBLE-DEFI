@@ -117,18 +117,17 @@ class DateCountdown extends Component<DateCountdownProps, DateCountdownStates> {
   componentDidMount() {
     const state = calculateStateFromProps(this.props)
     const { diff } = state
-    this.setState(state, () => {
-      if (diff > 0) {
-        let tickId = setInterval(this.tick, 1000)
-        this.setState({ tickId })
-      }
-    })
+    if (diff > 0) {
+      let tickId = setInterval(this.tick, 1000)
+      this.setState({ tickId })
+    }
+    this.setState(state)
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     const state = calculateStateFromProps(nextProps)
     const { diff } = state
-    const { tickId } = this.state
+    // const { tickId } = this.state
     this.setState(state, () => {
       if (diff > 0) {
         const { tickId } = this.state
@@ -215,9 +214,9 @@ class DateCountdown extends Component<DateCountdownProps, DateCountdownStates> {
   }
 
   tick() {
+    console.log('timer-tick: ', this.state.tickId)
     const { sec, min, hour, day, month, year, tickId } = this.state
     const { callback, loop, interval } = this.props
-
     if (
       sec === 0 &&
       min === 0 &&

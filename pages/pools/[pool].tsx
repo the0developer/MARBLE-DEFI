@@ -91,7 +91,7 @@ export default function Pool() {
       setTokenB(tokenB)
     }
     // eslint-disable-line react-hooks/exhaustive-deps
-  }, [pool, poolList, tokenA, tokenB, coinPrice, isReady])
+  }, [pool, poolList, tokenA, tokenB, coinPrice])
   // useEffect(() => {
   //   if (txHash && getCurrentWallet().wallet.isSignedIn()) {
   //     checkTransaction(txHash).then((res: any) => {
@@ -121,10 +121,8 @@ export default function Pool() {
       })
     }
   }, [pool, accountId, isReady])
-  console.log('unbondings: ', unbondings)
   const initialSet = () => {
     setIsLoading(true)
-    console.log('initialSet: ', pool)
     // eslint-disable-line react-hooks/rules-of-hooks
     getPoolLiquidity({
       poolId: Number(pool),
