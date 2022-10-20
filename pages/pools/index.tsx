@@ -132,12 +132,17 @@ export default function Pools() {
     await db.cacheFarms(farms)
     const farmsCahced = await db.queryFarms()
   }
-
+  console.log('farms: ', farms)
   const [myPools, allPools] = useMemo(() => {
     if (!liquidity?.length) return []
     const pools = [[], []]
     liquidity.forEach((liquidityInfo, index) => {
-      const poolIndex = liquidityInfo.myLiquidity.coins > 0 ? 0 : 1
+      console.log('liquidityInfo: ', liquidityInfo)
+      const poolIndex =
+        liquidityInfo.myLiquidity.coins > 0 ||
+        Number(farms && farms[index].userStaked) > 0
+          ? 0
+          : 1
       pools[poolIndex].push({
         poolId: tokenList?.pools[index]?.pool_id,
         farmInfo: farms ? farms[index] : {},

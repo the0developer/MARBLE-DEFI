@@ -7,7 +7,7 @@ import { Text } from '../../../components/Text'
 import { Button } from 'components/Button'
 import { toReadableNumber } from 'util/numbers'
 import { LP_TOKEN_DECIMALS } from 'util/m-token'
-
+import { convertMicroDenomToDenom } from 'util/conversion'
 interface UnbondingLiquidityCardProps {
   totalLiquidity: {
     coins: number
@@ -29,6 +29,14 @@ export const UnbondingLiquidityCard = ({
   const remainingTimestamp =
     Number(unbonding[0]) + lockInterval - currentTimestamp
   const remainingPercent = Math.floor((remainingTimestamp * 100) / lockInterval)
+  console.log(
+    'return value: ',
+    Number(convertMicroDenomToDenom(unbonding[1], LP_TOKEN_DECIMALS)),
+    unbonding[1],
+    LP_TOKEN_DECIMALS,
+    totalLiquidity,
+    unbonding[1].toString()
+  )
   return (
     <StyledElementForCard kind="wrapper">
       <StyledElementForCard kind="content">
@@ -36,11 +44,11 @@ export const UnbondingLiquidityCard = ({
           <Text variant="body" color="secondary">
             Unbonded tokens
           </Text>
-          <Text variant="body" css={{ padding: '$2 $6' }} color="body">
+          <Text variant="body" css={{ padding: '$2 $6' }} color="secondary">
             $
             {dollarValueFormatterWithDecimals(
               (Number(
-                toReadableNumber(LP_TOKEN_DECIMALS, unbonding[1].toString())
+                convertMicroDenomToDenom(unbonding[1], LP_TOKEN_DECIMALS)
               ) /
                 totalLiquidity?.coins) *
                 totalLiquidity.dollarValue ?? 0

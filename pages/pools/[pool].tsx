@@ -92,7 +92,7 @@ export default function Pool() {
           .catch((err) => console.log('Unbonding err: ', err))
       })
   }, [pool])
-
+  console.log('unbondings: ', unbondings)
   const initialSet = () => {
     setIsLoading(true)
     // eslint-disable-line react-hooks/rules-of-hooks

@@ -107,7 +107,9 @@ export const getMultiplePoolsLiquidity = async ({
         protectAgainstNaN((reserve[0] * myshare) / totalSupply),
         protectAgainstNaN((reserve[1] * myshare) / totalSupply),
       ]
-      const totalUsd = protectAgainstNaN(reserve[0] * coinPrice[tokens[0]] * 2)
+      const totalUsd = protectAgainstNaN(
+        reserve[0] * coinPrice[tokens[0]] * nearPrice * 2
+      )
       const myUsd = protectAgainstNaN((totalUsd * myshare) / totalSupply)
       return {
         pool_id: p.pool_id,
@@ -122,7 +124,7 @@ export const getMultiplePoolsLiquidity = async ({
           dollarValue: myUsd,
         },
         tokens,
-        tokenDollarValue: nearPrice,
+        tokenDollarValue: coinPrice[tokens[0]] * nearPrice,
       }
     })
     console.log('loading liquidity: ', liquidity)
