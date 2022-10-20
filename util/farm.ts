@@ -101,11 +101,12 @@ export const getUnbondListByAccountId = async ({
   accountId = getCurrentWallet().wallet.getAccountId(),
   seedId,
 }): Promise<[number, number][]> => {
+  // console.log('accountId, seedId: ', accountId, seedId)
   const unbondingList = await refFarmViewFunction({
     methodName: 'list_user_withdraw_requests',
     args: { account_id: accountId, seed_id: seedId },
   })
-
+  // console.log('unbondingList: ', unbondingList)
   return unbondingList
 }
 

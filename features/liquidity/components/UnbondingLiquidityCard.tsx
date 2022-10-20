@@ -61,7 +61,13 @@ export const UnbondingLiquidityCard = ({
               formatTimestamp(remainingTimestamp)
             ) : (
               <Button
-                css={{ padding: '$2 $6', borderRadius: '8px', fontSize: '$6' }}
+                css={{
+                  padding: '$2 $6',
+                  borderRadius: '8px',
+                  fontSize: '$6',
+                  background: 'white',
+                  color: 'black',
+                }}
                 onClick={() => onWithdraw(index)}
               >
                 Withdraw

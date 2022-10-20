@@ -29,16 +29,21 @@ import { stake, unstakeRequest, unstake } from 'util/m-token'
 import db, { FarmDexie } from 'store/RefDatabase'
 import { displayApr } from 'features/liquidity/components/PoolCard'
 import { getUnbondListByAccountId, claimRewardByFarm } from 'util/farm'
+import { getCurrentWallet } from 'util/sender-wallet'
 import {
   ContentWrapper,
   Container,
   StyledWrapperForNavigation,
 } from 'components/poolsStyle'
+// import { checkTransaction } from 'util/near'
+// import { getURLInfo } from 'components/transactionTipPopUp'
 
 export default function Pool() {
   const {
     query: { pool },
   } = useRouter()
+  const { accountId } = getCurrentWallet()
+  // const { txHash, pathname, errorType } = getURLInfo()
   const [isManageLiquidityDialogShowing, setIsManageLiquidityDialogShowing] =
     useState(false)
   const [isBondingDialogShowing, setIsBondingDialogShowing] = useState(false)
@@ -78,20 +83,34 @@ export default function Pool() {
     }
     // eslint-disable-line react-hooks/exhaustive-deps
   }, [pool, poolList, tokenA, tokenB, coinPrice])
-
+  // useEffect(() => {
+  //   if (txHash && getCurrentWallet().wallet.isSignedIn()) {
+  //     checkTransaction(txHash).then((res: any) => {
+  //       console.log('hardRefresh')
+  //       hardRefresh()
+  //     })
+  //   }
+  // }, [txHash])
   useEffect(() => {
-    if (!isNaN(Number(pool)))
+    if (!isNaN(Number(pool))) {
+      if (!accountId) return
+      // console.log('accountId----------: ', accountId)
       db.queryFarms().then((farms) => {
         const index = farms.map((r) => Number(r.pool_id)).indexOf(Number(pool))
         const farmInfo = farms[index]
         setFarmInfo(farmInfo)
-        getUnbondListByAccountId({ seedId: farmInfo?.seed_id })
+        console.log('farmInfo: ', farmInfo)
+        getUnbondListByAccountId({
+          accountId: accountId,
+          seedId: farmInfo?.seed_id,
+        })
           .then((res) => {
             setUnbondings(res)
           })
           .catch((err) => console.log('Unbonding err: ', err))
       })
-  }, [pool])
+    }
+  }, [pool, accountId])
   console.log('unbondings: ', unbondings)
   const initialSet = () => {
     setIsLoading(true)
@@ -122,6 +141,7 @@ export default function Pool() {
   const isLoadingInitial = !totalLiquidity || (!totalLiquidity && isLoading)
 
   const hardRefresh = () => {
+    console.log('herererwerwefsdfvwefdfvdf')
     setTimeout(() => {
       window.location.reload()
     }, 1000)
