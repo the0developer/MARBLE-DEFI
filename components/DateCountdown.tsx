@@ -214,7 +214,6 @@ class DateCountdown extends Component<DateCountdownProps, DateCountdownStates> {
   }
 
   tick() {
-    console.log('timer-tick: ', this.state.tickId)
     const { sec, min, hour, day, month, year, tickId } = this.state
     const { callback, loop, interval } = this.props
     if (

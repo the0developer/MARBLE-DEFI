@@ -6,7 +6,7 @@ import 'focus-visible'
 import React, { useReducer } from 'react'
 import { Provider } from 'react-redux'
 import type { AppProps } from 'next/app'
-// import { ErrorBoundary } from 'components/ErrorBoundary'
+import { ErrorBoundary } from 'components/ErrorBoundary'
 import { RecoilRoot } from 'recoil'
 import { QueryClientProvider } from 'react-query'
 import { Portal } from '@reach/portal'
@@ -29,27 +29,27 @@ function MyApp({ Component, pageProps }: AppProps) {
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <SafeHydrate>
-          {/* <ErrorBoundary> */}
-          <Provider store={store}>
-            <Component {...pageProps} />
-            {__TEST_MODE__ && <TestnetDialog />}
-            <Portal>
-              <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={true}
-                newestOnTop
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                toastStyle={{ zIndex: 150 }}
-                style={{ width: 'auto' }}
-              />
-            </Portal>
-          </Provider>
-          {/* </ErrorBoundary> */}
+          <ErrorBoundary>
+            <Provider store={store}>
+              <Component {...pageProps} />
+              {__TEST_MODE__ && <TestnetDialog />}
+              <Portal>
+                <ToastContainer
+                  position="top-right"
+                  autoClose={5000}
+                  hideProgressBar={true}
+                  newestOnTop
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  toastStyle={{ zIndex: 150 }}
+                  style={{ width: 'auto' }}
+                />
+              </Portal>
+            </Provider>
+          </ErrorBoundary>
         </SafeHydrate>
       </QueryClientProvider>
     </RecoilRoot>

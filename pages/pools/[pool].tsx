@@ -109,7 +109,6 @@ export default function Pool() {
         const index = farms.map((r) => Number(r.pool_id)).indexOf(Number(pool))
         const farmInfo = farms[index]
         setFarmInfo(farmInfo)
-        console.log('farmInfo: ', farmInfo)
         getUnbondListByAccountId({
           accountId: accountId,
           seedId: farmInfo?.seed_id,
@@ -150,7 +149,6 @@ export default function Pool() {
   const isLoadingInitial = !totalLiquidity || (!totalLiquidity && isLoading)
 
   const hardRefresh = () => {
-    console.log('herererwerwefsdfvwefdfvdf')
     setTimeout(() => {
       window.location.reload()
     }, 1000)

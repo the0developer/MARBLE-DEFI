@@ -28,14 +28,6 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
   start_at,
   onClaim,
 }) => {
-  console.log(
-    'poolInfo: ',
-    poolId,
-    tokenDollarValue,
-    myDailyReward,
-    reward_interval,
-    start_at
-  )
   const token = useBaseTokenInfo()
   const tokenInfo = useTokenInfoByPoolId(Number(poolId))
   const nearPrice = useSelector((state: any) => state.coinData.near_value)
