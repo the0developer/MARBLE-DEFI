@@ -149,7 +149,6 @@ export const getFarms = async ({
   const pool_ids = farms.map((f) => {
     return getLPTokenId(f.farm_id)
   })
-  console.log('farm pool Id: ', pool_ids)
   // let poolList: Record<string, PoolRPCView> = {};
   // const pools = await getPoolsByIds({ pool_ids });
   // console.log("farm pool pools: ", pools)
@@ -162,7 +161,6 @@ export const getFarms = async ({
   const tasks = farms.map(async (f) => {
     const poolId = getLPTokenId(f.farm_id)
     const index = liquidity.map((l) => l.pool_id).indexOf(Number(poolId))
-    console.log('farm liquidity: ', liquidity[index].totalLiquidity)
     const pool: PoolRPCView = {
       id: Number(poolId),
       token_account_ids: pools[index].token_address,
@@ -214,20 +212,11 @@ export const getFarmInfo = async (
 
   const poolTvl = tvl
   const poolSts = Number(pool.shares_total_supply)
-  console.log('farm tvl: ', tvl, poolSts)
   const userStaked = toReadableNumber(LP_TOKEN_DECIMALS, staked ?? '0')
   const rewardToken = await ftGetTokenMetadata(farm.reward_token)
-  console.log('farm reward', rewardToken)
   const rewardTokenPrice = tokenPriceList
     ? tokenPriceList[rewardToken.id]?.price || 0
     : 0
-  console.log(
-    'farm reward price',
-    tokenPriceList,
-    tokenPriceList[rewardToken.id],
-    rewardToken.id,
-    rewardTokenPrice
-  )
   const rewardNumber = toReadableNumber(rewardToken.decimals, reward) ?? '0'
   const seedAmount = seed ?? '0'
   const totalSeed = toReadableNumber(LP_TOKEN_DECIMALS, seedAmount)
@@ -274,8 +263,6 @@ export const getFarmInfo = async (
           toPrecision(((Number(totalSeed) * poolTvl) / poolSts).toString(), 1)
         )
 
-  console.log('farm apr calculation:', totalSeed, poolTvl, poolSts, totalStaked)
-  console.log('farm apr calcu: ', rewardsPerWeek, rewardTokenPrice)
   const apr =
     totalStaked === 0
       ? '0'
@@ -288,7 +275,6 @@ export const getFarmInfo = async (
           ).toString(),
           2
         )
-  console.log('far total apr: ', apr)
 
   if (farm.farm_status === 'Created') farm.farm_status = 'Pending'
   return {

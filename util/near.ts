@@ -335,7 +335,6 @@ export const sendTransactionForMarketplace = async (params: Transaction) => {
       },
     ],
   }
-  console.log('params: ', params)
   executeMultipleTransactions([transactionForStorageDeposit, params])
 }
 export const refFarmFunctionCall = ({

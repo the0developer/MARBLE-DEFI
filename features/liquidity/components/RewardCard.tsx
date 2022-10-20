@@ -21,7 +21,6 @@ export const RewardCard: React.FC = ({}) => {
 
   useEffect(() => {
     getRewardByTokenId(rewardToken).then((reward) => {
-      console.log('rewards: ', reward)
       setReward(reward)
     })
   }, [])

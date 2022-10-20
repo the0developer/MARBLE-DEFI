@@ -27,7 +27,6 @@ import { usePoolList } from 'hooks/usePoolList'
 import { PoolInfo } from 'features/liquidity/components/PoolInfo'
 import { stake, unstakeRequest, unstake } from 'util/m-token'
 import db, { FarmDexie } from 'store/RefDatabase'
-import { useDb } from 'hooks/useDb'
 import { displayApr } from 'features/liquidity/components/PoolCard'
 import { getUnbondListByAccountId, claimRewardByFarm } from 'util/farm'
 import {
@@ -37,7 +36,6 @@ import {
 } from 'components/poolsStyle'
 
 export default function Pool() {
-  useDb()
   const {
     query: { pool },
   } = useRouter()
@@ -89,7 +87,6 @@ export default function Pool() {
         setFarmInfo(farmInfo)
         getUnbondListByAccountId({ seedId: farmInfo?.seed_id })
           .then((res) => {
-            console.log('Unbonding: ', res)
             setUnbondings(res)
           })
           .catch((err) => console.log('Unbonding err: ', err))
@@ -158,7 +155,6 @@ export default function Pool() {
   if (!tokenA || !tokenB || !pool) {
     return null
   }
-  console.log('farmInfo: ', farmInfo)
   return (
     <ChakraProvider>
       {pool && (

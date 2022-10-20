@@ -69,14 +69,6 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
     onClaim()
   }
 
-  console.log(
-    'farm date to: ',
-    dateTo,
-    currentTimeStamp,
-    start_at,
-    reward_interval,
-    rewardCount
-  )
   return (
     <StyledElementForCard kind="wrapper">
       <StyledElementForToken>

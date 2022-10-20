@@ -86,11 +86,6 @@ export const TransactionAction = ({
     reEstimateTrigger,
     supportLedger,
   })
-  console.log(
-    'amount: ',
-    tokenValues[tokenA.tokenAddress],
-    tokenValues[tokenB.tokenAddress]
-  )
   useEffect(() => {
     if (setAmountOut) setAmountOut(minAmountOut)
   }, [minAmountOut])

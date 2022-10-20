@@ -71,13 +71,11 @@ export default function Pools() {
   // Todo: Change this to Dust vaule
   useEffect(() => {
     setIsloading(true)
-    console.log('loading called: ')
     // eslint-disable-line react-hooks/rules-of-hooks
     getMultiplePoolsLiquidity({
       pools,
       coinPrice,
     }).then(({ liquidity }: LiquidityReturnType) => {
-      console.log('loading finished: ', liquidity)
       setLiquidity(liquidity)
       if (liquidity.length > 0) loadFarmInfoList(liquidity, tokenList?.pools)
       setIsloading(false)
@@ -133,8 +131,6 @@ export default function Pools() {
     setFarms(farms)
     await db.cacheFarms(farms)
     const farmsCahced = await db.queryFarms()
-
-    console.log('Farm fetch all: farms: ', farms, farmsCahced)
   }
 
   const [myPools, allPools] = useMemo(() => {

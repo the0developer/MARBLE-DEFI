@@ -114,7 +114,6 @@ export const BondLiquidityDialog = ({
 
   const handleClick = async () => {
     if (isLoading || !liquidityDollarAmount) return
-    console.log('here')
     setIsLoading(true)
     const now = new Date()
     if (
@@ -124,13 +123,6 @@ export const BondLiquidityDialog = ({
       toast.error('Incentives are not started yet!')
       return
     }
-    console.log(
-      'farm Bond: ',
-      tokenAmount,
-      liquidityDollarAmount,
-      maxDollarValueLiquidity,
-      tokenAmount * (liquidityDollarAmount / maxDollarValueLiquidity)
-    )
     await onSubmit({
       type: dialogState,
       amount: Number(

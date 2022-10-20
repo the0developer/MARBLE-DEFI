@@ -19,8 +19,6 @@ import { getTokenBalance } from 'hooks/useTokenBalance'
 export const TokenSwap = () => {
   /* connect to recoil */
   const tokenValues = useSelector((state: any) => state.uiData.token_value)
-  const state = useSelector((state) => state)
-  console.log('state-------: ', state)
   const [[tokenA, tokenB], setTokenSwapState] = useRecoilState(tokenSwapAtom)
   const [balances, setBalances] = useState([0, 0])
   const [tokenRate, setTokenRate] = useState(0)

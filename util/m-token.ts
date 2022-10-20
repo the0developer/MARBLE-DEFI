@@ -192,7 +192,6 @@ export const unstake = async ({
   msg = '',
   poolId = '',
 }: UnstakeOptions) => {
-  console.log('unstake: ', seed_id)
   const transactions: Transaction[] = [
     {
       receiverId: process.env.NEXT_PUBLIC_FARM_CONTRACT_NAME,
@@ -220,7 +219,6 @@ export const unstake = async ({
     })
   }
 
-  console.log('unstake: ', transactions)
   return executeFarmMultipleTransactions(transactions)
 }
 

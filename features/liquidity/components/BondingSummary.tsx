@@ -96,7 +96,6 @@ export const BondingSummary = ({
 }
 
 const StyledNodeForToken = ({ logoURI, name, amount }) => {
-  console.log('farm token balance: ', amount)
   return (
     <StyledDivForToken>
       <StyledImgForTokenLogo as={logoURI ? 'img' : 'div'} src={logoURI} />

@@ -57,7 +57,6 @@ export const getMultiplePoolsLiquidity = async ({
   pools,
   coinPrice,
 }: LiquidtyRequestType): Promise<LiquidityReturnType> => {
-  console.log('coinPrice: ', coinPrice)
   const { getAccount } = useConnectWallet()
   const account = await getAccount()
   if (!account?.accountId) {
@@ -72,7 +71,6 @@ export const getMultiplePoolsLiquidity = async ({
     }
   )
 
-  console.log('loading request: ', pools)
   try {
     const poolInfos = await Promise.all(
       pools.map((p) => {
@@ -81,7 +79,6 @@ export const getMultiplePoolsLiquidity = async ({
       })
     )
 
-    console.log('loading pool: ', poolInfos)
     const balInfos = await Promise.all(
       pools.map((p) => {
         // @ts-ignore
@@ -91,11 +88,9 @@ export const getMultiplePoolsLiquidity = async ({
         })
       })
     )
-    console.log('loading bal: ', balInfos)
 
     // Todo: Add TOken price calculation algorithm
     const nearPrice: number = await useNearDollarValue()
-    console.log('nearPrice: ', nearPrice)
 
     const liquidity: LiquidityInfoType[] = pools.map((p, index) => {
       const decimals = p.token_address.map(
@@ -112,25 +107,8 @@ export const getMultiplePoolsLiquidity = async ({
         protectAgainstNaN((reserve[0] * myshare) / totalSupply),
         protectAgainstNaN((reserve[1] * myshare) / totalSupply),
       ]
-      console.log('mshare: ', myshare)
       const totalUsd = protectAgainstNaN(reserve[0] * coinPrice[tokens[0]] * 2)
       const myUsd = protectAgainstNaN((totalUsd * myshare) / totalSupply)
-      console.log('poooooooool: ', {
-        pool_id: p.pool_id,
-        reserve,
-        myReserve,
-        totalLiquidity: {
-          coins: convertMicroDenomToDenom(totalSupply, p.decimals),
-          dollarValue: totalUsd,
-        },
-        myLiquidity: {
-          coins: convertMicroDenomToDenom(myshare, p.decimals),
-          dollarValue: myUsd,
-        },
-        tokens,
-        tokenDollarValue: nearPrice,
-        coinValue: coinPrice[tokens[0]],
-      })
       return {
         pool_id: p.pool_id,
         reserve,

@@ -18,7 +18,6 @@ const DepositCard = ({ param }) => {
   const nearPrice = useNearDollarValue()
   const token = unsafelyGetTokenInfoFromAddress(param.tokenIds[0])
   const coinPrice = useSelector((state: any) => state.uiData.token_value)
-  console.log('poolInfo: ', param)
   useEffect(() => {
     getPoolLiquidity({
       poolId: Number(pool.id),

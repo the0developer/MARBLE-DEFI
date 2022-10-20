@@ -106,7 +106,6 @@ export const usePools = (props: {
   sortBy?: string
   order?: string
 }) => {
-  console.log('hereherehereherehere')
   const [page, setPage] = useState<number>(1)
   const [hasMore, setHasMore] = useState<boolean>(false)
   const [pools, setPools] = useState<Pool[]>([])
