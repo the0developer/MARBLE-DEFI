@@ -68,7 +68,6 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
     }
     onClaim()
   }
-
   return (
     <StyledElementForCard kind="wrapper">
       <StyledElementForToken>

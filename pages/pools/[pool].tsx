@@ -27,6 +27,7 @@ import { usePoolList } from 'hooks/usePoolList'
 import { PoolInfo } from 'features/liquidity/components/PoolInfo'
 import { stake, unstakeRequest, unstake } from 'util/m-token'
 import db, { FarmDexie } from 'store/RefDatabase'
+import { useDb } from 'hooks/useDb'
 import { displayApr } from 'features/liquidity/components/PoolCard'
 import { getUnbondListByAccountId, claimRewardByFarm } from 'util/farm'
 import { getCurrentWallet } from 'util/sender-wallet'
@@ -42,6 +43,7 @@ export default function Pool() {
   const {
     query: { pool },
   } = useRouter()
+  const isReady = useDb()
   const { accountId } = getCurrentWallet()
   // const { txHash, pathname, errorType } = getURLInfo()
   const [isManageLiquidityDialogShowing, setIsManageLiquidityDialogShowing] =
@@ -73,16 +75,23 @@ export default function Pool() {
     if (tokenA && tokenB) initialSet()
     if (!isNaN(Number(pool)) && poolList) {
       const poolById = poolList?.find((p) => p?.pool_id === Number(pool))
+      // console.log('poolList: ', poolList, poolById, pool)
       setPoolId(poolById?.pool_id)
       setPoolName(poolById?.name)
       setDecimals(poolById?.decimals)
       const tokenA = unsafelyGetTokenInfoFromAddress(poolById?.token_address[0])
       const tokenB = unsafelyGetTokenInfoFromAddress(poolById?.token_address[1])
+      // console.log(
+      //   'pool----1: ',
+      //   poolById?.token_address[0],
+      //   poolById?.token_address[0],
+      //   poolById
+      // )
       setTokenA(tokenA)
       setTokenB(tokenB)
     }
     // eslint-disable-line react-hooks/exhaustive-deps
-  }, [pool, poolList, tokenA, tokenB, coinPrice])
+  }, [pool, poolList, tokenA, tokenB, coinPrice, isReady])
   // useEffect(() => {
   //   if (txHash && getCurrentWallet().wallet.isSignedIn()) {
   //     checkTransaction(txHash).then((res: any) => {
@@ -94,6 +103,7 @@ export default function Pool() {
   useEffect(() => {
     if (!isNaN(Number(pool))) {
       if (!accountId) return
+
       // console.log('accountId----------: ', accountId)
       db.queryFarms().then((farms) => {
         const index = farms.map((r) => Number(r.pool_id)).indexOf(Number(pool))
@@ -110,10 +120,11 @@ export default function Pool() {
           .catch((err) => console.log('Unbonding err: ', err))
       })
     }
-  }, [pool, accountId])
+  }, [pool, accountId, isReady])
   console.log('unbondings: ', unbondings)
   const initialSet = () => {
     setIsLoading(true)
+    console.log('initialSet: ', pool)
     // eslint-disable-line react-hooks/rules-of-hooks
     getPoolLiquidity({
       poolId: Number(pool),

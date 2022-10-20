@@ -289,7 +289,6 @@ class DateCountdown extends Component<DateCountdownProps, DateCountdownStates> {
     if (valStr.length === 1) {
       valStr = `0${valStr}`
     }
-    console.log('digit: ', valStr)
     return valStr.split('').map((digit, key) => (
       <span key={`value-${key}`} className={key.toString()}>
         {digit}

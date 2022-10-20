@@ -1,6 +1,7 @@
 import { useQuery, QueryKey } from 'react-query'
 import { queryClient } from 'services/queryClient'
 import { TokenInfo } from './useTokenList'
+import { useState, useEffect } from 'react'
 
 export type PoolInfo = {
   id: string
@@ -42,21 +43,33 @@ export type TokenList = {
 }
 
 export const usePoolList = () => {
-  const { data, isLoading } = useQuery<TokenList>(
-    ['@token-list'] as QueryKey,
-    async () => {
+  // const { data, isLoading } = useQuery<TokenList>(
+  //   ['@token-list'] as QueryKey,
+  //   async () => {
+  //     console.log('userPoolList')
+  //     const response = await fetch(process.env.NEXT_PUBLIC_TOKEN_BLOCK_LIST_URL)
+  //     console.log('userPoolList: ', await response.json())
+  //     return await response.json()
+  //   },
+  //   {
+  //     onError(e) {
+  //       console.error('Error loading token list:', e)
+  //     },
+  //     refetchOnMount: false,
+  //     refetchIntervalInBackground: true,
+  //     refetchInterval: 1000 * 60,
+  //   }
+  // )
+  const [data, setData] = useState<any>({})
+  const [isLoading, setIsLoading] = useState(true)
+  useEffect(() => {
+    ;(async () => {
       const response = await fetch(process.env.NEXT_PUBLIC_TOKEN_BLOCK_LIST_URL)
-      return await response.json()
-    },
-    {
-      onError(e) {
-        console.error('Error loading token list:', e)
-      },
-      refetchOnMount: false,
-      refetchIntervalInBackground: true,
-      refetchInterval: 1000 * 60,
-    }
-  )
-
+      const jsonData = await response.json()
+      console.log('response: ', response, jsonData)
+      setData(jsonData)
+      setIsLoading(false)
+    })()
+  }, [])
   return [data?.pools || [], isLoading] as const
 }
