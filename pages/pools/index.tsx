@@ -40,7 +40,7 @@ export default function Pools() {
   const [seeds, setSeeds] = useState<Record<string, string>>({})
   const [farms, setFarms] = useState<FarmInfo[]>()
   const nearValue = useSelector((state: any) => state.coinData.near_value)
-
+  const coinPrice = useSelector((state: any) => state.uiData.token_value)
   const page = 1
   const perPage = DEFAULT_PAGE_LIMIT
   const rewardToken = 'dust.cmdev0.testnet'
@@ -75,6 +75,7 @@ export default function Pools() {
     // eslint-disable-line react-hooks/rules-of-hooks
     getMultiplePoolsLiquidity({
       pools,
+      coinPrice,
     }).then(({ liquidity }: LiquidityReturnType) => {
       console.log('loading finished: ', liquidity)
       setLiquidity(liquidity)

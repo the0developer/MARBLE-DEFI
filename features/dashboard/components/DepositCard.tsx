@@ -8,6 +8,7 @@ import { unsafelyGetTokenInfoFromAddress } from 'hooks/useTokenInfo'
 import { useNearDollarValue } from 'hooks/useTokenDollarValue'
 import { nearViewFunction } from 'util/near'
 import { convertMicroDenomToDenom } from 'util/conversion'
+import { useSelector } from 'react-redux'
 
 const DepositCard = ({ param }) => {
   const { pool } = param
@@ -16,12 +17,14 @@ const DepositCard = ({ param }) => {
   const [totalSupply, setTotalSupply] = useState(0)
   const nearPrice = useNearDollarValue()
   const token = unsafelyGetTokenInfoFromAddress(param.tokenIds[0])
+  const coinPrice = useSelector((state: any) => state.uiData.token_value)
   console.log('poolInfo: ', param)
   useEffect(() => {
     getPoolLiquidity({
       poolId: Number(pool.id),
       tokenAddress: [param.tokenIds[0], param.tokenIds[1]],
       decimals,
+      coinPrice,
     })
       .then(({ liquidity }) => {
         setTokenPrice(

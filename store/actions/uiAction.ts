@@ -52,7 +52,7 @@ export const setUIData =
 export const getTokenPriceInUsd = (dispatch: Dispatch<AnyAction>) => {
   Promise.all(
     Pools.map((value) => {
-      return getPoolLiquidity(value)
+      return getPoolLiquidity({ ...value, coinPrice: {} })
     })
   )
     .then((value) => {

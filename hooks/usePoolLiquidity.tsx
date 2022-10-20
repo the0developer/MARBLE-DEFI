@@ -3,6 +3,7 @@ import { convertMicroDenomToDenom, protectAgainstNaN } from 'util/conversion'
 import * as nearAPI from 'near-api-js'
 import { unsafelyGetTokenInfoFromAddress } from 'hooks/useTokenInfo'
 import { useConnectWallet } from './useConnectWallet'
+import { useSelector } from 'react-redux'
 // import {refFiViewFunction} from "../util/near"
 
 export type LiquidityType = {
@@ -29,25 +30,34 @@ export type PoolRequestType = {
 
 export type LiquidtyRequestType = {
   pools: PoolRequestType[]
+  coinPrice: any
 }
 
 export type LiquidityReturnType = {
   liquidity: LiquidityInfoType[]
 }
 
-export const getPoolLiquidity = async ({ poolId, tokenAddress, decimals }) => {
+export const getPoolLiquidity = async ({
+  poolId,
+  tokenAddress,
+  decimals,
+  coinPrice,
+}) => {
   const { liquidity } = await getMultiplePoolsLiquidity({
     pools:
       poolId !== undefined && tokenAddress.length > 0
         ? [{ pool_id: poolId, token_address: tokenAddress, decimals }]
         : undefined,
+    coinPrice,
   })
   return { liquidity: liquidity?.[0] }
 }
 
 export const getMultiplePoolsLiquidity = async ({
   pools,
+  coinPrice,
 }: LiquidtyRequestType): Promise<LiquidityReturnType> => {
+  console.log('coinPrice: ', coinPrice)
   const { getAccount } = useConnectWallet()
   const account = await getAccount()
   if (!account?.accountId) {
@@ -102,9 +112,25 @@ export const getMultiplePoolsLiquidity = async ({
         protectAgainstNaN((reserve[0] * myshare) / totalSupply),
         protectAgainstNaN((reserve[1] * myshare) / totalSupply),
       ]
-
-      const totalUsd = protectAgainstNaN(reserve[0] * nearPrice * 2)
+      console.log('mshare: ', myshare)
+      const totalUsd = protectAgainstNaN(reserve[0] * coinPrice[tokens[0]] * 2)
       const myUsd = protectAgainstNaN((totalUsd * myshare) / totalSupply)
+      console.log('poooooooool: ', {
+        pool_id: p.pool_id,
+        reserve,
+        myReserve,
+        totalLiquidity: {
+          coins: convertMicroDenomToDenom(totalSupply, p.decimals),
+          dollarValue: totalUsd,
+        },
+        myLiquidity: {
+          coins: convertMicroDenomToDenom(myshare, p.decimals),
+          dollarValue: myUsd,
+        },
+        tokens,
+        tokenDollarValue: nearPrice,
+        coinValue: coinPrice[tokens[0]],
+      })
       return {
         pool_id: p.pool_id,
         reserve,

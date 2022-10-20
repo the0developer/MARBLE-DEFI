@@ -16,6 +16,7 @@ import {
 import { DEFAULT_PAGE_LIMIT } from 'util/pool'
 import db from 'store/RefDatabase'
 import DepositCard from './components/DepositCard'
+import { useSelector } from 'react-redux'
 
 const page = 1
 const perPage = DEFAULT_PAGE_LIMIT
@@ -24,6 +25,7 @@ export const Dashboard = () => {
   const [tokenList] = useTokenList()
   const [isLoading, setIsloading] = useState(false)
   const [liquidity, setLiquidity] = useState<LiquidityInfoType[]>()
+  const coinPrice = useSelector((state: any) => state.uiData.token_value)
   const [farms, setFarms] = useState<FarmInfo[]>()
   const rewardToken = 'dust.cmdev0.testnet'
   const [supportedTokens, pools] = useMemo(() => {
@@ -48,6 +50,7 @@ export const Dashboard = () => {
     // eslint-disable-line react-hooks/rules-of-hooks
     getMultiplePoolsLiquidity({
       pools,
+      coinPrice,
     }).then(({ liquidity }: LiquidityReturnType) => {
       setLiquidity(liquidity)
       if (liquidity.length > 0) loadFarmInfoList(liquidity, tokenList?.pools)

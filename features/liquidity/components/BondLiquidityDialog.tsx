@@ -1,4 +1,5 @@
 import { Dialog, StyledCloseIcon } from 'components/Dialog'
+import { useSelector } from 'react-redux'
 import { Text } from 'components/Text'
 import { styled } from 'components/theme'
 import { LiquidityInputSelector } from './LiquidityInputSelector'
@@ -38,7 +39,7 @@ export const BondLiquidityDialog = ({
 
   const [tokenA, setTokenA] = useState<TokenInfo>()
   const [tokenB, setTokenB] = useState<TokenInfo>()
-
+  const coinPrice = useSelector((state: any) => state.uiData.token_value)
   const [totalLiquidity, setTotalLiquidity] = useState<LiquidityType>({
     coins: 0,
     dollarValue: 0,
@@ -74,6 +75,7 @@ export const BondLiquidityDialog = ({
       poolId: Number(poolId),
       tokenAddress: [tokenA?.token_address, tokenB?.token_address],
       decimals,
+      coinPrice,
     })
       .then(({ liquidity }) => {
         setTotalLiquidity(liquidity.totalLiquidity)
@@ -126,13 +128,15 @@ export const BondLiquidityDialog = ({
       'farm Bond: ',
       tokenAmount,
       liquidityDollarAmount,
-      maxDollarValueLiquidity
+      maxDollarValueLiquidity,
+      tokenAmount * (liquidityDollarAmount / maxDollarValueLiquidity)
     )
     await onSubmit({
       type: dialogState,
       amount: Number(
         tokenAmount * (liquidityDollarAmount / maxDollarValueLiquidity)
       ),
+      isFull: liquidityDollarAmount / maxDollarValueLiquidity === 1,
     })
     setIsLoading(false)
     setLiquidityDollarAmount(0)

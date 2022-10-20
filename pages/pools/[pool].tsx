@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { styled } from 'components/theme'
 import Head from 'next/head'
+import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { AppLayout } from 'components/Layout/AppLayout'
@@ -26,6 +27,7 @@ import { usePoolList } from 'hooks/usePoolList'
 import { PoolInfo } from 'features/liquidity/components/PoolInfo'
 import { stake, unstakeRequest, unstake } from 'util/m-token'
 import db, { FarmDexie } from 'store/RefDatabase'
+import { useDb } from 'hooks/useDb'
 import { displayApr } from 'features/liquidity/components/PoolCard'
 import { getUnbondListByAccountId, claimRewardByFarm } from 'util/farm'
 import {
@@ -35,6 +37,7 @@ import {
 } from 'components/poolsStyle'
 
 export default function Pool() {
+  useDb()
   const {
     query: { pool },
   } = useRouter()
@@ -62,7 +65,7 @@ export default function Pool() {
   const [decimals, setDecimals] = useState(24)
   const [farmInfo, setFarmInfo] = useState<FarmDexie>()
   const [unbondings, setUnbondings] = useState<[number, number][]>([])
-
+  const coinPrice = useSelector((state: any) => state.uiData.token_value)
   useEffect(() => {
     if (tokenA && tokenB) initialSet()
     if (!isNaN(Number(pool)) && poolList) {
@@ -100,6 +103,7 @@ export default function Pool() {
       poolId: Number(pool),
       tokenAddress: [tokenA?.token_address, tokenB?.token_address],
       decimals,
+      coinPrice,
     })
       .then(({ liquidity }) => {
         setTotalLiquidity(liquidity.totalLiquidity)
@@ -126,13 +130,14 @@ export default function Pool() {
     }, 1000)
   }
 
-  const onSubmit = ({ type, amount }) => {
+  const onSubmit = ({ type, amount, isFull = false }) => {
     const poolById = poolList?.find((p) => p?.pool_id === Number(pool))
     if (type === 'bond') {
       stake({
         token_id: poolById.token_id,
         poolId: poolById.pool_id.toString(),
         amount: amount.toString(),
+        isFull,
       })
     } else {
       unstakeRequest({
@@ -153,6 +158,7 @@ export default function Pool() {
   if (!tokenA || !tokenB || !pool) {
     return null
   }
+  console.log('farmInfo: ', farmInfo)
   return (
     <ChakraProvider>
       {pool && (
