@@ -77,7 +77,7 @@ export default function Pool() {
       setTokenB(tokenB)
     }
     // eslint-disable-line react-hooks/exhaustive-deps
-  }, [pool, poolList, tokenA, tokenB])
+  }, [pool, poolList, tokenA, tokenB, coinPrice])
 
   useEffect(() => {
     if (!isNaN(Number(pool)))

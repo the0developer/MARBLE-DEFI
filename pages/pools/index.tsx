@@ -80,7 +80,7 @@ export default function Pools() {
       if (liquidity.length > 0) loadFarmInfoList(liquidity, tokenList?.pools)
       setIsloading(false)
     })
-  }, [pools])
+  }, [pools, coinPrice])
 
   const loadFarmInfoList = async (liquidity, pools) => {
     let Params: [

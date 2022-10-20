@@ -66,7 +66,7 @@ export const BondLiquidityDialog = ({
       setTokenB(tokenB)
     }
     // eslint-disable-line react-hooks/exhaustive-deps
-  }, [poolId, poolList, tokenA, tokenB])
+  }, [poolId, poolList, tokenA, tokenB, coinPrice])
 
   const initialSet = () => {
     setIsLoading(true)

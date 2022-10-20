@@ -34,7 +34,7 @@ const DepositCard = ({ param }) => {
       .catch((err) => {
         console.log(err)
       })
-  }, [param])
+  }, [param, coinPrice])
   useEffect(() => {
     ;(async () => {
       const total_supply = await nearViewFunction({
