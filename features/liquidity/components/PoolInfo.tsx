@@ -77,13 +77,13 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
       <StyledElementForToken>
         <Title>Rewards distribution in</Title>
         <Value>
-          {/* <DateCountdown
+          <DateCountdown
             dateTo={dateTo || Number(new Date()) / 1000}
             loop
             interval={Number(reward_interval) || 0}
             mostSignificantFigure="hour"
             numberOfFigures={3}
-          /> */}
+          />
         </Value>
       </StyledElementForToken>
       {myDailyReward !== undefined && (
