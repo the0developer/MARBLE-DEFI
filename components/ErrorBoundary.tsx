@@ -18,10 +18,10 @@ export class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
   }
 
   render() {
-    if (this.state.hasError) {
-      // You can render any custom fallback UI
-      return <h1>Something went wrong.</h1>
-    }
+    // if (this.state.hasError) {
+    //   // You can render any custom fallback UI
+    //   return <h1>Something went wrong.</h1>
+    // }
     //@ts-ignore
     return this.props.children
   }
