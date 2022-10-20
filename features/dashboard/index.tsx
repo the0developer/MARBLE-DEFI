@@ -26,7 +26,6 @@ export const Dashboard = () => {
   const [isLoading, setIsloading] = useState(false)
   const [liquidity, setLiquidity] = useState<LiquidityInfoType[]>()
   const coinPrice = useSelector((state: any) => state.uiData.token_value)
-  console.log('coinPrice: ', coinPrice)
   const [farms, setFarms] = useState<FarmInfo[]>()
   const rewardToken = 'dust.cmdev0.testnet'
   const [supportedTokens, pools] = useMemo(() => {

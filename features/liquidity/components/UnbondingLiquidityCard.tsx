@@ -29,14 +29,6 @@ export const UnbondingLiquidityCard = ({
   const remainingTimestamp =
     Number(unbonding[0]) + lockInterval - currentTimestamp
   const remainingPercent = Math.floor((remainingTimestamp * 100) / lockInterval)
-  console.log(
-    'return value: ',
-    Number(convertMicroDenomToDenom(unbonding[1], LP_TOKEN_DECIMALS)),
-    unbonding[1],
-    LP_TOKEN_DECIMALS,
-    totalLiquidity,
-    unbonding[1].toString()
-  )
   return (
     <StyledElementForCard kind="wrapper">
       <StyledElementForCard kind="content">
