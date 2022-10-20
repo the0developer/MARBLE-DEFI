@@ -22,7 +22,6 @@ const Accordion = ({ label, icon, children, isActive }) => {
   const handleClick = () => {
     setIsOpen((prevState) => !prevState)
   }
-  console.log('isOpen: ', isOpen)
   return (
     <Container>
       <MenuEntry onClick={handleClick} isActive={isActive}>
