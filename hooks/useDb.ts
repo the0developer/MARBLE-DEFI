@@ -36,7 +36,7 @@ export const useDb = () => {
 
     return [tokenList, poolIdsCollection]
     // eslint-disable-line react-hooks/exhaustive-deps
-  }, [tokenList?.pools])
+  }, [tokenList?.pools, coinPrice])
   const rewardToken = 'dust.cmdev0.testnet'
   // Todo: Change this to Dust vaule
   useEffect(() => {
@@ -48,7 +48,7 @@ export const useDb = () => {
       setLiquidity(liquidity)
       if (liquidity.length > 0) loadFarmInfoList(liquidity, tokenList?.pools)
     })
-  }, [pools])
+  }, [pools, coinPrice])
 
   const loadFarmInfoList = async (liquidity, pools) => {
     let Params: [
