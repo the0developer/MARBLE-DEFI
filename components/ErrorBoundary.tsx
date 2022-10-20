@@ -22,7 +22,7 @@ export class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
       // You can render any custom fallback UI
       return <h1>Something went wrong.</h1>
     }
-
+    //@ts-ignore
     return this.props.children
   }
 }
