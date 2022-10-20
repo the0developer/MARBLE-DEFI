@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons'
 const MENU_ENTRY_HEIGHT = 50
@@ -18,10 +18,11 @@ const AccordionContent = styled.div<{ isOpen: boolean; maxHeight: number }>`
 `
 
 const Accordion = ({ label, icon, children, isActive }) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState<boolean>(isActive)
   const handleClick = () => {
     setIsOpen((prevState) => !prevState)
   }
+  console.log('isOpen: ', isOpen)
   return (
     <Container>
       <MenuEntry onClick={handleClick} isActive={isActive}>
