@@ -197,9 +197,7 @@ class RefDatabase extends Dexie {
   }
 
   public async cacheFarms(farms: any) {
-    console.log('herehere: 5')
     await this.farms.clear()
-    console.log('herehere: 6')
     const farmsInfo = farms.map((farm) => ({
       id: farm.farm_id,
       pool_id: farm.pool.id,
@@ -213,7 +211,6 @@ class RefDatabase extends Dexie {
       seed_id: farm.seed_id,
     }))
     await this.farms.bulkPut(farmsInfo)
-    console.log('herehere: 7')
   }
 
   public async cachePoolsByTokens(pools: any) {

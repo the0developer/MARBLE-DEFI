@@ -41,7 +41,6 @@ export const useDb = () => {
   const rewardToken = 'dust.cmdev0.testnet'
   // Todo: Change this to Dust vaule
   useEffect(() => {
-    console.log('herehere: 2')
     // eslint-disable-line react-hooks/rules-of-hooks
     getMultiplePoolsLiquidity({
       pools,
@@ -53,7 +52,6 @@ export const useDb = () => {
   }, [pools, coinPrice])
 
   const loadFarmInfoList = async (liquidity, pools) => {
-    console.log('herehere: 3')
     let Params: [
       Promise<Record<string, string>>,
       Promise<Record<string, string>>,
@@ -94,7 +92,6 @@ export const useDb = () => {
       liquidity,
       pools,
     })
-    console.log('herehere: 4')
     await db.cacheFarms(farms)
     setLoading(false)
   }
