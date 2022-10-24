@@ -16,7 +16,7 @@ export const ConvenienceBalanceButtons = ({
   disabled,
   onChange,
 }: ConvenienceBalanceButtonsProps) => {
-  const baseToken = useBaseTokenInfo()
+  // const baseToken = useBaseTokenInfo()
   return (
     !disabled && (
       <>
@@ -25,7 +25,7 @@ export const ConvenienceBalanceButtons = ({
           className="mini-hidden"
           onClick={() => {
             let amount =
-              tokenSymbol === 'JUNO' ? availableAmount - 0.025 : availableAmount
+              tokenSymbol === 'NEAR' ? availableAmount - 0.1 : availableAmount
             onChange(amount)
           }}
         >

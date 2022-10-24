@@ -21,7 +21,7 @@ export const getTokenBalance = async (tokenInfo) => {
   if (!wallet.getAccountId()) return 0
   if (tokenInfo.symbol === 'NEAR') {
     const res = await wallet.account().getAccountBalance()
-    return convertMicroDenomToDenom(Number(res.total), tokenInfo.decimals)
+    return convertMicroDenomToDenom(Number(res.available), tokenInfo.decimals)
   }
 
   const hera = new nearAPI.Contract(

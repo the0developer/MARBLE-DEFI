@@ -265,6 +265,11 @@ function AddLiquidityContent({
   isLoading,
   onChangeLiquidity,
 }) {
+  const preferredToken = tokenABalance === maxApplicableBalanceForTokenA
+  const percentageInputRef = useRef<HTMLInputElement>()
+  useEffect(() => {
+    percentageInputRef.current?.focus()
+  }, [])
   const handleTokenAAmountChange = (input: number) => {
     const value = Math.min(input, maxApplicableBalanceForTokenA)
 
@@ -289,10 +294,13 @@ function AddLiquidityContent({
   const handleApplyMaximumAmount = () => {
     handleTokenAAmountChange(maxApplicableBalanceForTokenA)
   }
-
+  const handleChangeTokenAmount = (value) => {
+    if (preferredToken) handleTokenAAmountChange(value)
+    else handleTokenBAmountChange(value)
+  }
   return (
     <Stack spacing={10} alignItems="center">
-      <StyledDivForLiquidityInputs>
+      {/* <StyledDivForLiquidityInputs>
         <LiquidityInput
           tokenSymbol={tokenASymbol}
           availableAmount={tokenABalance ? tokenABalance : 0}
@@ -307,15 +315,68 @@ function AddLiquidityContent({
           amount={liquidityAmounts[1]}
           onAmountChange={handleTokenBAmountChange}
         />
-      </StyledDivForLiquidityInputs>
-      <StyledDivForLiquidityInputs>
+      </StyledDivForLiquidityInputs> */}
+      {/* <StyledDivForLiquidityInputs>
         <MaxButton
           onClick={handleApplyMaximumAmount}
-          leftIcon={<IconWrapper icon={<RoundedPlus />} />}
+          // leftIcon={<IconWrapper icon={<RoundedPlus />} />}
         >
-          Provide max liquidity
+          Max
         </MaxButton>
-      </StyledDivForLiquidityInputs>
+      </StyledDivForLiquidityInputs> */}
+      <StyledDivForRemoveLiquidityInputs>
+        <StyledDivForAddLiquidityInputsWrapper>
+          <LiquidityInput
+            tokenSymbol={tokenASymbol}
+            availableAmount={tokenABalance ? tokenABalance : 0}
+            maxApplicableAmount={maxApplicableBalanceForTokenA}
+            amount={liquidityAmounts[0]}
+            onAmountChange={handleTokenAAmountChange}
+          />
+          <LiquidityInput
+            tokenSymbol={tokenBSymbol}
+            availableAmount={tokenBBalance ? tokenBBalance : 0}
+            maxApplicableAmount={maxApplicableBalanceForTokenB}
+            amount={liquidityAmounts[1]}
+            onAmountChange={handleTokenBAmountChange}
+          />
+          <LiquidityInputSelector
+            inputRef={percentageInputRef}
+            maxLiquidity={
+              preferredToken
+                ? maxApplicableBalanceForTokenA
+                : maxApplicableBalanceForTokenB
+            }
+            liquidity={
+              preferredToken ? liquidityAmounts[0] : liquidityAmounts[1]
+            }
+            onChangeLiquidity={handleChangeTokenAmount}
+          />
+          {/* <StyledGridForDollarValueTxInfo>
+            <Text
+              variant="caption"
+              color="primary"
+              css={{ padding: '$6 0 $9', fontFamily: 'Trajan' }}
+            >
+              Available:&nbsp;
+              {dollarValueFormatterWithDecimals(maxApplicableBalanceForTokenA, {
+                includeCommaSeparation: true,
+              })}
+            </Text>
+          </StyledGridForDollarValueTxInfo> */}
+        </StyledDivForAddLiquidityInputsWrapper>
+
+        <Divider />
+        <PercentageSelection
+          maxLiquidity={
+            preferredToken
+              ? maxApplicableBalanceForTokenA
+              : maxApplicableBalanceForTokenB
+          }
+          liquidity={preferredToken ? liquidityAmounts[0] : liquidityAmounts[1]}
+          onChangeLiquidity={handleChangeTokenAmount}
+        />
+      </StyledDivForRemoveLiquidityInputs>
     </Stack>
   )
 }
@@ -331,12 +392,10 @@ function RemoveLiquidityContent({
   myLiquidity,
 }) {
   // Todo: implement token price calculate
-  const [tokenPrice, setTokenPrice] = useState(0)
   const percentageInputRef = useRef<HTMLInputElement>()
-
+  // const tokenPrice = useNearDollarValue()
   useEffect(() => {
     percentageInputRef.current?.focus()
-    setTokenPrice(useNearDollarValue())
   }, [])
 
   const availableLiquidityDollarValue = myLiquidity.dollarValue
@@ -346,7 +405,12 @@ function RemoveLiquidityContent({
   const handleChangeLiquidity = (value) => {
     onChangeLiquidity(value)
   }
-
+  // console.log(
+  //   'removeLiquidity: ',
+  //   percentageInputRef,
+  //   availableLiquidityDollarValue,
+  //   liquidityAmount
+  // )
   return (
     <>
       <StyledDivForRemoveLiquidityInputs>
@@ -451,7 +515,7 @@ const MaxButton = styled(Button)`
     inset 0px 7px 24px rgb(109 109 120 / 20%) !important;
   border-radius: 20px !important;
   color: white !important;
-  width: 100% !important;
+  width: fit-content;
   height: 54px !important;
   font-family: Trajan;
 `
@@ -477,11 +541,22 @@ const StyledDivForRemoveLiquidityInputs = styled.div`
   box-shadow: 0px 4px 40px rgb(42 47 50 / 9%),
     inset 0px 7px 24px rgb(109 109 120 / 20%);
   border-radius: 20px;
+  width: 100%;
 `
 const StyledDivForRemoveLiquidityInputsWrapper = styled.div`
   padding: 25px 30px 0 30px;
   @media (max-width: 1550px) {
     padding: 25px 20px 0 25px;
+  }
+`
+
+const StyledDivForAddLiquidityInputsWrapper = styled.div`
+  padding: 25px 30px 25px 30px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  @media (max-width: 1550px) {
+    padding: 25px 20px 25px 25px;
   }
 `
 
