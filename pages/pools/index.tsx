@@ -237,7 +237,7 @@ export default function Pools() {
 }
 
 const Container = styled.div`
-  padding: 20px 60px 0px 60px;
+  padding:45px 60px;
   height: 100%;
   position: relative;
   @media (max-width: 1550px) {
@@ -251,21 +251,25 @@ const Divider = styled.div`
 `
 const Header = styled.div`
   text-align: center;
+  margin-bottom:30px;
   h1 {
     font-size: 40px;
-    font-weight: 700;
+    font-weight: 500;
     font-family: Trajan;
+    margin-bottom: 22px;
+
   }
   p {
     font-size: 20px;
     font-family: Trajan;
     opacity: 0.8;
+    font-weight:300;
   }
   @media (max-width: 1550px) {
     h1 {
       font-size: 30px;
       font-weight: 300;
-      font-weight: 700;
+      font-weight: 600;
     }
     p {
       font-size: 15px;

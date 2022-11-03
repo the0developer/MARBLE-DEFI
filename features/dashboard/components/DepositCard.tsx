@@ -76,15 +76,15 @@ const DepositCard = ({ param }) => {
 
 const Container = styled.div`
   border-radius: 20px;
-  background-color: #2e303e;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0px 4px 40px rgb(42 47 50 / 9%),
+  // background-color: #2e303e;
+  // border: 1px solid rgba(255, 255, 255, 0.2);
+  // box-shadow: 0px 4px 40px rgb(42 47 50 / 9%),
     inset 0px 7px 24px rgb(109 109 120 / 20%);
   padding: 30px;
   display: flex;
   flex-direction: column;
   row-gap: 15px;
-  backdrop-filter: blur(40px);
+  // backdrop-filter: blur(40px);
   width: 100%;
   @media (max-width: 1550px) {
     padding: 20px;
