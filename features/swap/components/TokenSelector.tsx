@@ -59,7 +59,7 @@ export const TokenSelector = ({
   }
 
   return (
-    <StyledDivForContainer
+    <StyledDivForContainer className="dashboard-card"
       ref={wrapperRef}
       isFirst={!readOnly}
       isOpened={isTokenListShowing}
@@ -158,8 +158,9 @@ const ColumnFlex = styled.div`
 `
 
 const Text = styled.div`
-  font-size: 22px;
+  font-size: 18px;
   color: white;
+  font-weight:100;
   opacity: 0.6;
   font-family: Trajan;
   @media (max-width: 1550px) {
@@ -216,11 +217,11 @@ const StyledDivForContainer = styled.div<{
 }>`
   border-radius: 20px;
   padding: 0 20px;
-  background-color: #2e303e;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09),
-    inset 0px 7px 24px rgba(109, 109, 120, 0.2);
-  backdrop-filter: blur(400px);
+  // background-color: #2e303e;
+  // border: 1px solid rgba(255, 255, 255, 0.2);
+  // box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09),
+  //   inset 0px 7px 24px rgba(109, 109, 120, 0.2);
+  // backdrop-filter: blur(400px);
   color: white;
   position: relative;
   z-index: ${({ isFirst, isOpened }) =>

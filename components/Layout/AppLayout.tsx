@@ -28,14 +28,14 @@ export const AppLayout = ({
     <ChakraProvider>
       <StyledWrapper spacing={10} className="style-wrapper">
         <NavigationSidebar />
-        <StyledContainer >{children}</StyledContainer>
+        <StyledContainer className="dashboard-card">{children}</StyledContainer>
       </StyledWrapper>
     </ChakraProvider>
   )
 }
 
 const StyledWrapper = styled(HStack)`
-  display: flex;
+  // display: flex;
   background-image: url('/images/background.jpg');
   background-position: center;
   background-repeat: no-repeat;
@@ -51,12 +51,8 @@ const StyledWrapper = styled(HStack)`
 const StyledContainer = styled.div`
   position: relative;
   width: 100%;
-  min-height: calc(100vh - 180px);
   height:100%;
   background: rgba(255, 255, 255, 0.09);
-  // box-shadow: 0px 7px 14px rgba(0, 0, 0, 0.1),
-  //   inset 0px 14px 24px rgba(17, 20, 29, 0.4);
-  // border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 20px;
   @media (max-width: 1550px) {
     height: calc(100vh - 80px);

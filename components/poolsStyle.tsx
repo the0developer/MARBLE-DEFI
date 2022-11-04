@@ -2,11 +2,11 @@ import styled from 'styled-components'
 
 export const ContentWrapper = styled.div`
   overflow: auto;
-  position: absolute;
-  right: 20px;
-  left: 20px;
-  bottom: 20px;
-  top: 140px;
+  // position: absolute;
+  // right: 20px;
+  // left: 20px;
+  // bottom: 20px;
+  // top: 140px;
   ::-webkit-scrollbar {
     width: 6px;
   }

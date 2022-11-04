@@ -46,7 +46,7 @@ const DepositCard = ({ param }) => {
     })()
   }, [param])
   return (
-    <Container>
+    <Container className="dashboard-card">
       <Header>
         <IconWrapper>
           <Img src={token.icon} alt="token" />
@@ -64,7 +64,7 @@ const DepositCard = ({ param }) => {
       </ValueCard>
       <ButtonWrapper>
         <Link href="/swap">
-          <StyledButton className="btn-default" variant="primary">
+          <StyledButton className="btn-default btn-wrapper" variant="primary">
             {' '}
             Buy
           </StyledButton>
@@ -96,7 +96,8 @@ const IconWrapper = styled.div`
   font-size: 24px;
   align-items: center;
   font-family: Trajan;
-  font-weight: 600;
+  font-weight: 500;
+  margin-bottom:20px;
   @media (max-width: 1550px) {
     font-size: 16px;
   }
@@ -162,6 +163,8 @@ const StyledButton = styled(Button)`
   border-radius: 20px;
   padding: 10px 30px;
   box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09);
+  // font-weight:500;
+  // font-family:'Trajan;
 `
 
 export default DepositCard

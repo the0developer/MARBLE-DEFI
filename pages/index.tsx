@@ -6,7 +6,7 @@ import styled from 'styled-components'
 export default function Home() {
   return (
     <AppLayout fullWidth={true}>
-      <Container>
+      <Container className="dashboard-card">
         <Header>
           <h1 className='z-9'>Dashboard</h1>
         </Header>

@@ -57,7 +57,7 @@ export function NavigationSidebar() {
   }
   return (
     <ChakraProvider>
-      <StyledWrapper>
+      <StyledWrapper className="dashboard-card">
         <StyledMenuContainer className="wrap-menu container">
           <Link href="/" passHref>
             <StyledDivForLogo as="a">
@@ -170,8 +170,8 @@ export function NavigationSidebar() {
 }
 
 const StyledWrapper = styled.div`
-  width: 20%;
-  min-height: calc(100vh - 180px);
+  width: 25%;
+  // min-height: calc(100vh - 60px);
   height:100%;
   padding:40px 60px;
   background: rgba(255, 255, 255, 0.09);

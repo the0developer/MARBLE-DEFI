@@ -163,7 +163,7 @@ export default function Pools() {
 
   return (
     <AppLayout>
-      <Container>
+      <Container className="dashboard-card">
         <Header>
           <h1>Available Pools</h1>
           <p>
@@ -238,8 +238,9 @@ export default function Pools() {
 
 const Container = styled.div`
   padding:45px 60px;
-  height: 100%;
+  // height: 100%;
   position: relative;
+  // min-height:calc(100vh - 60px);
   @media (max-width: 1550px) {
     padding: 20px 20px 0px 20px;
   }
@@ -315,12 +316,11 @@ const SectionTitle = ({ variant = 'my', children }) => {
 }
 const StyledDivForWrapper = styled.div`
   overflow: auto;
-  margin-top: 20px;
-  position: absolute;
-  right: 20px;
-  left: 20px;
-  bottom: 20px;
-  top: 120px;
+  margin-top: 30px;
+  padding: 0 10px;
+  max-height: calc(100vh - 443px);
+  height: 100%;
+  
   ::-webkit-scrollbar {
     width: 6px;
   }

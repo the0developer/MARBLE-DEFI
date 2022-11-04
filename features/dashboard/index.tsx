@@ -164,9 +164,9 @@ export const Dashboard = () => {
           value={<CValue>260.41%</CValue>}
         />
       </StyldedGrid>
-      <div className='pt-5'>
+      <div className="pt-5">
         <Value style={{ fontFamily: 'Trajan' }}>Protocol Stats</Value>
-        <StateContent className="bg-border-linear">
+        <StateContent className="dashboard-card">
           <StateElement className="z-9">
             <Title>Liquidity Pools</Title>
             <CValue>${getTVL()}</CValue>
@@ -185,7 +185,7 @@ export const Dashboard = () => {
           </StateElement>
         </StateContent>
         {farms && (
-          <DepositCardWrapper>
+          <DepositCardWrapper className="pt-5">
             <DepositCard param={farms[1]} />
             <DepositCard param={farms[2]} />
           </DepositCardWrapper>
@@ -196,10 +196,11 @@ export const Dashboard = () => {
 }
 
 const StyledDivForWrapper = styled.div`
-  padding: 0 0px;
-  position: relative;
-  // display: flex;
-  // flex-direction: column;
+padding: 0 0px;
+position: relative;
+row-gap: 30px;
+overflow: auto;
+max-height: 600px;
   row-gap: 30px;
   @media (max-width: 1550px) {
     padding: 20px 20px;
