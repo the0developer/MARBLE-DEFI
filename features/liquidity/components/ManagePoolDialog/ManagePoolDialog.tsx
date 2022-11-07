@@ -202,7 +202,7 @@ export const ManagePoolDialog = ({
               Choose how much to {isAddingLiquidity ? 'add' : 'remove'}
             </Text>
           </Stack>
-          <AddOrRemoveLiquidityWrapper>
+          <AddOrRemoveLiquidityWrapper className="dashboard-card">
             {isAddingLiquidity && (
               <AddLiquidityContent
                 isLoading={false}

@@ -288,7 +288,7 @@ export default function Pool() {
                   <StyledElementForLiquidity kind="wrapper">
                     <StyledElementForLiquidity kind="row">
                       <LHeader>Total Liquidity</LHeader>
-                      <LHeader>APR reward</LHeader>
+                      <LHeader className='apr-text'>APR reward</LHeader>
                     </StyledElementForLiquidity>
                     <StyledElementForLiquidity kind="row">
                       <LValue>
@@ -300,7 +300,7 @@ export default function Pool() {
                 </LiquidityInfoWrapper>
 
                 <Stack>
-                  <ChakraText
+                  <ChakraText className='personal-text'
                     fontSize="20px"
                     fontWeight="400"
                     fontFamily="Trajan"
@@ -396,7 +396,7 @@ const StyledRowForTokensInfo = styled('div', {
   display: 'flex',
   alignItems: 'center',
   color: 'white',
-  fontFamily: 'Trajan',
+  fontFamily: 'Mulish',
   variants: {
     kind: {
       wrapper: {
@@ -421,7 +421,7 @@ const StyledTextForTokens = styled('div', {
   gridAutoFlow: 'column',
   alignItems: 'center',
   fontSize: '16px',
-  fontFamily: 'Trajan',
+  fontFamily: 'Mulish',
   variants: {
     kind: {
       element: {
@@ -448,7 +448,7 @@ const StyledElementForLiquidity = styled('div', {
   variants: {
     kind: {
       wrapper: {
-        padding: '10px 36px',
+        padding: '5px 36px 15px',
       },
       row: {
         display: 'flex',
@@ -461,7 +461,7 @@ const StyledElementForLiquidity = styled('div', {
 
 const StyledDivForCards = styled('div', {
   display: 'grid',
-  columnGap: '18px',
+  columnGap: '30px',
   gridTemplateColumns: '1fr 1fr',
 })
 

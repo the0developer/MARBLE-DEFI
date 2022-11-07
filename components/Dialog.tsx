@@ -65,7 +65,7 @@ export const Dialog = ({
     <Portal>
       {(isShowing || isRenderingDialog) && (
         <>
-          <StyledDivForModal ref={modalRef} {...props}>
+          <StyledDivForModal ref={modalRef} {...props} className="dashboard-card">
             {kind !== 'blank' && (
               <StyledCloseIcon offset={paddingX} onClick={onRequestClose} />
             )}
@@ -95,12 +95,10 @@ const StyledDivForModal = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgb(49, 49, 56);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.06) 100%);
   border-radius: 30px;
   text-align: -webkit-center;
-  box-shadow: 0px 7px 14px rgba(0, 0, 0, 0.1),
-    inset 0px 14px 24px rgba(17, 20, 29, 0.4);
+  backdrop-filter: blur(15px);
   padding-top: 20px;
 `
 

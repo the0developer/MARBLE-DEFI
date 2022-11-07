@@ -225,6 +225,8 @@ const StyledDivForRowWrapper = styled('div', {
 const StyledDivForHeaderContainer = styled('div', {
   display: 'flex',
   alignItems: 'center',
+  padding: '15px 0px 15px 0px',
+
 })
 
 const StyledDivForRow = styled('div', {
