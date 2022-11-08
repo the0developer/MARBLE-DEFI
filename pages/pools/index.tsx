@@ -241,9 +241,9 @@ const Container = styled.div`
   // height: 100%;
   position: relative;
   // min-height:calc(100vh - 60px);
-  @media (max-width: 1550px) {
-    padding: 20px 20px 0px 20px;
-  }
+  // @media (max-width: 1550px) {
+  //   padding: 20px 20px 0px 20px;
+  // }
 `
 const Divider = styled.div`
   height: 1px;

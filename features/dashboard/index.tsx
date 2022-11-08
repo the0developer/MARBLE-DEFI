@@ -201,6 +201,16 @@ position: relative;
 row-gap: 30px;
 overflow: auto;
 max-height: 600px;
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
   row-gap: 30px;
   @media (max-width: 1550px) {
     padding: 20px 20px;

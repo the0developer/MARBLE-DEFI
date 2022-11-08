@@ -48,11 +48,12 @@ export const BondingSummary = ({
           fontFamily: 'Trajan',
           textAlign: 'left',
           fontSize: '16px',
+          paddingTop: '30px',
         }}
       >
         {label}
       </Text>
-      <StyledDivForGrid>
+      <StyledDivForGrid className="dashboard-card">
         <StyledDivForColumn kind="content">
           <StyledDivForTokensGrid>
             <StyledNodeForToken
@@ -113,10 +114,10 @@ const StyledDivForColumn = styled('div', {
       value: {
         borderRadius: '$1',
         transition: 'background-color .1s ease-out',
-        border: '1px solid rgba(255, 255, 255, 0.2)',
-        background: 'rgb(49, 49, 56)',
-        boxShadow:
-          '0px 4px 40px rgb(42 47 50 / 9%), inset 0px 7px 24px rgb(109 109 120 / 20%)',
+        // border: '1px solid rgba(255, 255, 255, 0.2)',
+        // background: 'rgb(49, 49, 56)',
+        // boxShadow:
+        //   '0px 4px 40px rgb(42 47 50 / 9%), inset 0px 7px 24px rgb(109 109 120 / 20%)',
         '&:hover': {
           backgroundColor: '$colors$dark15',
         },
@@ -138,11 +139,11 @@ const StyledDivForGrid = styled('div', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  paddingBottom: '$8',
-  border: '1px solid rgba(255, 255, 255, 0.2)',
-  background: 'rgb(49, 49, 56)',
-  boxShadow:
-    '0px 4px 40px rgb(42 47 50 / 9%), inset 0px 7px 24px rgb(109 109 120 / 20%)',
+  // paddingBottom: '$8',
+  // border: '1px solid rgba(255, 255, 255, 0.2)',
+  // background: 'rgb(49, 49, 56)',
+  // boxShadow:
+  //   '0px 4px 40px rgb(42 47 50 / 9%), inset 0px 7px 24px rgb(109 109 120 / 20%)',
   borderRadius: '20px',
   padding: '25px 30px',
   '@media (max-width: 1550px)': {

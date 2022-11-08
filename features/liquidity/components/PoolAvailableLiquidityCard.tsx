@@ -78,7 +78,7 @@ export const PoolAvailableLiquidityCard = ({
       <StyledElementForCardLayout kind="content">
         <Button
           onClick={onButtonClick}
-          css={{ fontFamily: 'Trajan', fontSize: '14px', marginTop:'15px', }}
+          css={{ fontFamily: 'Trajan', fontSize: '14px'}}
         >
           {myReserve[1] > 0 ? 'Manage liquidity' : 'Add liquidity'}
         </Button>
@@ -100,7 +100,8 @@ const StyledElementForCardLayout = styled('div', {
         // background: '#2e303e',
         // boxShadow:
         //   '0px 4px 40px rgb(42 47 50 / 9%),inset 0px 7px 24px rgb(109 109 120 / 20%)',
-        // backdropFilter: 'blur(40px)',
+        backdropFilter: 'blur(40px)',
+        
         '@media (max-width: 1550px)': {
           padding: '10px 28px',
         },

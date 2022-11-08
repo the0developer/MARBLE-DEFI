@@ -8,6 +8,7 @@ export const ContentWrapper = styled.div`
   // bottom: 20px;
   // top: 140px;
   max-height:600px;
+  padding:20px 10px;
   ::-webkit-scrollbar {
     width: 6px;
   }
@@ -18,7 +19,7 @@ export const ContentWrapper = styled.div`
   ::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.1);
   }
-  padding: 0 10px;
+  // padding: 0 10px;
   @media (max-width: 1550px) {
     top: 80px;
   }

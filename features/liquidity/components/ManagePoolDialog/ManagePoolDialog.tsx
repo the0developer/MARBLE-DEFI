@@ -197,6 +197,8 @@ export const ManagePoolDialog = ({
                 paddingBottom: '$6',
                 fontFamily: 'Trajan',
                 fontSize: '16px',
+                fontWeight: '300',
+                marginTop:'5px',
               }}
             >
               Choose how much to {isAddingLiquidity ? 'add' : 'remove'}
@@ -251,7 +253,7 @@ export const ManagePoolDialog = ({
         </Stack>
       </Dialog>
     </ChakraProvider>
-  )
+  ) 
 }
 
 function AddLiquidityContent({
@@ -325,7 +327,7 @@ function AddLiquidityContent({
         </MaxButton>
       </StyledDivForLiquidityInputs> */}
       <StyledDivForRemoveLiquidityInputs>
-        <StyledDivForAddLiquidityInputsWrapper>
+        <StyledDivForAddLiquidityInputsWrapper className="dashboard-card">
           <LiquidityInput
             tokenSymbol={tokenASymbol}
             availableAmount={tokenABalance ? tokenABalance : 0}
@@ -555,6 +557,10 @@ const StyledDivForAddLiquidityInputsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 16px;
+  &:before{
+    border-bottom-left-radius:0 !important;
+    border: 0 !important;
+  }
   @media (max-width: 1550px) {
     padding: 25px 20px 25px 25px;
   }

@@ -56,7 +56,7 @@ export const Dialog = ({
 
     if (isShowing && isRenderingDialog) {
       tl.to(overlayRef.current, { opacity: 0.6 }, 0)
-      tl.to(modalRef.current, { opacity: 1 }, 0.1)
+      tl.to(modalRef.current, { opacity: 1}, 0.1)
       return
     }
   }, [isRenderingDialog, isShowing])
@@ -65,7 +65,7 @@ export const Dialog = ({
     <Portal>
       {(isShowing || isRenderingDialog) && (
         <>
-          <StyledDivForModal ref={modalRef} {...props} className="dashboard-card">
+          <StyledDivForModal ref={modalRef} {...props} className="dashboard-card z-index">
             {kind !== 'blank' && (
               <StyledCloseIcon offset={paddingX} onClick={onRequestClose} />
             )}
@@ -141,10 +141,10 @@ export const StyledCloseIcon = styled(CloseIcon)`
   margin-left: auto;
   margin-right: ${(p) => p.offset}px;
   margin-top: ${(p) => p.offset}px;
-  &:hover {
-    opacity: 0.75;
-  }
   position: absolute;
   right: -30px;
   top: -30px;
+  &:hover {
+    opacity: 0.75;
+  }
 `

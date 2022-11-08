@@ -27,14 +27,14 @@ export const LiquidityInput: FC<LiquidityInputProps> = ({
   const handleAmountChange = (value: number) => onAmountChange(value)
 
   return (
-    <StyledDivForWrapper active={focusedOnInput} classNAme="dashboard-card">
+    <StyledDivForWrapper active={focusedOnInput} className="dashboard-card">
       <StyledDivForColumn kind="info">
         <StyledImageForToken src={logoURI} as={logoURI ? 'img' : 'div'} />
         <div>
-          <Text variant="title" transform="uppercase">
+          <Text variant="title" transform="uppercase" className="f400">
             {tokenName}
           </Text>
-          <Text variant="caption" color="tertiary">
+          <Text variant="caption" className="f400 text-caption">
             {formatTokenBalance(availableAmount)} available
           </Text>
         </div>

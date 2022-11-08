@@ -359,7 +359,7 @@ export default function Pool() {
 
 const Header = styled('div', {
   fontSize: '40px',
-  fontWeight: '700',
+  fontWeight: '500',
   fontFamily: 'Trajan',
   '@media (max-width: 1550px)': {
     fontSize: '30px',
