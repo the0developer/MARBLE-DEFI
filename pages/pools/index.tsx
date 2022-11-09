@@ -163,7 +163,7 @@ export default function Pools() {
 
   return (
     <AppLayout>
-      <Container className="dashboard-card">
+      <Container>
         <Header>
           <h1>Available Pools</h1>
           <p>
@@ -237,7 +237,7 @@ export default function Pools() {
 }
 
 const Container = styled.div`
-  padding:45px 60px;
+  padding:45px 75px;
   // height: 100%;
   position: relative;
   // min-height:calc(100vh - 60px);
@@ -257,7 +257,7 @@ const Header = styled.div`
     font-size: 40px;
     font-weight: 500;
     font-family: Trajan;
-    margin-bottom: 22px;
+    margin-bottom: 14px;
 
   }
   p {

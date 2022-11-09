@@ -188,22 +188,24 @@ export const BondLiquidityDialog = ({
                 Choose your token amount
               </Text>
         </StyledDivForContent>
-        <StyledDivForContent kind="form" className='dashboard-card p-2'>
-          <LiquidityInputSelector
-            maxLiquidity={maxDollarValueLiquidity}
-            liquidity={liquidityDollarAmount}
-            onChangeLiquidity={(value) => setLiquidityDollarAmount(value)}
-          />
-          <Text
-            variant="caption"
-            color="primary"
-            css={{ padding: '10px 30px', fontFamily: 'Trajan', textAlign: 'left' }}
-          >
-            Max available for bonding is worth $
-            {dollarValueFormatterWithDecimals(maxDollarValueLiquidity, {
-              includeCommaSeparation: true,
-            })}
-          </Text>
+        <StyledDivForContent kind="form" className='dashboard-card'>
+          <div className="px-3">
+            <LiquidityInputSelector
+              maxLiquidity={maxDollarValueLiquidity}
+              liquidity={liquidityDollarAmount}
+              onChangeLiquidity={(value) => setLiquidityDollarAmount(value)}
+            />
+            <Text
+              variant="caption"
+              color="primary"
+              css={{ padding: '10px 0px', fontFamily: 'Trajan', textAlign: 'left' }}
+            >
+              Max available for bonding is worth $
+              {dollarValueFormatterWithDecimals(maxDollarValueLiquidity, {
+                includeCommaSeparation: true,
+              })}
+            </Text>
+          </div>
           <Divider />
           <PercentageSelection
             maxLiquidity={maxDollarValueLiquidity}

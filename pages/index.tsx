@@ -39,7 +39,7 @@ const Header = styled.div`
   }
 `
 const Container = styled.div`
-  padding: 45px 60px;
+  padding: 45px 75px;
   height: 100%;
   z-index:9;
 `

@@ -52,7 +52,7 @@ const StyledContainer = styled.div`
   position: relative;
   width: 100%;
   height:100%;
-  background: rgba(255, 255, 255, 0.09);
+  background: rgb(255 255 255 / 9%);
   border-radius: 20px;
   @media (max-width: 1550px) {
     height: calc(100vh - 80px);

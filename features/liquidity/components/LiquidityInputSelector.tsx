@@ -120,9 +120,9 @@ const StyledDivForSelector = styled('div', {
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
-  width: '90%',
+  width: '100%',
   padding: '20px 20px',
-  margin:'0 20px 3px',
+  // margin:'0 20px 3px',
   // boxShadow:
   //   '0px 4px 40px rgb(42 47 50 / 9%),inset 0px 7px 24px rgb(109 109 120 / 20%)',
 })

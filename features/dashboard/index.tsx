@@ -196,7 +196,7 @@ export const Dashboard = () => {
 }
 
 const StyledDivForWrapper = styled.div`
-padding: 0 0px;
+padding: 20px 10px;
 position: relative;
 row-gap: 30px;
 overflow: auto;
@@ -220,7 +220,7 @@ max-height: 600px;
 const StyldedGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-column-gap: 30px;
+  grid-column-gap: 25px;
   @media (max-width: 1550px) {
     grid-column-gap: 15px;
   }

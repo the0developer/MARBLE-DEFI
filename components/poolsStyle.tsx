@@ -8,7 +8,7 @@ export const ContentWrapper = styled.div`
   // bottom: 20px;
   // top: 140px;
   max-height:600px;
-  padding:20px 10px;
+  padding:0px 10px 20px 10px;
   ::-webkit-scrollbar {
     width: 6px;
   }

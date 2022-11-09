@@ -232,6 +232,7 @@ export const ManagePoolDialog = ({
               />
             )}
           </AddOrRemoveLiquidityWrapper>
+
           <StyledDivForContent>
             <StyledDivForFooter>
               <PrimaryButton onClick={onRequestClose}>Cancel</PrimaryButton>
@@ -326,7 +327,7 @@ function AddLiquidityContent({
           Max
         </MaxButton>
       </StyledDivForLiquidityInputs> */}
-      <StyledDivForRemoveLiquidityInputs>
+      <StyledDivForRemoveLiquidityInputs className="dashboard-card">
         <StyledDivForAddLiquidityInputsWrapper className="dashboard-card">
           <LiquidityInput
             tokenSymbol={tokenASymbol}
@@ -495,6 +496,7 @@ const PrimaryButton = styled(Button)`
   height: 50px !important;
   width: 143px !important;
   color: white;
+  font-weight:300 !important;
   font-size: 14px !important;
 `
 const SecondaryButton = styled(Button)`
@@ -538,10 +540,10 @@ const StyledDivForLiquidityInputs = styled.div`
   }
 `
 const StyledDivForRemoveLiquidityInputs = styled.div`
-  background-color: rgb(49, 49, 56);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0px 4px 40px rgb(42 47 50 / 9%),
-    inset 0px 7px 24px rgb(109 109 120 / 20%);
+  // background-color: rgb(49, 49, 56);
+  // border: 1px solid rgba(255, 255, 255, 0.2);
+  // box-shadow: 0px 4px 40px rgb(42 47 50 / 9%),
+  //   inset 0px 7px 24px rgb(109 109 120 / 20%);
   border-radius: 20px;
   width: 100%;
 `

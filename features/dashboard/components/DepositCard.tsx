@@ -115,7 +115,7 @@ const Header = styled.div`
   font-weight: 700;
   display: flex;
   width: 100%;
-  align-items: center;
+  // align-items: center;
   justify-content: space-between;
   @media (max-width: 1550px) {
     font-size: 18px;
@@ -124,7 +124,7 @@ const Header = styled.div`
 const ValueCard = styled.div`
   width: 100%;
   border-radius: 18px;
-  background: rgba(236, 246, 255, 0.0858);
+  background: rgb(255 255 255 / 9%);
   height: 76px;
   padding: 20px 30px;
   display: flex;
@@ -163,6 +163,7 @@ const StyledButton = styled(Button)`
   border-radius: 20px;
   padding: 10px 30px;
   box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09);
+  margin-top:15px;
   // font-weight:500;
   // font-family:'Trajan;
 `

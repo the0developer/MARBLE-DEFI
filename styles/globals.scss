@@ -991,6 +991,7 @@ div{
 
 .dashboard-card {
   position: relative;
+  z-index: 9 !important;
 
   &::before {
       content: "";
@@ -1014,9 +1015,9 @@ div{
     );
   }
 }
-.dashboard-card{
-  z-index: 9 !important;
-}
+// .dashboard-card{
+//   z-index: 9 !important;
+// }
 
 .z-9{
   z-index:9;
@@ -1059,6 +1060,6 @@ div{
 .Styled-div-content{
   padding: 0px 36px 20px; 
 }
-.p-2{
-  padding:30px 0 0;
+.px-3{
+  padding:25px 25px 20px 25px;
 }

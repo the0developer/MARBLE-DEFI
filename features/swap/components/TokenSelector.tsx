@@ -140,7 +140,7 @@ export const TokenSelector = ({
 }
 
 const StyledDivForWrapper = styled.div`
-  padding: 10px 30px 10px 14px;
+  padding: 10px 20px 20px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -154,11 +154,11 @@ const ColumnFlex = styled.div`
   flex-direction: column;
   text-align: -webkit-right;
   justify-content: space-between;
-  row-gap: 20px;
+  row-gap: 15px;
 `
 
 const Text = styled.div`
-  font-size: 18px;
+  font-size: 14px;
   color: white;
   font-weight:100;
   opacity: 0.6;
@@ -216,7 +216,7 @@ const StyledDivForContainer = styled.div<{
   isOpened: boolean
 }>`
   border-radius: 20px;
-  padding: 0 20px;
+  // padding: 0 20px;
   // background-color: #2e303e;
   // border: 1px solid rgba(255, 255, 255, 0.2);
   // box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09),
