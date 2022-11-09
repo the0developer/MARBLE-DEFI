@@ -14,7 +14,6 @@ export const TokenOptionsList = ({
   const tokens = isDeposit
     ? [tokenList?.native_token, tokenList.wrap_token]
     : tokenList?.tokens
-
   return (
     <>
       {tokens.length > 0 &&
@@ -74,12 +73,12 @@ const StyledDivForRow = styled('div', {
   cursor: 'pointer',
   transition: 'background-color 0.1s ease-out',
   marginBottom: 5,
-  '&:hover': {
-    backgroundColor: 'gray',
-  },
-  '&:active': {
-    backgroundColor: '$colors$dark05',
-  },
+  // '&:hover': {
+  //   backgroundColor: 'gray',
+  // },
+  // '&:active': {
+  //   backgroundColor: '$colors$dark05',
+  // },
   '&:last-child': {
     marginBottom: 0,
   },

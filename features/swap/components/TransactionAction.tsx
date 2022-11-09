@@ -154,6 +154,7 @@ const StyledDivForWrapper = styled('div', {
   alignItems: 'center',
   padding: '0 0',
   marginTop: '30px',
+  // zIndex: -1,
 })
 
 const StyledDivForInfo = styled('div', {

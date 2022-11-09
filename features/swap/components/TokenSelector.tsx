@@ -59,7 +59,7 @@ export const TokenSelector = ({
   }
 
   return (
-    <StyledDivForContainer className="dashboard-card"
+    <StyledDivForContainer className="dashboard-card z-unset"
       ref={wrapperRef}
       isFirst={!readOnly}
       isOpened={isTokenListShowing}
@@ -185,6 +185,29 @@ const StyledDivForTokensListWrapper = styled.div`
   padding: 2px 12px 24px;
   overflow: auto;
   max-height: 300px;
+  position:relative;
+  // opacity:1;
+
+  // &::before {
+  //   content: "";
+  //   box-shadow: 0px 4px 40px rgb(42 47 50 / 9%), inset -2px -1px 24px #41414e;
+  //   width: 100%;
+  //   height: 100%;
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   z-index: -1;
+  //   inset: 0;
+  //   // border-radius: 20px;
+  //   padding: 1px;
+  //   background:linear-gradient(0deg, #191c2b, #272938) padding-box, linear-gradient(90.65deg, #6c6c6c 0.82%, rgba(0, 0, 0, 0) 65.47%) border-box !important;
+  //   // opacity:0.6;
+  //   // border: 1px solid;
+  //   // border-image-source: linear-gradient(
+  //   //   90.65deg,
+  //   //   #ffffff 0.82%,
+  //   //   rgba(0, 0, 0, 0) 98.47%
+  // );
   ::-webkit-scrollbar {
     width: 0px;
   }

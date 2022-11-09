@@ -1015,9 +1015,6 @@ div{
     );
   }
 }
-// .dashboard-card{
-//   z-index: 9 !important;
-// }
 
 .z-9{
   z-index:9;
@@ -1062,4 +1059,7 @@ div{
 }
 .px-3{
   padding:25px 25px 20px 25px;
+}
+.z-unset{
+  z-index: unset !important;
 }
