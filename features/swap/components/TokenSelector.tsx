@@ -182,11 +182,19 @@ const StyledDivForAmountWrapper = styled.div`
 `
 
 const StyledDivForTokensListWrapper = styled.div`
-  padding: 2px 12px 24px;
+  padding: 2px 1px 7px;
   overflow: auto;
   max-height: 300px;
-  position:relative;
-  // opacity:1;
+  position: relative;
+  z-index: 999;
+  background: linear-gradient(0deg, #191c2b, #272938) padding-box, linear-gradient(90.65deg, #505157 0.82%, rgba(0, 0, 0, 0) 65.47%) border-box !important;
+  border: 1px solid;
+  border-image-source: linear-gradient(90.65deg, #ffffff 0.82%, rgba(0, 0, 0, 0) 98.47%) !important;
+  border-top: 0px;
+  border-radius:20px;
+  border-top-left-radius:0px;
+  border-top-right-radius:0px;
+  margin-top:-9px;
 
   // &::before {
   //   content: "";

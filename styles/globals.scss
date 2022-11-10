@@ -1063,3 +1063,25 @@ div{
 .z-unset{
   z-index: unset !important;
 }
+.bonding-child-div{
+  &:before {
+    border-radius: 13px !important;
+    padding:23px 20px;
+  }
+  p{
+    padding: 17px;
+    min-width: 137px;
+  }
+}
+.option-card {
+  // background-color: #262837 !important;
+  // border-radius: 0px !important
+  // ;
+  &:before{
+    border: 0px !important;
+    border-radius: 0px !important;
+  }
+  &:last-child{
+    border-bottom-left-radius: 21px !important;
+  }
+}

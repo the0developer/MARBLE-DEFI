@@ -44,7 +44,7 @@ export const BondingSummary = ({
       <Text
         variant="body"
         css={{
-          padding: '$8 0 $6',
+          padding: '$8 0 $7',
           fontFamily: 'Trajan',
           textAlign: 'left',
           fontSize: '16px',
@@ -63,7 +63,7 @@ export const BondingSummary = ({
             />
           </StyledDivForTokensGrid>
         </StyledDivForColumn>
-        <StyledDivForColumn
+        <StyledDivForColumn className="dashboard-card bonding-child-div"
           kind="value"
           active={isDollarValueInputFocused}
           onClick={() => refForInput.current?.focus()}
@@ -145,7 +145,7 @@ const StyledDivForGrid = styled('div', {
   // boxShadow:
   //   '0px 4px 40px rgb(42 47 50 / 9%), inset 0px 7px 24px rgb(109 109 120 / 20%)',
   borderRadius: '20px',
-  padding: '25px 30px',
+  padding: '17px 30px',
   '@media (max-width: 1550px)': {
     padding: '25px 20px',
   },

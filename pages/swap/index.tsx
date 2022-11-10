@@ -53,6 +53,8 @@ const Header = styled.div`
 `
 const StyledDivForWrapper = styled.div`
   overflow: auto;
+  min-height:600px;
+  height:100%;
   ::-webkit-scrollbar {
     width: 6px;
   }

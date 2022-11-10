@@ -37,7 +37,7 @@ const StyledDivForGrid = styled.div`
   color: black;
   justify-content: space-around;
   width: 100%;
-  padding: 25px 0;
+  padding: 20px 0;
   &:before{
     border-top-left-radius:0;
     border-top-right-radius:0;
