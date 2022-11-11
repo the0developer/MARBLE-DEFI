@@ -130,7 +130,7 @@ export function NavigationSidebar() {
                 href={process.env.NEXT_PUBLIC_TELEGRAM_LINK}
                 target="__blank"
                 icon={<LinkIconWrapper icon={<Telegram />} />}
-                variant="ghost"Telegram
+                variant="ghost"
                 size="medium"
                 css={buttonIconCss}
               />
