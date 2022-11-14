@@ -207,10 +207,10 @@ const ButtonField = styled.div`
 `
 
 const StyledImageForLogoText = styled.img`
-  height: 50px;
+  height: 60px;
   margin: 0 auto;
   @media (max-width: 1550px) {
-    height: 40px;
+    height: 50px;
   }
 `
 const IconWrapper = styled.div<{ isActive: boolean }>`
