@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { GradientBackground, SecondGradientBackground } from 'styles/styles'
 
 const StyledCard = ({ icon, color, title, value }) => {
   return (
@@ -12,17 +13,14 @@ const StyledCard = ({ icon, color, title, value }) => {
   )
 }
 
-const Container = styled.div`
-  border-radius: 20px;
+const Container = styled(GradientBackground)`
   padding: 14px;
   display: flex;
-  backdrop-filter: blur(40px);
-  background-color: #2e303e;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0px 4px 40px rgb(42 47 50 / 9%),
-    inset 0px 7px 24px rgb(109 109 120 / 20%);
   @media (max-width: 1550px) {
     padding: 10px;
+  }
+  &:before {
+    border-radius: 20px;
   }
 `
 

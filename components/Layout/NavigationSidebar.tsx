@@ -20,6 +20,7 @@ import { Button } from '../Button'
 import { ConnectedWalletButton } from '../ConnectedWalletButton'
 import { IconWrapper as LinkIconWrapper } from '../IconWrapper'
 import { DepositButton } from './DepositButton'
+import { GradientBackground, SecondGradientBackground } from 'styles/styles'
 
 export function NavigationSidebar() {
   const [accountId, setAccountId] = useState('')
@@ -168,15 +169,14 @@ export function NavigationSidebar() {
   )
 }
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled(SecondGradientBackground)`
+  &:before {
+    border-radius: 30px;
+  }
+  z-index: 2;
   width: 20%;
   height: calc(100vh - 180px);
-  background: rgba(255, 252, 252, 0.06);
-  border-radius: 50px;
-  backdrop-filter: blur(20px);
   padding: 40px 40px;
-  position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.2);
   @media (max-width: 1550px) {
     height: calc(100vh - 80px);
     padding: 40px 30px;

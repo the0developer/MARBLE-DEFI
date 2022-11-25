@@ -13,7 +13,7 @@ import { IconWrapper } from '../../../components/IconWrapper'
 import { TokenInfo } from 'hooks/useTokenList'
 import { useSwap } from 'state/swap'
 import { WalletStatusType } from '../../../state/atoms/walletAtoms'
-import { TokenRateWrapper } from './styled'
+import { TokenRateWrapper, StyledDivForInfo } from './styled'
 
 type TransactionTipsProps = {
   isPriceLoading?: boolean
@@ -154,19 +154,6 @@ const StyledDivForWrapper = styled('div', {
   alignItems: 'center',
   padding: '0 0',
   marginTop: '20px',
-})
-
-const StyledDivForInfo = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  borderRadius: '20px',
-  backgroundColor: '#2e303e',
-  padding: '15px',
-  boxShadow:
-    '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px rgba(109, 109, 120,0.2)',
-  justifyContent: 'space-between',
-  backdropFilter: 'blur(40px)',
-  border: '1px solid rgba(255,255,255,0.2)',
 })
 
 const StyledDivColumnForInfo = styled('div', {

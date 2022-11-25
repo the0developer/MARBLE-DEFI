@@ -36,6 +36,7 @@ import {
   Container,
   StyledWrapperForNavigation,
 } from 'components/poolsStyle'
+import { GradientBackground } from 'styles/styles'
 // import { checkTransaction } from 'util/near'
 // import { getURLInfo } from 'components/transactionTipPopUp'
 
@@ -82,30 +83,14 @@ export default function Pool() {
       setDecimals(poolById?.decimals)
       const tokenA = unsafelyGetTokenInfoFromAddress(poolById?.token_address[0])
       const tokenB = unsafelyGetTokenInfoFromAddress(poolById?.token_address[1])
-      // console.log(
-      //   'pool----1: ',
-      //   poolById?.token_address[0],
-      //   poolById?.token_address[0],
-      //   poolById
-      // )
       setTokenA(tokenA)
       setTokenB(tokenB)
     }
     // eslint-disable-line react-hooks/exhaustive-deps
   }, [pool, poolList, tokenA, tokenB, coinPrice])
-  // useEffect(() => {
-  //   if (txHash && getCurrentWallet().wallet.isSignedIn()) {
-  //     checkTransaction(txHash).then((res: any) => {
-  //       console.log('hardRefresh')
-  //       hardRefresh()
-  //     })
-  //   }
-  // }, [txHash])
   useEffect(() => {
     if (!isNaN(Number(pool))) {
       if (!accountId) return
-
-      // console.log('accountId----------: ', accountId)
       db.queryFarms().then((farms) => {
         const index = farms.map((r) => Number(r.pool_id)).indexOf(Number(pool))
         const farmInfo = farms[index]
@@ -148,12 +133,6 @@ export default function Pool() {
   }
 
   const isLoadingInitial = !totalLiquidity || (!totalLiquidity && isLoading)
-
-  const hardRefresh = () => {
-    setTimeout(() => {
-      window.location.reload()
-    }, 1000)
-  }
 
   const onSubmit = ({ type, amount, isFull = false }) => {
     const poolById = poolList?.find((p) => p?.pool_id === Number(pool))
@@ -483,13 +462,10 @@ const StyledDivForSpinner = styled('div', {
   alignItems: 'center',
 })
 
-const LiquidityInfoWrapper = styled('div', {
-  border: '1px solid rgba(255, 255, 255, 0.2)',
-  background: '#2e303e',
-  boxShadow:
-    '0px 4px 40px rgb(42 47 50 / 9%),inset 0px 7px 24px rgb(109 109 120 / 20%)',
-  backdropFilter: 'blur(40px)',
-  borderRadius: '20px',
+const LiquidityInfoWrapper = styled(GradientBackground, {
+  '&:before': {
+    borderRadius: '20px',
+  },
 })
 
 const PoolTitle = styled('div', {

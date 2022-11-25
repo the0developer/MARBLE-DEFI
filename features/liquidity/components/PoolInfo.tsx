@@ -7,6 +7,7 @@ import { Button } from '../../../components/Button'
 import { useSelector } from 'react-redux'
 import { Text } from '../../../components/Text'
 import { rewardToken } from 'util/constants'
+import { GradientBackground } from 'styles/styles'
 
 const incentiveStart = 'April 27, 2022 00:00:00 UTC+00:00'
 const incentiveEnd = 'March 27, 2099 00:00:00 UTC+00:00'
@@ -35,19 +36,6 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
     (state: any) => state.uiData.token_value[rewardToken]
   )
   const dustPrice = dustPriceInNear * nearPrice
-  // const { bondingInfo } = useBondingInfo(tokenInfo?.incentives_address)
-
-  // const bondingInfo = {
-  //   owner: "MMM",
-  //   reward_token_address: "hera",
-  //   stake_token_address: "dust",
-  //   reward_amount: "dust",
-  //   stake_amount: "12121212",
-  //   daily_reward_amount: "123123123",
-  //   apy_prefix: "123123",
-  //   reward_interval: 123123,
-  //   lock_days: 1212
-  // }
 
   if (!poolId) return null
   const currentTimeStamp = Math.floor(new Date().getTime() / 1000)
@@ -69,7 +57,7 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
     onClaim()
   }
   return (
-    <StyledElementForCard kind="wrapper">
+    <StyledElementForCard>
       <StyledElementForToken>
         <Title>Dust Price</Title>
         <Value>${dustPrice.toFixed(2)}</Value>
@@ -130,29 +118,20 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
   )
 }
 
-const StyledElementForCard = styled('div', {
-  variants: {
-    kind: {
-      wrapper: {
-        padding: '20px 40px',
-        marginBottom: '20px',
-        borderRadius: '20px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        position: 'relative',
-        overflow: 'hidden',
-        border: '1px solid rgba(255, 255, 255, 0.2)',
-        background: '#2e303e',
-        boxShadow:
-          '0px 4px 40px rgb(42 47 50 / 9%),inset 0px 7px 24px rgb(109 109 120 / 20%)',
-        backdropFilter: 'blur(40px)',
-        '@media (max-width: 1550px)': {
-          padding: '10px 40px',
-        },
-      },
-    },
+const StyledElementForCard = styled(GradientBackground, {
+  padding: '20px 40px',
+  marginBottom: '20px',
+  display: 'flex',
+  justifyContent: 'space-between',
+  flexWrap: 'wrap',
+  alignItems: 'center',
+  position: 'relative',
+  overflow: 'hidden',
+  '@media (max-width: 1550px)': {
+    padding: '10px 40px',
+  },
+  '&:before': {
+    borderRadius: '20px',
   },
 })
 

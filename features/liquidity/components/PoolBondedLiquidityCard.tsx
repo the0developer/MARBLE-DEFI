@@ -3,6 +3,7 @@ import { ChakraProvider, Text, Stack } from '@chakra-ui/react'
 import { __POOL_REWARDS_ENABLED__ } from 'util/constants'
 import { useTokenInfo } from 'hooks/useTokenInfo'
 import { dollarValueFormatterWithDecimals } from '../../../util/conversion'
+import { GradientBackground } from 'styles/styles'
 
 export const PoolBondedLiquidityCard = ({
   onButtonClick,
@@ -15,10 +16,7 @@ export const PoolBondedLiquidityCard = ({
   const tokenA = useTokenInfo(tokenASymbol)
   const tokenB = useTokenInfo(tokenBSymbol)
   return (
-    <StyledElementForCardLayout
-      kind="wrapper"
-      css={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}
-    >
+    <StyledElementForCardLayoutWrapper kind="wrapper">
       <StyledElementForCardLayout kind="content" name="liquidity">
         <Title>Bonded liquidity</Title>
         <StyledStakedText>
@@ -41,7 +39,7 @@ export const PoolBondedLiquidityCard = ({
           unstaked tokens
         </StyledUnstakedText>
       </StyledElementForCardLayout>
-      <StyledElementForCardLayout kind="wrapper">
+      <StyledElementForCardLayoutWrapper kind="content">
         <>Current reward incentive</>
 
         <StyledElementForTokens kind="wrapper">
@@ -52,7 +50,7 @@ export const PoolBondedLiquidityCard = ({
             Unbonding Duration 14 days
           </Text>
         </StyledElementForTokens>
-      </StyledElementForCardLayout>
+      </StyledElementForCardLayoutWrapper>
       <StyledElementForCardLayout kind="content">
         <Button
           disabled={!__POOL_REWARDS_ENABLED__}
@@ -62,27 +60,39 @@ export const PoolBondedLiquidityCard = ({
           {__POOL_REWARDS_ENABLED__ ? 'Bond/Unbond tokens' : 'Coming soon'}
         </Button>
       </StyledElementForCardLayout>
-    </StyledElementForCardLayout>
+    </StyledElementForCardLayoutWrapper>
   )
 }
-
-const StyledElementForCardLayout = styled('div', {
+const StyledElementForCardLayoutWrapper = styled(GradientBackground, {
+  display: 'flex',
+  flexDirection: 'column',
+  rowGap: '15px',
+  justifyContent: 'space-between',
+  fontFamily: 'Trajan',
+  fontSize: '16px',
+  '&:before': {
+    borderRadius: '20px',
+  },
   variants: {
     kind: {
-      wrapper: {
-        borderRadius: '20px',
+      content: {
         padding: '17px 35px',
-        border: '1px solid rgba(255, 255, 255, 0.2)',
-        background: '#2e303e',
-        boxShadow:
-          '0px 4px 40px rgb(42 47 50 / 9%),inset 0px 7px 24px rgb(109 109 120 / 20%)',
-        backdropFilter: 'blur(40px)',
         '@media (max-width: 1550px)': {
           padding: '10px 28px',
         },
-        fontFamily: 'Trajan',
-        fontSize: '16px',
       },
+      wrapper: {
+        padding: '17px 35px',
+        '@media (max-width: 1550px)': {
+          padding: '20px 28px',
+        },
+      },
+    },
+  },
+})
+const StyledElementForCardLayout = styled('div', {
+  variants: {
+    kind: {
       content: {
         flexDirection: 'row',
         display: 'flex',
@@ -112,7 +122,7 @@ const StyledUnstakedText = styled('div', {
   fontWeight: '500',
   '@media (max-width: 1550px)': {
     right: '28px',
-    top: '34px',
+    top: '44px',
     fontSize: '12px',
   },
 })
@@ -126,7 +136,7 @@ const Button = styled('button', {
   fontSize: '18px',
   fontWeight: '600',
   textAlign: 'center',
-  margin: 'auto auto 20px auto',
+  marginInline: 'auto',
   variants: {
     disabled: {
       true: {
@@ -143,7 +153,6 @@ const StyledElementForTokens = styled('div', {
   variants: {
     kind: {
       wrapper: {
-        paddingTop: '$8',
         columnGap: '$space$5',
       },
       column: {},

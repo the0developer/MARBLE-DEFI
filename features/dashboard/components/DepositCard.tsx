@@ -9,6 +9,7 @@ import { useNearDollarValue } from 'hooks/useTokenDollarValue'
 import { nearViewFunction } from 'util/near'
 import { convertMicroDenomToDenom } from 'util/conversion'
 import { useSelector } from 'react-redux'
+import { SecondGradientBackground, GradientBackground } from 'styles/styles'
 
 const DepositCard = ({ param }) => {
   const { pool } = param
@@ -63,7 +64,7 @@ const DepositCard = ({ param }) => {
         <p>{(totalSupply * tokenPrice).toLocaleString()}</p>
       </ValueCard>
       <ButtonWrapper>
-        <Link href="/swap">
+        <Link href="/swap" passHref>
           <StyledButton className="btn-default" variant="primary">
             {' '}
             Buy
@@ -74,17 +75,14 @@ const DepositCard = ({ param }) => {
   )
 }
 
-const Container = styled.div`
-  border-radius: 20px;
-  background-color: #2e303e;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0px 4px 40px rgb(42 47 50 / 9%),
-    inset 0px 7px 24px rgb(109 109 120 / 20%);
+const Container = styled(GradientBackground)`
+  &:before {
+    border-radius: 20px;
+  }
   padding: 30px;
   display: flex;
   flex-direction: column;
   row-gap: 15px;
-  backdrop-filter: blur(40px);
   width: 100%;
   @media (max-width: 1550px) {
     padding: 20px;

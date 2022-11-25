@@ -14,6 +14,7 @@ import {
 } from '../../../util/conversion'
 import { TokenInfo } from 'hooks/useTokenList'
 import { FarmInfo } from 'util/farm'
+import { GradientBackground } from 'styles/styles'
 
 type PoolCardProps = {
   poolId: string
@@ -124,50 +125,12 @@ export const PoolCard = ({
   )
 }
 
-export const PoolCardFetching = ({ hasLiquidityProvided = true }) => {
-  return (
-    <StyledLinkForCard
-      as="div"
-      variant={hasLiquidityProvided ? 'fetching--active' : 'fetching'}
-    >
-      <StyledDivForTokenLogos>
-        <StyledImageForTokenLogo as="div" />
-        <StyledImageForTokenLogo as="div" />
-      </StyledDivForTokenLogos>
-      {hasLiquidityProvided && (
-        <>
-          <StyledDivForLiquidityRows highlighted={true} placeholder={true}>
-            <StyledDivForSeparator />
-            <StyledDivForSeparator />
-          </StyledDivForLiquidityRows>
-        </>
-      )}
-    </StyledLinkForCard>
-  )
-}
-const StyledLinkForCard = styled('a', {
+const StyledLinkForCard = styled(GradientBackground, {
   cursor: 'pointer',
-  borderRadius: '$radii$4',
-  position: 'relative',
-  transition: 'background-color 0.1s ease-out',
-  border: '1px solid rgba(255, 255, 255, 0.2)',
-  background: '#2e303e',
-  boxShadow:
-    '0px 4px 40px rgb(42 47 50 / 9%),inset 0px 7px 24px rgb(109 109 120 / 20%)',
-  '&:active': {
-    backgroundColor: '$colors$dark5',
-  },
-  variants: {
-    variant: {
-      fetching: {
-        minHeight: '184px',
-      },
-      'fetching--active': {
-        minHeight: '288px',
-      },
-    },
-  },
   padding: '10px 0',
+  '&:before': {
+    borderRadius: '20px',
+  },
 })
 
 const StyledDivForTokenLogos = styled('div', {

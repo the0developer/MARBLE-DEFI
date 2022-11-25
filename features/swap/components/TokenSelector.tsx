@@ -13,6 +13,7 @@ import { SelectorInput } from './SelectorInput'
 import { ConvenienceBalanceButtons } from './ConvenienceBalanceButtons'
 import { useIsInteracted } from 'hooks/useIsInteracted'
 import { formatTokenBalance } from '../../../util/conversion'
+import { GradientBackground } from 'styles/styles'
 
 type TokenSelectorProps = {
   readOnly?: boolean
@@ -210,19 +211,15 @@ const StyledDivForOverlay = styled.div<{ interactive: boolean }>`
   }}
 `
 
-const StyledDivForContainer = styled.div<{
+const StyledDivForContainer = styled(GradientBackground)<{
   isFirst: boolean
   isOpened: boolean
 }>`
-  border-radius: 20px;
+  &:before {
+    border-radius: 20px;
+  }
   padding: 0 20px;
-  background-color: #2e303e;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09),
-    inset 0px 7px 24px rgba(109, 109, 120, 0.2);
-  backdrop-filter: blur(400px);
   color: white;
-  position: relative;
   z-index: ${({ isFirst, isOpened }) =>
     isFirst ? (isOpened ? '102' : '2') : '1'};
 `

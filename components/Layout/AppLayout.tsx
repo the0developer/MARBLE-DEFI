@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import TagManager from 'react-gtm-module'
 import { ChakraProvider, HStack, Stack } from '@chakra-ui/react'
 import { FetchCoinInfo } from 'hooks/useTokenBalance'
+import { SecondGradientBackground } from 'styles/styles'
 // import { useDb } from 'hooks/useDb'
 
 const tagManagerArgs = {
@@ -48,15 +49,12 @@ const StyledWrapper = styled(HStack)`
   }
 `
 
-const StyledContainer = styled.div`
-  position: relative;
+const StyledContainer = styled(SecondGradientBackground)`
+  &:before {
+    border-radius: 30px;
+  }
   width: 100%;
   height: calc(100vh - 180px);
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: 0px 7px 14px rgba(0, 0, 0, 0.1),
-    inset 0px 14px 24px rgba(17, 20, 29, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 30px;
   @media (max-width: 1550px) {
     height: calc(100vh - 80px);
   }

@@ -132,7 +132,6 @@ export default function Pools() {
     await db.cacheFarms(farms)
     const farmsCahced = await db.queryFarms()
   }
-  console.log('farms: ', farms)
   const [myPools, allPools] = useMemo(() => {
     if (!liquidity?.length) return []
     const pools = [[], []]

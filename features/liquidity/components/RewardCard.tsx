@@ -7,6 +7,7 @@ import { Button } from 'components/Button'
 import { formatTokenBalance } from 'util/conversion'
 import { withdrawReward } from 'util/m-token'
 import { rewardToken } from 'util/constants'
+import { GradientBackground } from 'styles/styles'
 
 export const RewardCard: React.FC = ({}) => {
   const [reward, setReward] = useState('0')
@@ -63,22 +64,19 @@ const StyledDust = styled.div`
   font-size: 16px;
 `
 
-const StyledElementForCard = styled.div`
+const StyledElementForCard = styled(GradientBackground)`
   display: flex;
   flex-direction: row;
   padding: 20px 24px;
   margin-bottom: 10px;
-  backdrop-filter: blur(40px);
-  border-radius: 20px;
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
   position: relative;
   overflow: hidden;
-  background-color: #2e303e;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0px 4px 40px rgb(42 47 50 / 9%),
-    inset 0px 7px 24px rgb(109 109 120 / 20%);
+  &:before {
+    border-radius: 20px;
+  }
 `
 
 const StyledRewardWrapper = styled.div`
@@ -87,15 +85,12 @@ const StyledRewardWrapper = styled.div`
   align-items: flex-end;
 `
 const StyledButtonWrapper = styled.div``
-const PrimaryButton = styled(Button)`
-  border: 1px solid rgba(255, 255, 255, 0.23);
-  box-shadow: 0px 4px 40px rgba(42, 47, 50, 0.09),
-    inset 0px 7px 24px rgba(109, 109, 120, 0.47);
-  backdrop-filter: blur(40px);
+const PrimaryButton = styled(GradientBackground).attrs({ as: Button })`
   /* Note: backdrop-filter has minimal browser support */
-  background: rgba(5, 6, 21, 0.2);
-  border-radius: 10px;
   font-family: Trajan;
   font-size: 16px;
   font-weight: 500;
+  &:before {
+    border-radius: 10px;
+  }
 `

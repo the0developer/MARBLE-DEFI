@@ -4,6 +4,7 @@ import { convertMicroDenomToDenom, formatTokenBalance } from 'util/conversion'
 import { parseCurrency } from './PoolCard'
 import { LiquidityInfoType } from 'hooks/usePoolLiquidity'
 import { useTokenInfo } from 'hooks/useTokenInfo'
+import { GradientBackground } from 'styles/styles'
 
 type PoolAvailableLiquidityCardProps = Pick<
   LiquidityInfoType,
@@ -26,10 +27,7 @@ export const PoolAvailableLiquidityCard = ({
   const tokenA = useTokenInfo(tokenASymbol)
   const tokenB = useTokenInfo(tokenBSymbol)
   return (
-    <StyledElementForCardLayout
-      kind="wrapper"
-      css={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}
-    >
+    <StyledElementForCardLayoutWrapper kind="wrapper">
       <StyledElementForCardLayout kind="content" name="liquidity">
         <Title>
           {typeof myLiquidity === 'number'
@@ -47,10 +45,7 @@ export const PoolAvailableLiquidityCard = ({
           )}
         </StyledTextForAmount>
       </StyledElementForCardLayout>
-      <StyledElementForCardLayout
-        kind="wrapper"
-        css={{ flexDirection: 'column', alignItems: 'flex-start' }}
-      >
+      <StyledElementForCardLayoutWrapper kind="content">
         <>Underlying assets</>
         <StyledElementForTokens kind="wrapper">
           <StyledElementForTokens kind="element">
@@ -74,7 +69,7 @@ export const PoolAvailableLiquidityCard = ({
             </Text>
           </StyledElementForTokens>
         </StyledElementForTokens>
-      </StyledElementForCardLayout>
+      </StyledElementForCardLayoutWrapper>
       <StyledElementForCardLayout kind="content">
         <Button
           onClick={onButtonClick}
@@ -83,27 +78,41 @@ export const PoolAvailableLiquidityCard = ({
           {myReserve[1] > 0 ? 'Manage liquidity' : 'Add liquidity'}
         </Button>
       </StyledElementForCardLayout>
-    </StyledElementForCardLayout>
+    </StyledElementForCardLayoutWrapper>
   )
 }
+
+const StyledElementForCardLayoutWrapper = styled(GradientBackground, {
+  display: 'flex',
+  flexDirection: 'column',
+  rowGap: '15px',
+  justifyContent: 'space-between',
+  fontFamily: 'Trajan',
+  fontSize: '16px',
+  '&:before': {
+    borderRadius: '20px',
+  },
+  variants: {
+    kind: {
+      content: {
+        padding: '17px 35px',
+        '@media (max-width: 1550px)': {
+          padding: '10px 28px',
+        },
+      },
+      wrapper: {
+        padding: '17px 35px',
+        '@media (max-width: 1550px)': {
+          padding: '20px 28px',
+        },
+      },
+    },
+  },
+})
 
 const StyledElementForCardLayout = styled('div', {
   variants: {
     kind: {
-      wrapper: {
-        borderRadius: '20px',
-        padding: '17px 35px',
-        border: '1px solid rgba(255, 255, 255, 0.2)',
-        background: '#2e303e',
-        boxShadow:
-          '0px 4px 40px rgb(42 47 50 / 9%),inset 0px 7px 24px rgb(109 109 120 / 20%)',
-        backdropFilter: 'blur(40px)',
-        '@media (max-width: 1550px)': {
-          padding: '10px 28px',
-        },
-        fontFamily: 'Trajan',
-        fontSize: '16px',
-      },
       content: {
         flexDirection: 'row',
         display: 'flex',
@@ -150,7 +159,6 @@ const StyledElementForTokens = styled('div', {
       wrapper: {
         gridTemplateColumns: '1fr 1fr',
         columnGap: '$space$8',
-        paddingTop: '$space$8',
       },
     },
   },
