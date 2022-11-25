@@ -4,6 +4,7 @@ import { dollarValueFormatter } from '../../../util/conversion'
 import { MouseEvent, Ref, useRef, useState } from 'react'
 import { useAmountChangeController } from 'hooks/useAmountChangeController'
 import { calculateCharactersLength } from 'components/BasicNumberInput'
+import { GradientBackground } from 'styles/styles'
 
 type LiquiditySelectorProps = {
   inputRef?: Ref<HTMLInputElement>
@@ -111,19 +112,17 @@ const useDrag = ({ getIsException, onProgressUpdate }) => {
   }
 }
 
-const StyledDivForSelector = styled('div', {
+const StyledDivForSelector = styled(GradientBackground, {
   cursor: 'col-resize',
-  background: 'rgb(49, 49, 56)',
-  border: '1px solid rgba(255, 255, 255, 0.2)',
-  borderRadius: '20px',
   overflow: 'hidden',
-  position: 'relative',
   display: 'flex',
   alignItems: 'center',
   width: '100%',
   padding: '20px 20px',
-  boxShadow:
-    '0px 4px 40px rgb(42 47 50 / 9%),inset 0px 7px 24px rgb(109 109 120 / 20%)',
+  borderRadius: '20px',
+  '&:before': {
+    borderRadius: '20px',
+  },
 })
 
 const StyledTextForInputWithSymbol: any = styled(Text, {

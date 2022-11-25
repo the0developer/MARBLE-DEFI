@@ -13,6 +13,7 @@ import { RoundedPlus } from 'icons'
 import { utils } from 'near-api-js'
 import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
+import { GradientBackground } from 'styles/styles'
 import {
   convertDenomToMicroDenom,
   dollarValueFormatterWithDecimals,
@@ -535,13 +536,11 @@ const StyledDivForLiquidityInputs = styled.div`
     padding: 25px 20px;
   }
 `
-const StyledDivForRemoveLiquidityInputs = styled.div`
-  background-color: rgb(49, 49, 56);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0px 4px 40px rgb(42 47 50 / 9%),
-    inset 0px 7px 24px rgb(109 109 120 / 20%);
-  border-radius: 20px;
+const StyledDivForRemoveLiquidityInputs = styled(GradientBackground)`
   width: 100%;
+  &:before {
+    border-radius: 20px;
+  }
 `
 const StyledDivForRemoveLiquidityInputsWrapper = styled.div`
   padding: 25px 30px 0 30px;
@@ -577,18 +576,16 @@ const StyledGridForDollarValueTxInfo = styled.div`
   justify-content: space-between;
 `
 
-const StyledDivForLiquiditySummary = styled.div`
+const StyledDivForLiquiditySummary = styled(GradientBackground)`
   display: flex;
   align-items: center;
   column-gap: 30px;
-  background-color: rgb(49, 49, 56);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0px 4px 40px rgb(42 47 50 / 9%),
-    inset 0px 7px 24px rgb(109 109 120 / 20%);
-  border-radius: 20px;
   padding: 25px 30px 25px 30px;
   @media (max-width: 1550px) {
     padding: 25px 20px 25px 25px;
+  }
+  &:before {
+    border-radius: 20px;
   }
 `
 

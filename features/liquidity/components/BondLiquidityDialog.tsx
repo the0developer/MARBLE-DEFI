@@ -21,6 +21,7 @@ import { toast } from 'react-toastify'
 import { usePoolList } from 'hooks/usePoolList'
 import { getPoolLiquidity, LiquidityType } from 'hooks/usePoolLiquidity'
 import { protectAgainstNaN } from 'util/conversion'
+import { GradientBackground } from 'styles/styles'
 
 const incentiveStart = 'April 26, 2022 20:59:45 UTC+00:00'
 const incentiveEnd = 'March 27, 2099 00:00:00 UTC+00:00'
@@ -185,7 +186,7 @@ export const BondLiquidityDialog = ({
           </StyledDivForContent>
         </>
       )}
-      <StyledDivForContent kind="form">
+      <StyledDivForContentWrapper>
         <LiquidityInputSelector
           maxLiquidity={maxDollarValueLiquidity}
           liquidity={liquidityDollarAmount}
@@ -207,7 +208,7 @@ export const BondLiquidityDialog = ({
           liquidity={liquidityDollarAmount}
           onChangeLiquidity={setLiquidityDollarAmount}
         />
-      </StyledDivForContent>
+      </StyledDivForContentWrapper>
       <StyledDivForContent>
         <BondingSummary
           label={dialogState === 'bond' ? 'Bonding' : 'Unbonding'}
@@ -259,6 +260,16 @@ export const BondLiquidityDialog = ({
   )
 }
 
+const StyledDivForContentWrapper = styled(GradientBackground, {
+  padding: '25px 30px 0 30px',
+  '@media (max-width: 1550px)': {
+    padding: '25px 20px 0 20px',
+  },
+  margin: '0 25px',
+  '&:before': {
+    borderRadius: '20px',
+  },
+})
 const StyledDivForContent = styled('div', {
   padding: '0px 28px',
   variants: {

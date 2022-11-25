@@ -4,6 +4,7 @@ import { Text } from './Text'
 import { formatTokenBalance } from '../util/conversion'
 import { useTokenInfo } from '../hooks/useTokenInfo'
 import { BasicNumberInput } from './BasicNumberInput'
+import { GradientBackground } from 'styles/styles'
 
 type LiquidityInputProps = {
   tokenSymbol: string
@@ -57,17 +58,13 @@ export const LiquidityInput: FC<LiquidityInputProps> = ({
   )
 }
 
-const StyledDivForWrapper = styled('div', {
+const StyledDivForWrapper = styled(GradientBackground, {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  backgroundColor: 'rgb(49,49,56)',
-  border: '1px solid rgba(255, 255, 255, 0.2)',
   borderRadius: '20px',
   padding: '12px 24px 10px 10px',
   width: '100%',
-  boxShadow:
-    '0px 4px 40px rgb(42 47 50 / 9%),inset 0px 7px 24px rgb(109 109 120 / 20%)',
   transition: 'background 0.1s ease-out',
   '&:hover': {
     backgroundColor: 'rgba(25, 29, 32, 0.15)',
@@ -81,6 +78,9 @@ const StyledDivForWrapper = styled('div', {
         backgroundColor: 'rgba(25, 29, 32, 0.05) !important',
       },
     },
+  },
+  '&:before': {
+    borderRadius: '20px',
   },
 })
 

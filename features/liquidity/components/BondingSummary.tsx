@@ -7,6 +7,7 @@ import {
   formatTokenBalance,
   convertMicroDenomToDenom,
 } from 'util/conversion'
+import { GradientBackground } from 'styles/styles'
 
 type BondingSummaryProps = {
   label: string
@@ -62,8 +63,7 @@ export const BondingSummary = ({
             />
           </StyledDivForTokensGrid>
         </StyledDivForColumn>
-        <StyledDivForColumn
-          kind="value"
+        <StyledDivForColumnInput
           active={isDollarValueInputFocused}
           onClick={() => refForInput.current?.focus()}
           role="button"
@@ -89,7 +89,7 @@ export const BondingSummary = ({
               }}
             />
           </StyledTextForInputWithSymbol>
-        </StyledDivForColumn>
+        </StyledDivForColumnInput>
       </StyledDivForGrid>
     </>
   )
@@ -105,6 +105,20 @@ const StyledNodeForToken = ({ logoURI, name, amount }) => {
     </StyledDivForToken>
   )
 }
+
+const StyledDivForColumnInput = styled(GradientBackground, {
+  transition: 'background-color .1s ease-out',
+  padding: '10px',
+  '&:before': {
+    borderRadius: '10px',
+  },
+  '&:hover': {
+    backgroundColor: '$colors$dark15',
+  },
+  '&:active': {
+    backgroundColor: '$colors$dark5',
+  },
+})
 
 const StyledDivForColumn = styled('div', {
   variants: {
@@ -134,19 +148,17 @@ const StyledDivForColumn = styled('div', {
   },
 })
 
-const StyledDivForGrid = styled('div', {
+const StyledDivForGrid = styled(GradientBackground, {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
   paddingBottom: '$8',
-  border: '1px solid rgba(255, 255, 255, 0.2)',
-  background: 'rgb(49, 49, 56)',
-  boxShadow:
-    '0px 4px 40px rgb(42 47 50 / 9%), inset 0px 7px 24px rgb(109 109 120 / 20%)',
-  borderRadius: '20px',
   padding: '25px 30px',
   '@media (max-width: 1550px)': {
     padding: '25px 20px',
+  },
+  '&:before': {
+    borderRadius: '20px',
   },
 })
 
@@ -178,13 +190,4 @@ const StyledTextForInputWithSymbol: any = styled(Text, {
   padding: '$4 $7',
   columnGap: '$space$2',
   minWidth: '107px',
-})
-const BondingSummaryWrapper = styled('div', {
-  background: 'rgba(5, 6, 22, 0.2)',
-  boxShadow: '0px 4px 40px rgba(42, 47, 50, 0.09), inset 0px 7px 24px #6d6d78',
-  borderRadius: '20px',
-  padding: '25px 30px 0 30px',
-  '@media (max-width: 1550px)': {
-    padding: '25px 20px 0 20px',
-  },
 })
