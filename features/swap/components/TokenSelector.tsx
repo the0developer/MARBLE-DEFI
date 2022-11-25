@@ -215,11 +215,13 @@ const StyledDivForContainer = styled(GradientBackground)<{
   isFirst: boolean
   isOpened: boolean
 }>`
-  &:before {
-    border-radius: 20px;
-  }
+  border-radius: 20px;
   padding: 0 20px;
   color: white;
   z-index: ${({ isFirst, isOpened }) =>
     isFirst ? (isOpened ? '102' : '2') : '1'};
+  ${({ isOpened }) => isOpened && 'background: rgb(24,27,42)'};
+  &:before {
+    border-radius: 20px;
+  }
 `
