@@ -80,25 +80,19 @@ function NavigationSidebar() {
   return (
     <>
       <Header>
-        <LinkIconWrapper
-          className="mobile-nav"
-          type="button"
-          size="40px"
-          icon={<Nav />}
-          onClick={() => {
-            setOpenNav(!openNav)
-          }}
-        />
+        <HeaderLinkIconWrapper>
+          <LinkIconWrapper
+            type="button"
+            size="40px"
+            icon={<Nav />}
+            onClick={() => {
+              setOpenNav(!openNav)
+            }}
+          />
+        </HeaderLinkIconWrapper>
         <StyledDivForLogo as="a">
           <StyledImageForLogoText src="/images/logo-black.svg" />
         </StyledDivForLogo>
-        <ConnectedWalletButton
-          connected={!!accountId}
-          walletName={accountId}
-          onConnect={() => connectWallet()}
-          onDisconnect={() => disconnect()}
-          css={{ marginBottom: '$6' }}
-        />
       </Header>
       <StyledWrapper openNav={openNav} ref={ref}>
         <StyledMenuContainer className="wrap-menu container">
@@ -221,7 +215,7 @@ const Header = styled.div`
   left: 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding-inline: 20px;
   z-index: 100;
   background: rgba(8, 12, 28, 0.6);
@@ -296,4 +290,9 @@ const IconWrapper = styled.div<{ isActive: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
+`
+const HeaderLinkIconWrapper = styled.div`
+  position: absolute;
+  left: 20px;
+  top: 10px;
 `
