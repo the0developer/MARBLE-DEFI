@@ -12,7 +12,6 @@ import { GradientBackground } from 'styles/styles'
 export const RewardCard: React.FC = ({}) => {
   const [reward, setReward] = useState('0')
   const rewardToken = 'dust.cmdev0.testnet'
-  const decimals = 8
   const REWARD_TOKEN_DECIMAL = 8
   const nearPrice = useSelector((state: any) => state.coinData.near_value)
   const dustPriceInNear = useSelector(
@@ -77,6 +76,9 @@ const StyledElementForCard = styled(GradientBackground)`
   &:before {
     border-radius: 20px;
   }
+  @media (max-width: 650px) {
+    padding: 20px 5px;
+  }
 `
 
 const StyledRewardWrapper = styled.div`
@@ -84,7 +86,11 @@ const StyledRewardWrapper = styled.div`
   flex-direction: column;
   align-items: flex-end;
 `
-const StyledButtonWrapper = styled.div``
+const StyledButtonWrapper = styled.div`
+  @media (max-width: 650px) {
+    width: 100%;
+  }
+`
 const PrimaryButton = styled(GradientBackground).attrs({ as: Button })`
   /* Note: backdrop-filter has minimal browser support */
   font-family: Trajan;
@@ -92,5 +98,9 @@ const PrimaryButton = styled(GradientBackground).attrs({ as: Button })`
   font-weight: 500;
   &:before {
     border-radius: 10px;
+  }
+  @media (max-width: 650px) {
+    width: 100%;
+    margin-top: 20px;
   }
 `

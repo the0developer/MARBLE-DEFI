@@ -67,6 +67,9 @@ const StyledDivForWrapper = styled('div', {
   position: 'relative',
   borderRight: '1px solid white',
   width: 'fit-content',
+  '@media (max-width: 650px)': {
+    borderRight: 'none',
+  },
 })
 
 const StyledDivForSelector = styled('button', {
@@ -92,14 +95,17 @@ const StyledDivForSelector = styled('button', {
       },
     },
   },
+  '@media (max-width: 650px)': {
+    padding: '10px',
+  },
 })
 
 const StyledDivForPopover = styled('div', {
   textTransform: 'none',
-  backgroundColor: 'rgba(5,6,22,0.6)',
+  backgroundColor: 'rgba(5,6,22)',
   padding: '$7',
   position: 'absolute',
-  width: '284px',
+  backdropFilter: 'blue(40px)',
   // bottom: 'calc(100% + 4px)',
   left: 0,
   top: '60px',
@@ -110,7 +116,7 @@ const StyledDivForPopover = styled('div', {
   border: '1px solid rgba(25, 29, 32, 0.25)',
   boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.1)',
   ' p': {
-    fontFamily: 'Trajan',
+    fontFamily: 'Mulish',
   },
 })
 
@@ -147,5 +153,8 @@ const Title = styled('div', {
   fontFamily: 'Trajan',
   '@media (max-width: 1550px)': {
     fontSize: '20px',
+  },
+  '@media (max-width: 650px)': {
+    fontSize: '15px',
   },
 })

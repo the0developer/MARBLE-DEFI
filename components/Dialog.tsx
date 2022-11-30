@@ -89,7 +89,7 @@ export const DialogBody = styled.div`
 const StyledDivForModal = styled.div`
   opacity: 0;
   max-width: 492px;
-  width: 100%;
+  width: 90%;
   position: absolute;
   z-index: 99;
   left: 50%;

@@ -99,9 +99,14 @@ const StyledNodeForToken = ({ logoURI, name, amount }) => {
   return (
     <StyledDivForToken>
       <StyledImgForTokenLogo as={logoURI ? 'img' : 'div'} src={logoURI} />
-      <Text transform="uppercase" variant="caption" wrap={false}>
-        {formatTokenBalance(amount)} {name}
-      </Text>
+      <TokenValueWrapper>
+        <Text transform="uppercase" variant="caption" wrap={false}>
+          {formatTokenBalance(amount)}
+        </Text>
+        <Text transform="uppercase" variant="caption" wrap={false}>
+          {name}
+        </Text>
+      </TokenValueWrapper>
     </StyledDivForToken>
   )
 }
@@ -157,6 +162,9 @@ const StyledDivForGrid = styled(GradientBackground, {
   '@media (max-width: 1550px)': {
     padding: '25px 20px',
   },
+  '@media (max-width: 480px)': {
+    padding: '25px 10px',
+  },
   '&:before': {
     borderRadius: '20px',
   },
@@ -166,7 +174,6 @@ const StyledDivForTokensGrid = styled('div', {
   display: 'flex',
   alignItems: 'center',
   rowGap: '$space$4',
-  flexWrap: 'wrap',
 })
 
 const StyledDivForToken = styled('div', {
@@ -189,5 +196,10 @@ const StyledTextForInputWithSymbol: any = styled(Text, {
   justifyContent: 'flex-end',
   padding: '$4 $7',
   columnGap: '$space$2',
-  minWidth: '107px',
+  width: '100%',
+  minWidth: '100px',
+})
+const TokenValueWrapper = styled('div', {
+  display: 'flex',
+  flexWrap: 'wrap',
 })

@@ -201,8 +201,11 @@ const StyledDivForWrapper = styled.div`
   flex-direction: column;
   row-gap: 30px;
   @media (max-width: 1550px) {
-    padding: 20px 20px;
+    padding: 20px;
     row-gap: 15px;
+  }
+  @media (max-width: 1024px) {
+    padding: 0px;
   }
 `
 const StyldedGrid = styled.div`
@@ -211,6 +214,13 @@ const StyldedGrid = styled.div`
   grid-column-gap: 30px;
   @media (max-width: 1550px) {
     grid-column-gap: 15px;
+  }
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 15px;
+  }
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
   }
 `
 const Title = styled.div`
@@ -251,10 +261,17 @@ const CValue = styled.div`
 `
 const StateContent = styled(GradientBackground)`
   padding: 20px;
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   @media (max-width: 1550px) {
     padding: 12px;
+  }
+  @media (max-width: 850px) {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 20px;
+  }
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
   }
   &:before {
     border-radius: 20px;
@@ -262,9 +279,17 @@ const StateContent = styled(GradientBackground)`
 `
 const StateElement = styled.div`
   text-align: center;
+  @media (max-width: 480px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 `
 const DepositCardWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 30px;
+  @media (max-width: 850px) {
+    grid-template-columns: 1fr;
+    row-gap: 30px;
+  }
 `

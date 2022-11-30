@@ -262,16 +262,25 @@ export const BondLiquidityDialog = ({
 
 const StyledDivForContentWrapper = styled(GradientBackground, {
   padding: '25px 30px 0 30px',
+  margin: '0 25px',
   '@media (max-width: 1550px)': {
     padding: '25px 20px 0 20px',
   },
-  margin: '0 25px',
+
+  '@media (max-width: 480px)': {
+    padding: '25px 10px 0 10px',
+    margin: '0 10px',
+  },
+
   '&:before': {
     borderRadius: '20px',
   },
 })
 const StyledDivForContent = styled('div', {
   padding: '0px 28px',
+  '@media(max-width: 480px)': {
+    padding: '0px 10px',
+  },
   variants: {
     kind: {
       form: {
@@ -284,10 +293,16 @@ const StyledDivForContent = styled('div', {
         '@media (max-width: 1550px)': {
           padding: '25px 20px 0 20px',
         },
+        '@media (max-width: 650px)': {
+          padding: '25px 5px 0 5px',
+        },
         margin: '0 25px',
       },
       bondingHeader: {
         paddingBottom: 16,
+        '@media (max-width: 650px)': {
+          padding: '0 0px',
+        },
       },
       text: {
         fontSize: 5,

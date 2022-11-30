@@ -1,6 +1,6 @@
 import { AppLayout } from 'components/Layout/AppLayout'
 import { PageHeader } from 'components/Layout/PageHeader'
-import { styled } from 'components/theme'
+import styled from 'styled-components'
 import { useEffect, useState } from 'react'
 import { TokenSelector } from '../../features/swap/components/TokenSelector'
 import { TransactionTips } from '../../features/swap/components/TransactionTips'
@@ -70,10 +70,10 @@ export default function Deposit() {
   return (
     <AppLayout fullWidth={true}>
       <Container className="middle mauto">
-        <PageHeader
-          title="NEAR - wNEAR"
-          subtitle="Deposit NEAR or Withdraw from wNEAR"
-        />
+        <Header>
+          <h1>Near-wNear</h1>
+          <p>Deposit NEAR or Withdraw from wNEAR</p>
+        </Header>
         <StyledDivForWrapper>
           <SelectorPart>
             <HeightFix>
@@ -120,42 +120,112 @@ export default function Deposit() {
     </AppLayout>
   )
 }
+const Header = styled.div`
+  text-align: center;
+  margin-bottom: 40px;
+  h1 {
+    font-size: 45px;
+    font-weight: 700;
+    font-family: Trajan;
+  }
+  p {
+    font-size: 24px;
+    font-weight: 400;
+    font-family: Trajan;
+  }
+  @media (max-width: 1550px) {
+    margin-bottom: 0px;
+    p {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: 650px) {
+    h1 {
+      font-size: 35px;
+      font-weight: 700;
+      font-family: Trajan;
+    }
+    p {
+      font-size: 18px;
+      font-weight: 400;
+      font-family: Trajan;
+    }
+  }
+`
+const StyledDivForWrapper = styled.div`
+  overflow: auto;
+  position: absolute;
+  right: 20px;
+  left: 20px;
+  bottom: 20px;
+  top: 130px;
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  @media (max-width: 1550px) {
+    top: 110px;
+  }
+  @media (max-width: 1024px) {
+    right: 0;
+    left: 0;
+  }
+  @media (max-width: 650px) {
+    top: 150px;
+  }
+  padding: 0 10px;
+`
 
-const StyledDivForWrapper = styled('div', {
-  padding: '3rem 4rem',
-})
+const ButtonWrapper = styled.div`
+  padding-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`
 
-const ButtonWrapper = styled('div', {
-  paddingTop: '20px',
-  width: '100%',
-  display: 'flex',
-  justifyContent: 'center',
-})
+const Container = styled.div`
+  padding: 20px 60px 0px 60px;
+  // height: 100%;
+  @media (max-width: 1550px) {
+    padding: 20px 40px 0px 40px;
+  }
+  @media (max-width: 650px) {
+    padding-inline: 0px;
+  }
+`
 
-const Container = styled('div', {})
-const SelectorPart = styled('div', {
-  position: 'relative',
-})
-const PrimaryButton = styled(Button, {
-  position: 'relative',
-  cursor: 'pointer',
-  display: 'flex',
-  boxShadow: '0px 10px 30px rgba(42, 47, 50, 0.2)',
-  width: '176px',
-  height: '52px',
-  alignItems: 'center',
-  borderRadius: '20px',
-  textAlign: 'center',
-  fontSize: '18px',
-  fontWeight: '600',
-  justifyContent: 'center',
-  backdropFilter: 'blur(14px)',
-  background: 'white',
-  color: 'black',
-})
-const HeightFix = styled('div', {
-  height: '115px',
-  '@media (max-width: 1550px)': {
-    height: '90px',
-  },
-})
+const SelectorPart = styled.div`
+  position: relative;
+`
+const PrimaryButton = styled(Button)`
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  box-shadow: 0px 10px 30px rgba(42, 47, 50, 0.2);
+  width: 176px;
+  height: 52px;
+  align-items: center;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  justify-content: center;
+  backdrop-filter: blur(40px);
+  background: white;
+  color: black;
+`
+const HeightFix = styled.div`
+  height: 115px;
+  @media (max-width: 1550px) {
+    height: 90px;
+  }
+  @media (max-width: 650px) {
+    height: 70px;
+  }
+`

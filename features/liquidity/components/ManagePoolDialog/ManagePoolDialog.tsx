@@ -190,7 +190,7 @@ export const ManagePoolDialog = ({
             <Divider offsetY={16} />
           </>
         )}
-        <Stack padding="0 36px">
+        <ContentWrapper>
           <Stack textAlign="left">
             <Text
               variant="body"
@@ -249,7 +249,7 @@ export const ManagePoolDialog = ({
               </SecondaryButton>
             </StyledDivForFooter>
           </StyledDivForContent>
-        </Stack>
+        </ContentWrapper>
       </Dialog>
     </ChakraProvider>
   )
@@ -301,30 +301,6 @@ function AddLiquidityContent({
   }
   return (
     <Stack spacing={10} alignItems="center">
-      {/* <StyledDivForLiquidityInputs>
-        <LiquidityInput
-          tokenSymbol={tokenASymbol}
-          availableAmount={tokenABalance ? tokenABalance : 0}
-          maxApplicableAmount={maxApplicableBalanceForTokenA}
-          amount={liquidityAmounts[0]}
-          onAmountChange={handleTokenAAmountChange}
-        />
-        <LiquidityInput
-          tokenSymbol={tokenBSymbol}
-          availableAmount={tokenBBalance ? tokenBBalance : 0}
-          maxApplicableAmount={maxApplicableBalanceForTokenB}
-          amount={liquidityAmounts[1]}
-          onAmountChange={handleTokenBAmountChange}
-        />
-      </StyledDivForLiquidityInputs> */}
-      {/* <StyledDivForLiquidityInputs>
-        <MaxButton
-          onClick={handleApplyMaximumAmount}
-          // leftIcon={<IconWrapper icon={<RoundedPlus />} />}
-        >
-          Max
-        </MaxButton>
-      </StyledDivForLiquidityInputs> */}
       <StyledDivForRemoveLiquidityInputs>
         <StyledDivForAddLiquidityInputsWrapper>
           <LiquidityInput
@@ -609,4 +585,10 @@ const Title = styled.div`
   font-size: 20px;
   font-family: Trajan;
   color: white;
+`
+const ContentWrapper = styled.div`
+  padding: 0 36px;
+  @media (max-width: 650px) {
+    padding: 0 15px;
+  }
 `

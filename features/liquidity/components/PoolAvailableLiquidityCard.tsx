@@ -99,11 +99,17 @@ const StyledElementForCardLayoutWrapper = styled(GradientBackground, {
         '@media (max-width: 1550px)': {
           padding: '10px 28px',
         },
+        '@media (max-width: 650px)': {
+          padding: '20px 10px',
+        },
       },
       wrapper: {
         padding: '17px 35px',
         '@media (max-width: 1550px)': {
           padding: '20px 28px',
+        },
+        '@media (max-width: 650px)': {
+          padding: '20px 10px',
         },
       },
     },

@@ -129,6 +129,9 @@ const StyledDivForWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  @media (max-width: 650px) {
+    padding: 20px 0;
+  }
 `
 const SelectorPart = styled.div`
   position: relative;
@@ -138,5 +141,8 @@ const HeightFix = styled.div`
   height: 115px;
   @media (max-width: 1550px) {
     height: 90px;
+  }
+  @media (max-width: 650px) {
+    height: 70px;
   }
 `

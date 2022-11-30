@@ -14,6 +14,7 @@ import { TokenInfo } from 'hooks/useTokenList'
 import { useSwap } from 'state/swap'
 import { WalletStatusType } from '../../../state/atoms/walletAtoms'
 import { TokenRateWrapper, StyledDivForInfo } from './styled'
+import { isMobile } from 'util/device'
 
 type TransactionTipsProps = {
   isPriceLoading?: boolean
@@ -105,15 +106,17 @@ export const TransactionAction = ({
             onSlippageChange={setSlippage}
           />
         </StyledDivColumnForInfo>
-        <StyledDivColumnForInfo className="fee-selector" kind="slippage">
-          {tokenB.tokenAddress && (
-            <TokenRateWrapper>
-              {`1${tokenA.tokenSymbol} = ${rate.toFixed(4)}${
-                tokenB.tokenSymbol
-              } = $${NearValue * tokenValues[tokenA.tokenAddress]}`}
-            </TokenRateWrapper>
-          )}
-        </StyledDivColumnForInfo>
+        {!isMobile() && (
+          <StyledDivColumnForInfo className="fee-selector" kind="slippage">
+            {tokenB.tokenAddress && (
+              <TokenRateWrapper>
+                {`1${tokenA.tokenSymbol} = ${rate.toFixed(4)}${
+                  tokenB.tokenSymbol
+                } = $${NearValue * tokenValues[tokenA.tokenAddress]}`}
+              </TokenRateWrapper>
+            )}
+          </StyledDivColumnForInfo>
+        )}
         <StyledDivColumnForInfo className="fee-selector" kind="fees">
           <Text>Swap fee ({NETWORK_FEE * 100}%)</Text>
         </StyledDivColumnForInfo>
@@ -131,6 +134,10 @@ export const TransactionAction = ({
             fontFamily: 'Trajan',
             fontSize: '24px',
             fontWidth: '700',
+            '@media (max-width: 650px)': {
+              fontSize: '15px',
+              padding: '10px 20px',
+            },
           }}
           iconLeft={<IconWrapper icon={<Exchange />} />}
           variant="primary"
@@ -167,6 +174,10 @@ const StyledDivColumnForInfo = styled('div', {
         padding: '16px 25px 16px 40px',
         borderRadius: '0px',
         borderLeft: '1px solid white',
+        '@media (max-width: 650px)': {
+          borderLeft: 'none',
+          padding: '10px',
+        },
       },
     },
   },
@@ -200,5 +211,8 @@ const Text = styled('div', {
   fontFamily: 'Trajan',
   '@media (max-width: 1550px)': {
     fontSize: '20px',
+  },
+  '@media (max-width: 650px)': {
+    fontSize: '15px',
   },
 })

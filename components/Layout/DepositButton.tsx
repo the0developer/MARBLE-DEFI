@@ -18,7 +18,9 @@ export const DepositButton = () => {
   )
 }
 
-const StyledImageForLogoText = styled.img``
+const StyledImageForLogoText = styled.img`
+  width: 80px;
+`
 
 const DepositButtonWrapper = styled.div`
   display: flex;

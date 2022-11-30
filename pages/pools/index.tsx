@@ -26,6 +26,7 @@ import {
 } from 'util/farm'
 import { DEFAULT_PAGE_LIMIT } from 'util/pool'
 import { useSelector } from 'react-redux'
+import { isMobile } from 'util/device'
 
 export default function Pools() {
   const [tokenList] = useTokenList()
@@ -164,13 +165,12 @@ export default function Pools() {
     <AppLayout>
       <Container>
         <Header>
-          <h1>Available Pools</h1>
+          <h1>{!isMobile() && 'Available '}Pools</h1>
           <p>
             Provide liquidity to the market and receive swap fees from each
             trade.
           </p>
         </Header>
-        <Divider />
         <StyledDivForWrapper>
           {shouldShowFetchingState && (
             <>
@@ -243,32 +243,36 @@ const Container = styled.div`
     padding: 20px 20px 0px 20px;
   }
 `
-const Divider = styled.div`
-  height: 1px;
-  background: rgba(255, 255, 255, 0.1);
-  margin: 10px 10px 0 10px;
-`
+
 const Header = styled.div`
   text-align: center;
+  margin-bottom: 40px;
   h1 {
-    font-size: 40px;
+    font-size: 45px;
     font-weight: 700;
     font-family: Trajan;
   }
   p {
-    font-size: 20px;
+    font-size: 24px;
+    font-weight: 400;
     font-family: Trajan;
-    opacity: 0.8;
   }
   @media (max-width: 1550px) {
+    margin-bottom: 0px;
+    p {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: 650px) {
     h1 {
-      font-size: 30px;
-      font-weight: 300;
+      font-size: 35px;
       font-weight: 700;
+      font-family: Trajan;
     }
     p {
-      font-size: 15px;
-      font-weight: 300;
+      font-size: 18px;
+      font-weight: 400;
+      font-family: Trajan;
     }
   }
 `
@@ -288,6 +292,12 @@ const StyledDivForPoolsGrid = styled.div`
   @media (max-width: 1550px) {
     column-gap: 15px;
     row-gap: 15px;
+  }
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 650px) {
+    grid-template-columns: 1fr;
   }
 `
 
@@ -310,12 +320,11 @@ const SectionTitle = ({ variant = 'my', children }) => {
 }
 const StyledDivForWrapper = styled.div`
   overflow: auto;
-  margin-top: 20px;
   position: absolute;
   right: 20px;
   left: 20px;
   bottom: 20px;
-  top: 120px;
+  top: 130px;
   ::-webkit-scrollbar {
     width: 6px;
   }
@@ -325,6 +334,14 @@ const StyledDivForWrapper = styled.div`
   }
   ::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.1);
+  }
+  @media (max-width: 1550px) {
+    top: 160px;
+  }
+  @media (max-width: 650px) {
+    right: 0;
+    left: 0;
+    bottom: 10px;
   }
   padding: 0 10px;
 `

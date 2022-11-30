@@ -14,6 +14,7 @@ import { ConvenienceBalanceButtons } from './ConvenienceBalanceButtons'
 import { useIsInteracted } from 'hooks/useIsInteracted'
 import { formatTokenBalance } from '../../../util/conversion'
 import { GradientBackground } from 'styles/styles'
+import { isMobile } from 'util/device'
 
 type TokenSelectorProps = {
   readOnly?: boolean
@@ -77,7 +78,7 @@ export const TokenSelector = ({
                 : undefined
             }
           />
-          {!isTokenListShowing && tokenSymbol && !readOnly && (
+          {!isTokenListShowing && tokenSymbol && !readOnly && !isMobile() && (
             <ConvenienceBalanceButtons
               disabled={balance <= 0}
               tokenSymbol={tokenSymbol}
@@ -96,7 +97,7 @@ export const TokenSelector = ({
           )}
           {!isTokenListShowing && (
             <ColumnFlex>
-              <Text>balance: ${formattedAvailableAmount}</Text>
+              {!isMobile() && <Text>balance: ${formattedAvailableAmount}</Text>}
               <SelectorInput
                 inputRef={mergeRefs([inputRef, refForInput])}
                 amount={amount}
@@ -148,6 +149,9 @@ const StyledDivForWrapper = styled.div`
   position: relative;
   z-index: 0;
   min-height: 64px;
+  @media (max-width: 650px) {
+    padding: 10px 10px;
+  }
 `
 
 const ColumnFlex = styled.div`
@@ -223,5 +227,8 @@ const StyledDivForContainer = styled(GradientBackground)<{
   ${({ isOpened }) => isOpened && 'background: rgb(24,27,42)'};
   &:before {
     border-radius: 20px;
+  }
+  @media (max-width: 850px) {
+    padding: 0;
   }
 `

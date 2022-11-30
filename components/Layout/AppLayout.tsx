@@ -1,10 +1,12 @@
 import styled from 'styled-components'
 import { NavigationSidebar } from './NavigationSidebar'
+import FixedNavigationSidebar from './FixedNavigationSidebar'
 import { FooterBar } from './FooterBar'
 import { useEffect, useState } from 'react'
 import TagManager from 'react-gtm-module'
 import { ChakraProvider, HStack, Stack } from '@chakra-ui/react'
 import { FetchCoinInfo } from 'hooks/useTokenBalance'
+import { isPC } from 'util/device'
 import { SecondGradientBackground } from 'styles/styles'
 // import { useDb } from 'hooks/useDb'
 
@@ -24,11 +26,11 @@ export const AppLayout = ({
   useEffect(() => {
     TagManager.initialize(tagManagerArgs)
   }, [])
-
   return (
     <ChakraProvider>
       <StyledWrapper spacing={10}>
-        <NavigationSidebar />
+        {isPC() ? <NavigationSidebar /> : <FixedNavigationSidebar />}
+
         <StyledContainer>{children}</StyledContainer>
       </StyledWrapper>
     </ChakraProvider>
@@ -44,8 +46,17 @@ const StyledWrapper = styled(HStack)`
   position: relative;
   color: white;
   padding: 90px;
+  * {
+    font-family: Trajan;
+  }
   @media (max-width: 1550px) {
     padding: 40px;
+  }
+  @media (max-width: 1024px) {
+    padding-top: 100px;
+  }
+  @media (max-width: 650px) {
+    padding: 80px 10px;
   }
 `
 
@@ -57,5 +68,8 @@ const StyledContainer = styled(SecondGradientBackground)`
   height: calc(100vh - 180px);
   @media (max-width: 1550px) {
     height: calc(100vh - 80px);
+  }
+  @media (max-width: 1024px) {
+    margin-inline: 0 !important;
   }
 `

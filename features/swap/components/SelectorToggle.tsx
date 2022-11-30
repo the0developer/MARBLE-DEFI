@@ -5,6 +5,7 @@ import React from 'react'
 import { formatTokenBalance } from '../../../util/conversion'
 import { styled } from 'components/theme'
 import { useTokenInfo } from '../../../hooks/useTokenInfo'
+import { isMobile } from 'util/device'
 
 type SelectorToggleProps = {
   isSelecting: boolean
@@ -52,7 +53,9 @@ export const SelectorToggle = ({
           />
           <div>
             <TokenTitle>{tokenSymbol}</TokenTitle>
-            <TokenValue>{formattedAvailableAmount} available</TokenValue>
+            {!isMobile() && (
+              <TokenValue>{formattedAvailableAmount} available</TokenValue>
+            )}
           </div>
           <IconWrapper size="16px" rotation="-90deg" icon={<Chevron />} />
         </>
@@ -84,6 +87,9 @@ const StyledDivForSelector = styled('div', {
         columnGap: '$space$6',
         gridTemplateColumns: '$space$15 1fr $space$8',
         minWidth: 231,
+        '@media (max-width: 650px)': {
+          minWidth: 'auto',
+        },
       },
       selecting: {
         padding: '$6 $8',
@@ -105,6 +111,9 @@ const TokenTitle = styled('div', {
   fontFamily: 'Trajan',
   '@media (max-width: 1550px)': {
     fontSize: '20px',
+  },
+  '@media (max-width: 650px)': {
+    fontSize: '15px',
   },
 })
 const TokenValue = styled('div', {

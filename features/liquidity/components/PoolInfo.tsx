@@ -1,4 +1,4 @@
-import { styled } from '@stitches/react'
+import styled from 'styled-components'
 import DateCountdown from 'components/DateCountdown'
 import { useBaseTokenInfo, useTokenInfoByPoolId } from 'hooks/useTokenInfo'
 import React from 'react'
@@ -118,61 +118,65 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
   )
 }
 
-const StyledElementForCard = styled(GradientBackground, {
-  padding: '20px 40px',
-  marginBottom: '20px',
-  display: 'flex',
-  justifyContent: 'space-between',
-  flexWrap: 'wrap',
-  alignItems: 'center',
-  position: 'relative',
-  overflow: 'hidden',
-  '@media (max-width: 1550px)': {
-    padding: '10px 40px',
-  },
-  '&:before': {
-    borderRadius: '20px',
-  },
-})
+const StyledElementForCard = styled(GradientBackground)`
+  padding: 20px 40px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  @media (max-width: 1550px) {
+    padding: 10px 40px;
+  }
+  &:before {
+    border-radius: 20px;
+  }
+  @media (max-width: 650px) {
+    padding: 10px;
+  }
+`
 
-const StyledElementForToken = styled('div', {
-  display: 'flex',
-  flex: 1,
-  minWidth: 200,
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  rowGap: '10px',
-  '@media (max-width: 1550px)': {
-    rowGap: '5px',
-  },
-})
+const StyledElementForToken = styled.div`
+  display: flex;
+  flex: 1;
+  min-width: 200px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 10px;
+  @media (max-width: 1550px) {
+    row-gap: 5px;
+  }
+`
 
-const StyledImageForToken = styled('img', {
-  width: 20,
-  height: 20,
-  borderRadius: '50%',
-  backgroundColor: '#ccc',
-  marginRight: 10,
-})
+const StyledImageForToken = styled.img`
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin-right: 10px;
+`
 
-const StyledContainerForToken = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-})
-const Title = styled('div', {
-  fontSize: '16px',
-  fontWeight: '500',
-  color: '#A1A1A1',
-  fontFamily: 'Trajan',
-  '@media (max-width: 1550px)': {
-    fontSize: '16px',
-  },
-})
-const Value = styled('div', {
-  fontSize: '20px',
-  fontWeight: '600',
-  '@media (max-width: 1550px)': {
-    fontSize: '20px',
-  },
-})
+const StyledContainerForToken = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const Title = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+  color: #a1a1a1;
+  @media (max-width: 1550px) {
+    font-size: 16px;
+  }
+`
+
+const Value = styled.div`
+  font-size: 20px;
+  font-weight: 600;
+  @media (max-width: 11550px) {
+    font-size: 20px;
+  }
+`

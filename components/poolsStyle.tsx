@@ -21,6 +21,13 @@ export const ContentWrapper = styled.div`
   @media (max-width: 1550px) {
     top: 80px;
   }
+  @media (max-width: 650px) {
+    left: 0;
+    right: 0;
+    ::-webkit-scrollbar {
+      width: 0px;
+    }
+  }
 `
 export const Container = styled.div`
   padding: 60px;
@@ -29,10 +36,13 @@ export const Container = styled.div`
   @media (max-width: 1550px) {
     padding: 30px;
   }
+  @media (max-width: 650px) {
+    padding: 5px;
+  }
 `
 export const StyledWrapperForNavigation = styled.nav`
   display: flex;
-  alignitems: center;
+  align-items: center;
   margin-bottom: 40px;
   @media (max-width: 1550px) {
     margin-bottom: 20px;

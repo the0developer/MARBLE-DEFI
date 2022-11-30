@@ -1,7 +1,7 @@
 import { ChakraProvider, HStack, Stack } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
 import { isClientMobie } from 'util/device'
 import { useConnectWallet } from '../../hooks/useConnectWallet'
@@ -14,6 +14,7 @@ import {
   Medium,
   Telegram,
   Twitter,
+  Nav,
 } from '../../icons'
 import Accordion, { MenuEntry, SubMenuEntry } from '../Accordion'
 import { Button } from '../Button'
@@ -22,11 +23,12 @@ import { IconWrapper as LinkIconWrapper } from '../IconWrapper'
 import { DepositButton } from './DepositButton'
 import { GradientBackground, SecondGradientBackground } from 'styles/styles'
 
-export function NavigationSidebar() {
+function NavigationSidebar() {
   const [accountId, setAccountId] = useState('')
   const { connectWallet, disconnectWallet, setAccount } = useConnectWallet()
   const { pathname, push } = useRouter()
-
+  const [opened, setOpened] = useState(false)
+  const [openNav, setOpenNav] = useState(false)
   useEffect(() => {
     setAccount().then((id) => {
       setAccountId(formatId(id))
@@ -45,7 +47,7 @@ export function NavigationSidebar() {
     setAccountId('')
   }
   const linkWidth = isClientMobie() ? '30px' : '36px'
-
+  const ref = useRef(null)
   const isActive = (path) => pathname === path
   const buttonIconCss = {
     borderRadius: '50%',
@@ -55,16 +57,57 @@ export function NavigationSidebar() {
     width: linkWidth,
     height: linkWidth,
   }
+  function useOutsideClick(ref) {
+    useEffect(() => {
+      /**
+       * Alert if clicked on outside of element
+       */
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setOpenNav(false)
+        }
+      }
+      // Bind the event listener
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener('mousedown', handleClickOutside)
+      }
+    }, [ref])
+  }
+  useOutsideClick(ref)
+  console.log('openNav: ', openNav)
   return (
-    <ChakraProvider>
-      <StyledWrapper>
+    <>
+      <Header>
+        <LinkIconWrapper
+          className="mobile-nav"
+          type="button"
+          size="40px"
+          icon={<Nav />}
+          onClick={() => {
+            setOpenNav(!openNav)
+          }}
+        />
+        <StyledDivForLogo as="a">
+          <StyledImageForLogoText src="/images/logo-black.svg" />
+        </StyledDivForLogo>
+        <ConnectedWalletButton
+          connected={!!accountId}
+          walletName={accountId}
+          onConnect={() => connectWallet()}
+          onDisconnect={() => disconnect()}
+          css={{ marginBottom: '$6' }}
+        />
+      </Header>
+      <StyledWrapper openNav={openNav} ref={ref}>
         <StyledMenuContainer className="wrap-menu container">
           <Link href="/" passHref>
             <StyledDivForLogo as="a">
               <StyledImageForLogoText src="/images/logo-black.svg" />
             </StyledDivForLogo>
           </Link>
-          <Stack marginTop="40px">
+          <Stack marginTop="40px" overflow="auto">
             <Stack>
               <Link href="/" passHref>
                 <MenuEntry isActive={isActive('/')}>
@@ -165,24 +208,39 @@ export function NavigationSidebar() {
           </MenuFooter>
         </StyledMenuContainer>
       </StyledWrapper>
-    </ChakraProvider>
+    </>
   )
 }
 
-const StyledWrapper = styled(SecondGradientBackground)`
-  &:before {
-    border-radius: 30px;
-  }
-  z-index: 2;
-  width: 20%;
-  height: calc(100vh - 180px);
+export default NavigationSidebar
+
+const Header = styled.div`
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 20px;
+  z-index: 100;
+  background: rgba(8, 12, 28, 0.6);
+  height: 65px;
+  backdrop-filter: blur(40px);
+`
+
+const StyledWrapper = styled.div<{ openNav: boolean }>`
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: ${({ openNav }) => (openNav ? '0' : '-300px')};
+  background: rgba(8, 12, 28, 0.6);
+  backdrop-filter: blur(40px);
+  z-index: 200;
   padding: 40px 40px;
-  position: relative;
-  @media (max-width: 1550px) {
-    height: calc(100vh - 80px);
-    padding: 40px 30px;
-    width: 25%;
-  }
+  width: 300px;
+  margin-inline-start: 0 !important;
+  transition: 1s;
 `
 const MenuFooter = styled.div`
   position: absolute;
@@ -199,7 +257,19 @@ const MenuFooter = styled.div`
 `
 const StyledMenuContainer = styled.div``
 
-const StyledDivForLogo = styled.div``
+const StyledDivForLogo = styled.div`
+  align-items: center;
+  margin-right: 40px;
+  img {
+    width: 200px;
+  }
+  @media (max-width: 1550px) {
+    margin: 0 00px;
+    img {
+      width: 150px;
+    }
+  }
+`
 
 const ButtonField = styled.div`
   display: flex;

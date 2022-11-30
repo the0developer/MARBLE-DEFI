@@ -210,7 +210,7 @@ export default function Pool() {
               </Link>
             </StyledNavElement>
             <StyledNavElement position="center">
-              <Header>Pool {pool_name}</Header>
+              <Header>{pool_name}</Header>
             </StyledNavElement>
           </StyledWrapperForNavigation>
           <ContentWrapper>
@@ -286,7 +286,7 @@ export default function Pool() {
                   >
                     Personal shares
                   </ChakraText>
-                  <StyledDivForCards className="personal-shares">
+                  <StyledDivForCards>
                     <PoolAvailableLiquidityCard
                       myLiquidity={myLiquidity}
                       myReserve={myReserve}
@@ -381,12 +381,19 @@ const StyledRowForTokensInfo = styled('div', {
       wrapper: {
         padding: '17px 36px',
         justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        alignItems: 'center',
         '@media (max-width: 1550px)': {
           padding: '10px 36px',
+        },
+        '@media (max-width: 650px)': {
+          padding: '10px 5px',
+          justifyContent: 'center',
         },
       },
       column: {
         fontSize: '20px',
+        flexWrap: 'wrap',
         '@media (max-width: 1550px)': {
           fontSize: '18px',
         },
@@ -428,6 +435,9 @@ const StyledElementForLiquidity = styled('div', {
     kind: {
       wrapper: {
         padding: '10px 36px',
+        '@media (max-width: 650px)': {
+          padding: '10px',
+        },
       },
       row: {
         display: 'flex',
@@ -442,6 +452,10 @@ const StyledDivForCards = styled('div', {
   display: 'grid',
   columnGap: '18px',
   gridTemplateColumns: '1fr 1fr',
+  '@media (max-width: 1024px)': {
+    gridTemplateColumns: '1fr',
+    rowGap: '10px',
+  },
 })
 
 const StyledElementForUnbonding = styled('div', {
@@ -481,8 +495,8 @@ const LHeader = styled('div', {
   fontFamily: 'Trajan',
   fontSize: '18px',
   color: '#A1A1A1',
-  '@media (max-width: 1550px)': {
-    fontSize: '18px',
+  '@media (max-width: 650px)': {
+    fontSize: '12px',
   },
 })
 

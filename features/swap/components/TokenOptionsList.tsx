@@ -123,6 +123,9 @@ const Symbol = styled('div', {
   '@media (max-width: 1550px)': {
     fontSize: '20px',
   },
+  '@media (max-width: 650px)': {
+    fontSize: '15px',
+  },
 })
 const TokenValue = styled('div', {
   fontFamily: 'Trajan',

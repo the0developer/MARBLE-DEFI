@@ -27,6 +27,9 @@ const Container = styled.div`
   @media (max-width: 1550px) {
     padding: 20px 40px 0px 40px;
   }
+  @media (max-width: 650px) {
+    padding-inline: 0px;
+  }
 `
 const Header = styled.div`
   text-align: center;
@@ -40,12 +43,24 @@ const Header = styled.div`
     font-size: 24px;
     font-weight: 400;
     font-family: Trajan;
-    @media (max-width: 1550px) {
-      font-size: 14px;
-    }
   }
   @media (max-width: 1550px) {
     margin-bottom: 0px;
+    p {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: 650px) {
+    h1 {
+      font-size: 35px;
+      font-weight: 700;
+      font-family: Trajan;
+    }
+    p {
+      font-size: 18px;
+      font-weight: 400;
+      font-family: Trajan;
+    }
   }
 `
 const StyledDivForWrapper = styled.div`
@@ -67,6 +82,10 @@ const StyledDivForWrapper = styled.div`
   }
   @media (max-width: 1550px) {
     top: 110px;
+  }
+  @media (max-width: 1024px) {
+    right: 0;
+    left: 0;
   }
   padding: 0 10px;
 `
