@@ -35,7 +35,7 @@ export const SelectorInput = ({
         }
         autoComplete="off"
         readOnly={disabled}
-        style={{ width: `${value.length + 1}ch` }}
+        style={{ maxWidth: `${value.length + 1}ch`, width: '100%' }}
       />
     </Text>
   )
@@ -47,5 +47,8 @@ const StyledInput = styled.input`
   font-size: 30px;
   @media (max-width: 1550px) {
     font-size: 20px;
+  }
+  @media (max-width: 650px) {
+    font-size: 12px;
   }
 `

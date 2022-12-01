@@ -60,6 +60,11 @@ export const SelectorToggle = ({
           <IconWrapper size="16px" rotation="-90deg" icon={<Chevron />} />
         </>
       )}
+      {isMobile() && (
+        <MobileTokenValueWrapper>
+          <TokenValue>{formattedAvailableAmount} available</TokenValue>
+        </MobileTokenValueWrapper>
+      )}
     </StyledDivForSelector>
   )
 }
@@ -74,6 +79,7 @@ const StyledDivForSelector = styled('div', {
   transition: 'background-color .1s ease-out',
   userSelect: 'none',
   whiteSpace: 'pre',
+  position: 'relative',
   '&:hover': {
     backgroundColor: '$colors$dark10',
   },
@@ -120,4 +126,12 @@ const TokenValue = styled('div', {
   fontFamily: 'Trajan',
   fontSize: '12px',
   opacity: '0.5',
+  '@media (max-width: 650px)': {
+    fontSize: '10px',
+  },
+})
+const MobileTokenValueWrapper = styled('div', {
+  position: 'absolute',
+  bottom: '-10px',
+  left: '15px',
 })

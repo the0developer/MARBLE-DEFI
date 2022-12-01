@@ -78,7 +78,7 @@ export const TokenSelector = ({
                 : undefined
             }
           />
-          {!isTokenListShowing && tokenSymbol && !readOnly && !isMobile() && (
+          {!isTokenListShowing && tokenSymbol && !readOnly && (
             <ConvenienceBalanceButtons
               disabled={balance <= 0}
               tokenSymbol={tokenSymbol}

@@ -338,10 +338,11 @@ const StyledDivForWrapper = styled.div`
   @media (max-width: 1550px) {
     top: 160px;
   }
-  @media (max-width: 650px) {
+  @media (max-width: 1024px) {
     right: 0;
     left: 0;
-    bottom: 10px;
+    position: relative;
+    top: 0;
   }
   padding: 0 10px;
 `

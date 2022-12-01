@@ -46,6 +46,7 @@ const StyledWrapper = styled(HStack)`
   position: relative;
   color: white;
   padding: 90px;
+  min-height: 100vh;
   * {
     font-family: Trajan;
   }
@@ -71,5 +72,6 @@ const StyledContainer = styled(SecondGradientBackground)`
   }
   @media (max-width: 1024px) {
     margin-inline: 0 !important;
+    height: 100%;
   }
 `

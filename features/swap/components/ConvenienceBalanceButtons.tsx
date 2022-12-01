@@ -21,8 +21,6 @@ export const ConvenienceBalanceButtons = ({
     !disabled && (
       <>
         <StyledButton
-          variant="secondary"
-          className="mini-hidden"
           onClick={() => {
             let amount =
               tokenSymbol === 'NEAR' ? availableAmount - 0.1 : availableAmount
@@ -31,11 +29,7 @@ export const ConvenienceBalanceButtons = ({
         >
           Max
         </StyledButton>
-        <StyledButton
-          className="small-hidden"
-          variant="secondary"
-          onClick={() => onChange(availableAmount / 2)}
-        >
+        <StyledButton onClick={() => onChange(availableAmount / 2)}>
           1/2
         </StyledButton>
       </>
@@ -52,4 +46,8 @@ const StyledButton = styled(Button)`
   );
   border-radius: 8px;
   color: rgba(255, 255, 255, 0.8);
+  @media (max-width: 650px) {
+    font-size: 10px;
+    padding: 5px;
+  }
 `

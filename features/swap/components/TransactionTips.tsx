@@ -71,6 +71,11 @@ const StyledDivForRateWrapper = styled.div`
     width: 60px;
     height: 60px;
   }
+  @media (max-width: 650px) {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+  }
 `
 
 const StyledIconWrapper = styled(IconWrapper)`

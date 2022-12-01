@@ -21,9 +21,11 @@ export const ContentWrapper = styled.div`
   @media (max-width: 1550px) {
     top: 80px;
   }
-  @media (max-width: 650px) {
-    left: 0;
+  @media (max-width: 1024px) {
     right: 0;
+    left: 0;
+    position: relative;
+    top: 0;
     ::-webkit-scrollbar {
       width: 0px;
     }
