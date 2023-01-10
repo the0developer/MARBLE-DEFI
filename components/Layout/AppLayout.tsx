@@ -39,10 +39,11 @@ export const AppLayout = ({
 
 const StyledWrapper = styled(HStack)`
   display: flex;
-  background-image: url('/images/background.jpg');
+  /* background-image: url('/images/background.jpg');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
+  background: black;
   position: relative;
   color: white;
   padding: 90px;
