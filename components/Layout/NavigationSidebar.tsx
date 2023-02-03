@@ -55,55 +55,60 @@ export function NavigationSidebar() {
     width: linkWidth,
     height: linkWidth,
   }
+
   return (
     <ChakraProvider>
       <StyledWrapper>
-        <StyledMenuContainer className="wrap-menu container">
-          <Link href="/" passHref>
-            <StyledDivForLogo as="a">
-              <StyledImageForLogoText src="/images/logo-black.svg" />
-            </StyledDivForLogo>
-          </Link>
-          <Stack marginTop="40px">
-            <Stack>
-              <Link href="/" passHref>
-                <MenuEntry isActive={isActive('/')}>
-                  <IconWrapper isActive={isActive('/')}>
-                    <Dashboard />
-                  </IconWrapper>
-                  &nbsp;&nbsp;Dashboard
-                </MenuEntry>
-              </Link>
-              <Accordion
-                label="DeFi"
-                icon={
-                  <IconWrapper
-                    isActive={isActive('/swap') || isActive('/pools')}
-                  >
-                    <Defi />
-                  </IconWrapper>
-                }
-                isActive={isActive('/swap') || isActive('/pools')}
-              >
-                <Link href="/swap" passHref>
-                  <SubMenuEntry isActive={isActive('/swap')}>Swap</SubMenuEntry>
+        <StyledMenuContainer>
+          <div>
+            <Link href="/" passHref>
+              <StyledDivForLogo as="a">
+                <StyledImageForLogoText src="/images/logo-black.svg" />
+              </StyledDivForLogo>
+            </Link>
+            <Stack marginTop="40px">
+              <Stack>
+                <Link href="/" passHref>
+                  <MenuEntry isActive={isActive('/')}>
+                    <IconWrapper isActive={isActive('/')}>
+                      <Dashboard />
+                    </IconWrapper>
+                    &nbsp;&nbsp;Dashboard
+                  </MenuEntry>
                 </Link>
-                <Link href="/pools" passHref>
-                  <SubMenuEntry isActive={isActive('/pools')}>
-                    Liquidity
-                  </SubMenuEntry>
-                </Link>
-              </Accordion>
-              <a href="https://near-nft.marbledao.finance/" target="__blank">
-                <MenuEntry isActive={false}>
-                  <IconWrapper isActive={false}>
-                    <Marketplace />
-                  </IconWrapper>
-                  &nbsp;&nbsp;NFT Marketplace
-                </MenuEntry>
-              </a>
+                <Accordion
+                  label="DeFi"
+                  icon={
+                    <IconWrapper
+                      isActive={isActive('/swap') || isActive('/pools')}
+                    >
+                      <Defi />
+                    </IconWrapper>
+                  }
+                  isActive={isActive('/swap') || isActive('/pools')}
+                >
+                  <Link href="/swap" passHref>
+                    <SubMenuEntry isActive={isActive('/swap')}>
+                      Swap
+                    </SubMenuEntry>
+                  </Link>
+                  <Link href="/pools" passHref>
+                    <SubMenuEntry isActive={isActive('/pools')}>
+                      Liquidity
+                    </SubMenuEntry>
+                  </Link>
+                </Accordion>
+                <a href="https://near-nft.marbledao.finance/" target="__blank">
+                  <MenuEntry isActive={false}>
+                    <IconWrapper isActive={false}>
+                      <Marketplace />
+                    </IconWrapper>
+                    &nbsp;&nbsp;NFT Marketplace
+                  </MenuEntry>
+                </a>
+              </Stack>
             </Stack>
-          </Stack>
+          </div>
           <MenuFooter>
             <ButtonField>
               <DepositButton />
@@ -175,18 +180,17 @@ const StyledWrapper = styled(SecondGradientBackground)`
   }
   z-index: 2;
   width: 20%;
-  height: calc(100vh - 180px);
   padding: 40px 40px;
   position: relative;
+  max-height: 100vh;
   @media (max-width: 1550px) {
-    height: calc(100vh - 80px);
     padding: 40px 30px;
     width: 25%;
   }
 `
 const MenuFooter = styled.div`
-  position: absolute;
-  bottom: 40px;
+  /* position: absolute; */
+  /* bottom: 40px; */
   text-align: -webkit-center;
   display: flex;
   flex-direction: column;
@@ -194,10 +198,15 @@ const MenuFooter = styled.div`
   left: 0;
   right: 0;
   @media (max-width: 1550px) {
-    bottom: 20px;
+    /* bottom: 20px; */
   }
 `
-const StyledMenuContainer = styled.div``
+const StyledMenuContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+`
 
 const StyledDivForLogo = styled.div``
 

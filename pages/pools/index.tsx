@@ -236,11 +236,11 @@ export default function Pools() {
 }
 
 const Container = styled.div`
-  padding: 20px 60px 0px 60px;
+  padding: 20px 60px;
   height: 100%;
   position: relative;
   @media (max-width: 1550px) {
-    padding: 20px 20px 0px 20px;
+    padding: 20px;
   }
 `
 
@@ -320,11 +320,6 @@ const SectionTitle = ({ variant = 'my', children }) => {
 }
 const StyledDivForWrapper = styled.div`
   overflow: auto;
-  position: absolute;
-  right: 20px;
-  left: 20px;
-  bottom: 20px;
-  top: 130px;
   ::-webkit-scrollbar {
     width: 6px;
   }
@@ -335,14 +330,6 @@ const StyledDivForWrapper = styled.div`
   ::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.1);
   }
-  @media (max-width: 1550px) {
-    top: 160px;
-  }
-  @media (max-width: 1024px) {
-    right: 0;
-    left: 0;
-    position: relative;
-    top: 0;
-  }
+
   padding: 0 10px;
 `

@@ -30,6 +30,9 @@ const Container = styled.div`
   @media (max-width: 650px) {
     padding-inline: 0px;
   }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 `
 const Header = styled.div`
   text-align: center;
@@ -65,11 +68,6 @@ const Header = styled.div`
 `
 const StyledDivForWrapper = styled.div`
   overflow: auto;
-  position: absolute;
-  right: 20px;
-  left: 20px;
-  bottom: 20px;
-  top: 130px;
   ::-webkit-scrollbar {
     width: 6px;
   }
@@ -80,14 +78,6 @@ const StyledDivForWrapper = styled.div`
   ::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.1);
   }
-  @media (max-width: 1550px) {
-    top: 110px;
-  }
-  @media (max-width: 1024px) {
-    right: 0;
-    left: 0;
-    position: relative;
-    top: 0;
-  }
+
   padding: 0 10px;
 `
