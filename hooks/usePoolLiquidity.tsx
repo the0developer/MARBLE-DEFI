@@ -3,7 +3,9 @@ import { convertMicroDenomToDenom, protectAgainstNaN } from 'util/conversion'
 import * as nearAPI from 'near-api-js'
 import { unsafelyGetTokenInfoFromAddress } from 'hooks/useTokenInfo'
 import { useConnectWallet } from './useConnectWallet'
+import { backend_url } from 'util/constants'
 import { useSelector } from 'react-redux'
+import axios from 'axios'
 // import {refFiViewFunction} from "../util/near"
 
 export type LiquidityType = {
@@ -50,6 +52,7 @@ export const getPoolLiquidity = async ({
         : undefined,
     coinPrice,
   })
+  console.log('liquidity: ', liquidity)
   return { liquidity: liquidity?.[0] }
 }
 
@@ -89,10 +92,11 @@ export const getMultiplePoolsLiquidity = async ({
         })
       })
     )
-
     // Todo: Add TOken price calculation algorithm
-    const nearPrice: number = await useNearDollarValue()
-
+    const axiosData = await axios.get(`${backend_url}/coins/get_coin_price`, {
+      params: { token: 'near' },
+    })
+    const nearPrice = axiosData.data.token
     const liquidity: LiquidityInfoType[] = pools.map((p, index) => {
       const decimals = p.token_address.map(
         (token) => unsafelyGetTokenInfoFromAddress(token).decimals

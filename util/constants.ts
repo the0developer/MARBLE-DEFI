@@ -46,3 +46,4 @@ export const __TRANSFERS_ENABLED__ = JSON.parse(
   process.env.NEXT_PUBLIC_ENABLE_FEATURE_TRANSFERS
 )
 /* /feature flags */
+export const backend_url = 'https://near-api.marbledao.finance'

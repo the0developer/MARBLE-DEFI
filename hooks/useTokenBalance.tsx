@@ -12,7 +12,7 @@ import {
   LiquidityReturnType,
 } from 'hooks/usePoolLiquidity'
 import { useTokenList } from 'hooks/useTokenList'
-import { rewardToken, wNearToken } from 'util/constants'
+import { rewardToken, wNearToken, backend_url } from 'util/constants'
 import { getTokenPriceInUsd } from 'store/actions/uiAction'
 
 export const getTokenBalance = async (tokenInfo) => {
@@ -45,16 +45,12 @@ export const getTokenBalance = async (tokenInfo) => {
 
 export const FetchCoinInfo = () => {
   const dispatch = useDispatch()
-  const url =
-    'https://api.coingecko.com/api/v3/simple/price?ids=near&include_last_updated_at=true&vs_currencies=usd'
+  const url = `${backend_url}/coins/get_coin_price`
   useEffect(() => {
-    // axios.get(url).then(({ data }) => {
-    //   // console.log('api-data: ', data)
-    //   // setNearData(NEAR_STATUS, data.near.usd, dispatch)
-    //   setNearData(NEAR_STATUS, 2.89, dispatch)
-    // })
+    axios.get(url, { params: { token: 'near' } }).then(({ data }) => {
+      setCoinData(NEAR_STATUS, data.token, dispatch)
+    })
     getTokenPriceInUsd(dispatch)
-    setCoinData(NEAR_STATUS, 2.13, dispatch)
   }, [])
   return null
 }

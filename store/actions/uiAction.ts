@@ -37,6 +37,7 @@ export const setUIData =
 export const getTokenPriceInUsd = (dispatch: Dispatch<AnyAction>) => {
   Promise.all(
     Pools.map((value) => {
+      console.log('value: ', value)
       return getPoolLiquidity({ ...value, coinPrice: {} })
     })
   )
