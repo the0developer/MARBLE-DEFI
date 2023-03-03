@@ -127,7 +127,6 @@ export const getMultiplePoolsLiquidity = async ({
         tokenDollarValue: coinPrice[tokens[0]] * nearPrice,
       }
     })
-    console.log('loading liquidity: ', liquidity)
 
     return { liquidity }
   } catch (err) {

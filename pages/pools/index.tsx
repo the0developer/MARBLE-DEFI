@@ -137,7 +137,6 @@ export default function Pools() {
     if (!liquidity?.length) return []
     const pools = [[], []]
     liquidity.forEach((liquidityInfo, index) => {
-      console.log('liquidityInfo: ', liquidityInfo)
       const poolIndex =
         liquidityInfo.myLiquidity.coins > 0 ||
         Number(farms && farms[index].userStaked) > 0
