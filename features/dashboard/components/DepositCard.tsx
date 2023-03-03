@@ -17,7 +17,7 @@ const DepositCard = ({ param }) => {
   const [tokenPrice, setTokenPrice] = useState(0)
   const [totalSupply, setTotalSupply] = useState(0)
   const nearPrice = useNearDollarValue()
-  const token = unsafelyGetTokenInfoFromAddress(param.tokenIds[0])
+  const token = unsafelyGetTokenInfoFromAddress(param.tokenIds[1])
   const coinPrice = useSelector((state: any) => state.uiData.token_value)
   useEffect(() => {
     getPoolLiquidity({
@@ -27,8 +27,9 @@ const DepositCard = ({ param }) => {
       coinPrice,
     })
       .then(({ liquidity }) => {
+        console.log('liquidity: ', liquidity)
         setTokenPrice(
-          protectAgainstNaN(liquidity.reserve[1] / liquidity.reserve[0]) *
+          protectAgainstNaN(liquidity.reserve[0] / liquidity.reserve[1]) *
             nearPrice
         )
       })
@@ -39,18 +40,18 @@ const DepositCard = ({ param }) => {
   useEffect(() => {
     ;(async () => {
       const total_supply = await nearViewFunction({
-        tokenAddress: param.tokenIds[0],
+        tokenAddress: param.tokenIds[1],
         methodName: 'ft_total_supply',
         args: {},
       })
-      setTotalSupply(convertMicroDenomToDenom(total_supply, 8))
+      setTotalSupply(convertMicroDenomToDenom(total_supply, 24))
     })()
   }, [param])
   return (
     <Container>
       <Header>
         <IconWrapper>
-          <Img src={token.icon} alt="token" />
+          <Img src={token.logoURI} alt="token" />
           {token.symbol}
         </IconWrapper>
         ${tokenPrice.toFixed(2)}
@@ -102,6 +103,8 @@ const IconWrapper = styled.div`
 const Img = styled.img`
   width: 50px;
   height: 50px;
+  border-radius: 50%;
+  background-color: white;
   @media (max-width: 1550px) {
     width: 30px;
     height: 30px;

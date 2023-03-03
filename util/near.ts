@@ -105,10 +105,6 @@ export const LP_STORAGE_AMOUNT = '0.01'
 
 export const ONE_YOCTO_NEAR = '0.000000000000000000000001'
 
-export const NFT_CONTRACT_NAME = config.NFT_CONTRACT_NAME
-
-export const MARKETPLACE_CONTRACT_NAME = config.MARKETPLACE_CONTRACT_NAME
-export const HERA_CONTRACT_NAME = config.HERA_CONTRACT_NAME
 export const getGas = (gas: string) =>
   gas ? new BN(gas) : new BN('300000000000000')
 export const getAmount = (amount: string) =>
@@ -136,10 +132,10 @@ export const refFiFunctionCall = ({
     networkId: process.env.NODE_URL,
     keyStore: keyStore,
     headers: {},
-    nodeUrl: 'https://rpc.testnet.near.org',
-    walletUrl: 'https://wallet.testnet.near.org',
-    helperUrl: 'https://helper.testnet.near.org',
-    explorerUrl: 'https://explorer.testnet.near.org',
+    nodeUrl: 'https://rpc.mainnet.near.org',
+    walletUrl: 'https://wallet.near.org',
+    helperUrl: 'https://helper.near.org',
+    explorerUrl: 'https://explorer.near.org',
   }
   const near = new Near({
     keyStore,
@@ -170,10 +166,10 @@ export const refFiViewFunction = ({
     networkId: process.env.NEXT_PUBLIC_NODE_URL,
     keyStore: keyStore,
     headers: {},
-    nodeUrl: 'https://rpc.testnet.near.org',
-    walletUrl: 'https://wallet.testnet.near.org',
-    helperUrl: 'https://helper.testnet.near.org',
-    explorerUrl: 'https://explorer.testnet.near.org',
+    nodeUrl: 'https://rpc.mainnet.near.org',
+    walletUrl: 'https://wallet.near.org',
+    helperUrl: 'https://helper.near.org',
+    explorerUrl: 'https://explorer.near.org',
   }
   const near = new Near({
     keyStore,
@@ -184,101 +180,6 @@ export const refFiViewFunction = ({
   // create wallet connection
   const wallet = new SpecialWallet(near, CONTRACT_NAME)
   return wallet.account().viewFunction(CONTRACT_NAME, methodName, args)
-}
-
-/////////////////////////////////////////////
-/////////////////  NFT  /////////////////////
-/////////////////////////////////////////////
-
-export const nftViewFunction = ({
-  methodName,
-  args,
-}: RefFiViewFunctionOptions) => {
-  const { keyStores } = nearAPI
-  const keyStore = new keyStores.BrowserLocalStorageKeyStore()
-  const config = {
-    networkId: process.env.NEXT_PUBLIC_NODE_URL,
-    keyStore: keyStore,
-    headers: {},
-    nodeUrl: 'https://rpc.testnet.near.org',
-    walletUrl: 'https://wallet.testnet.near.org',
-    helperUrl: 'https://helper.testnet.near.org',
-    explorerUrl: 'https://explorer.testnet.near.org',
-  }
-  const near = new Near({
-    keyStore,
-    headers: {},
-    ...config,
-  })
-
-  // create wallet connection
-  const wallet = new SpecialWallet(near, NFT_CONTRACT_NAME)
-  return wallet.account().viewFunction(NFT_CONTRACT_NAME, methodName, args)
-}
-export const nftFunctionCall = ({
-  methodName,
-  args,
-  gas,
-  amount,
-}: RefFiFunctionCallOptions) => {
-  const { wallet, wallet_type } = getCurrentWallet()
-  return wallet
-    .account()
-    .functionCall(
-      NFT_CONTRACT_NAME,
-      methodName,
-      args,
-      getGas(gas),
-      getAmount(amount)
-    )
-}
-
-/////////////////////////////////////////////
-//////////////  Marketplace  ////////////////
-/////////////////////////////////////////////
-export const marketplaceViewFunction = ({
-  methodName,
-  args,
-}: RefFiViewFunctionOptions) => {
-  const { keyStores } = nearAPI
-  const keyStore = new keyStores.BrowserLocalStorageKeyStore()
-  const config = {
-    networkId: process.env.NEXT_PUBLIC_NODE_URL,
-    keyStore: keyStore,
-    headers: {},
-    nodeUrl: 'https://rpc.testnet.near.org',
-    walletUrl: 'https://wallet.testnet.near.org',
-    helperUrl: 'https://helper.testnet.near.org',
-    explorerUrl: 'https://explorer.testnet.near.org',
-  }
-  const near = new Near({
-    keyStore,
-    headers: {},
-    ...config,
-  })
-
-  // create wallet connection
-  const wallet = new SpecialWallet(near, MARKETPLACE_CONTRACT_NAME)
-  return wallet
-    .account()
-    .viewFunction(MARKETPLACE_CONTRACT_NAME, methodName, args)
-}
-export const marketplaceFunctionCall = ({
-  methodName,
-  args,
-  gas,
-  amount,
-}: RefFiFunctionCallOptions) => {
-  const { wallet, wallet_type } = getCurrentWallet()
-  return wallet
-    .account()
-    .functionCall(
-      MARKETPLACE_CONTRACT_NAME,
-      methodName,
-      args,
-      getGas(gas),
-      getAmount(amount)
-    )
 }
 
 export const refFiManyFunctionCalls = (
@@ -321,22 +222,6 @@ export const executeMultipleTransactions = async (
 
   return wallet.requestSignTransactions(currentTransactions, callbackUrl)
 }
-export const sendTransactionForMarketplace = async (params: Transaction) => {
-  const wallet = getCurrentWallet()
-  const transactionForStorageDeposit: Transaction = {
-    receiverId: MARKETPLACE_CONTRACT_NAME,
-    functionCalls: [
-      {
-        methodName: 'storage_deposit',
-        args: {
-          account_id: wallet.accountId,
-        },
-        amount: '0.00859',
-      },
-    ],
-  }
-  executeMultipleTransactions([transactionForStorageDeposit, params])
-}
 export const refFarmFunctionCall = ({
   methodName,
   args,
@@ -362,10 +247,10 @@ export const checkTransactionStatus = (txHash: string) => {
     networkId: process.env.NODE_URL,
     keyStore: keyStore,
     headers: {},
-    nodeUrl: 'https://rpc.testnet.near.org',
-    walletUrl: 'https://wallet.testnet.near.org',
-    helperUrl: 'https://helper.testnet.near.org',
-    explorerUrl: 'https://explorer.testnet.near.org',
+    nodeUrl: 'https://rpc.mainnet.near.org',
+    walletUrl: 'https://wallet.near.org',
+    helperUrl: 'https://helper.near.org',
+    explorerUrl: 'https://explorer.near.org',
   }
   const near = new Near({
     keyStore,
@@ -384,10 +269,10 @@ export const checkTransaction = (txHash: string) => {
     networkId: process.env.NODE_URL,
     keyStore: keyStore,
     headers: {},
-    nodeUrl: 'https://rpc.testnet.near.org',
-    walletUrl: 'https://wallet.testnet.near.org',
-    helperUrl: 'https://helper.testnet.near.org',
-    explorerUrl: 'https://explorer.testnet.near.org',
+    nodeUrl: 'https://rpc.mainnet.near.org',
+    walletUrl: 'https://wallet.near.org',
+    helperUrl: 'https://helper.near.org',
+    explorerUrl: 'https://explorer.near.org',
   }
   const near = new Near({
     keyStore,
@@ -409,10 +294,10 @@ export const refFarmViewFunction = ({
     networkId: process.env.NODE_URL,
     keyStore: keyStore,
     headers: {},
-    nodeUrl: 'https://rpc.testnet.near.org',
-    walletUrl: 'https://wallet.testnet.near.org',
-    helperUrl: 'https://helper.testnet.near.org',
-    explorerUrl: 'https://explorer.testnet.near.org',
+    nodeUrl: 'https://rpc.mainnet.near.org',
+    walletUrl: 'https://wallet.near.org',
+    helperUrl: 'https://helper.near.org',
+    explorerUrl: 'https://explorer.near.org',
   }
   const near = new Near({
     keyStore,
@@ -473,10 +358,10 @@ export const refContractViewFunction = ({
     networkId: process.env.NODE_URL,
     keyStore: keyStore,
     headers: {},
-    nodeUrl: 'https://rpc.testnet.near.org',
-    walletUrl: 'https://wallet.testnet.near.org',
-    helperUrl: 'https://helper.testnet.near.org',
-    explorerUrl: 'https://explorer.testnet.near.org',
+    nodeUrl: 'https://rpc.mainnet.near.org',
+    walletUrl: 'https://wallet.near.org',
+    helperUrl: 'https://helper.near.org',
+    explorerUrl: 'https://explorer.near.org',
   }
   const near = new Near({
     keyStore,
@@ -496,10 +381,10 @@ export const nearViewFunction = ({ tokenAddress, methodName, args }) => {
     networkId: process.env.NEXT_PUBLIC_NODE_URL,
     keyStore: keyStore,
     headers: {},
-    nodeUrl: 'https://rpc.testnet.near.org',
-    walletUrl: 'https://wallet.testnet.near.org',
-    helperUrl: 'https://helper.testnet.near.org',
-    explorerUrl: 'https://explorer.testnet.near.org',
+    nodeUrl: 'https://rpc.mainnet.near.org',
+    walletUrl: 'https://wallet.near.org',
+    helperUrl: 'https://helper.near.org',
+    explorerUrl: 'https://explorer.near.org',
   }
   const near = new Near({
     keyStore,

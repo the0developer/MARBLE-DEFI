@@ -104,5 +104,5 @@ const StyledImageForToken = styled('img', {
   width: 30,
   height: 30,
   borderRadius: '50%',
-  backgroundColor: '#ccc',
+  backgroundColor: 'white',
 })

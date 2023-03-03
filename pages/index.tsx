@@ -55,5 +55,5 @@ const StyledDivForWrapper = styled.div`
     background: rgba(255, 255, 255, 0.1);
   }
 
-  padding: 10px;
+  padding: 30px;
 `

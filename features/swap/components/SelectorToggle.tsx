@@ -110,7 +110,7 @@ const StyledImgForTokenLogo = styled('img', {
   width: '30px',
   height: '30px',
   borderRadius: '50%',
-  backgroundColor: '#ccc',
+  backgroundColor: 'white',
 })
 const TokenTitle = styled('div', {
   fontSize: '24px',

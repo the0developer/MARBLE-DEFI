@@ -11,7 +11,6 @@ import { GradientBackground } from 'styles/styles'
 
 export const RewardCard: React.FC = ({}) => {
   const [reward, setReward] = useState('0')
-  const rewardToken = 'dust.cmdev0.testnet'
   const REWARD_TOKEN_DECIMAL = 8
   const nearPrice = useSelector((state: any) => state.coinData.near_value)
   const dustPriceInNear = useSelector(
@@ -26,6 +25,7 @@ export const RewardCard: React.FC = ({}) => {
   }, [])
 
   const withdraw = () => {
+    return
     withdrawReward({ token_id: rewardToken, amount: reward })
   }
 
@@ -36,7 +36,7 @@ export const RewardCard: React.FC = ({}) => {
         <StyledDust>{`${toReadableNumber(
           REWARD_TOKEN_DECIMAL,
           reward
-        )} DUST`}</StyledDust>
+        )} ARTEX`}</StyledDust>
         <StyledDollar>{`$${formatTokenBalance(
           dustPrice * Number(toReadableNumber(REWARD_TOKEN_DECIMAL, reward))
         )}`}</StyledDollar>

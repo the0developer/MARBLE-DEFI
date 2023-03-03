@@ -1,20 +1,19 @@
+import 'focus-visible'
 import 'normalize.css'
 import 'react-toastify/dist/ReactToastify.css'
 import 'styles/globals.scss'
-import 'focus-visible'
 
-import React, { useReducer } from 'react'
-import { Provider } from 'react-redux'
 import type { AppProps } from 'next/app'
+import { Provider } from 'react-redux'
 // import { ErrorBoundary } from 'components/ErrorBoundary'
-import { RecoilRoot } from 'recoil'
-import { QueryClientProvider } from 'react-query'
 import { Portal } from '@reach/portal'
-import { ToastContainer } from 'react-toastify'
 import { TestnetDialog } from 'components/TestnetDialog'
+import { QueryClientProvider } from 'react-query'
+import { ToastContainer } from 'react-toastify'
+import { RecoilRoot } from 'recoil'
 import { queryClient } from 'services/queryClient'
+import { store } from '../store/store'
 import { __TEST_MODE__ } from '../util/constants'
-import { wrapper, store } from '../store/store'
 
 function SafeHydrate({ children }) {
   return (

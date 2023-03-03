@@ -44,7 +44,7 @@ export default function Pools() {
   const coinPrice = useSelector((state: any) => state.uiData.token_value)
   const page = 1
   const perPage = DEFAULT_PAGE_LIMIT
-  const rewardToken = 'dust.cmdev0.testnet'
+  const rewardToken = 'artex.marbledao.near'
   useEffect(() => {
     setAccountId(localStorage.getItem('accountId'))
     // useNearDollarValue().then(res => {
@@ -129,6 +129,7 @@ export default function Pools() {
       liquidity,
       pools,
     })
+    console.log('farms: ', farms)
     setFarms(farms)
     await db.cacheFarms(farms)
     const farmsCahced = await db.queryFarms()

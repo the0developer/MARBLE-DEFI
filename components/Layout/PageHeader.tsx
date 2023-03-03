@@ -52,6 +52,3 @@ const HeaderWrapper = styled.div`
     padding-top: 30px;
   }
 `
-const Header = styled.div`
-  font-size: ;
-`

@@ -174,7 +174,7 @@ const StyledImageForToken = styled('img', {
   width: 20,
   height: 20,
   borderRadius: '50%',
-  backgroundColor: '#ccc',
+  backgroundColor: 'white',
 })
 
 const Title = styled('div', {

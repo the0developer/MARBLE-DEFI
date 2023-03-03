@@ -143,9 +143,10 @@ const StyledImageForTokenLogo = styled('img', {
   height: '40px',
   borderRadius: '50%',
   objectFit: 'fit',
-  backgroundColor: '#ccc',
+  backgroundColor: 'white',
   position: 'relative',
   zIndex: 1,
+  boxShadow: '0 0 0 $space$1 #E8E8E9',
   '&:first-child': {
     boxShadow: '0 0 0 $space$1 #E8E8E9',
     zIndex: 0,

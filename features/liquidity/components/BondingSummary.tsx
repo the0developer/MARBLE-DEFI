@@ -187,7 +187,7 @@ const StyledImgForTokenLogo = styled('img', {
   width: '20px',
   height: '20px',
   borderRadius: '50%',
-  backgroundColor: '#ccc',
+  backgroundColor: 'white',
 })
 
 const StyledTextForInputWithSymbol: any = styled(Text, {

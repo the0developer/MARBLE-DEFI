@@ -92,6 +92,7 @@ export default function Pool() {
     if (!isNaN(Number(pool))) {
       if (!accountId) return
       db.queryFarms().then((farms) => {
+        console.log('farms: ', farms)
         const index = farms.map((r) => Number(r.pool_id)).indexOf(Number(pool))
         const farmInfo = farms[index]
         setFarmInfo(farmInfo)
@@ -241,7 +242,7 @@ export default function Pool() {
                       <PoolTitle>Pool #{pool_id}</PoolTitle>
                       <StyledTextForTokens kind="wrapper">
                         <StyledTextForTokens kind="element">
-                          <StyledImageForToken src="https://i.ibb.co/T0TrSgT/block-logo.png" />
+                          <StyledImageForToken src={tokenA.logoURI} />
                           {tokenA.symbol}
                         </StyledTextForTokens>
                         <StyledTextForTokens kind="element">
@@ -427,7 +428,7 @@ const StyledImageForToken = styled('img', {
   width: 20,
   height: 20,
   borderRadius: '50%',
-  backgroundColor: '#ccc',
+  backgroundColor: 'white',
 })
 
 const StyledElementForLiquidity = styled('div', {

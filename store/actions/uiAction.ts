@@ -11,23 +11,8 @@ const PoolIds = [3, 4, 5]
 const Pools = [
   {
     decimals: 24,
-    tokenAddress: ['dust.cmdev0.testnet', 'wrap.testnet'],
-    poolId: 3,
-  },
-  {
-    decimals: 24,
-    tokenAddress: ['hera.cmdev0.testnet', 'wrap.testnet'],
-    poolId: 4,
-  },
-  {
-    decimals: 24,
-    tokenAddress: ['test.cmdev0.testnet', 'wrap.testnet'],
-    poolId: 5,
-  },
-  {
-    decimals: 24,
-    tokenAddress: ['hera.cmdev0.testnet', 'usdn.testnet'],
-    poolId: 6,
+    tokenAddress: ['wrap.near', 'artex.marbledao.near'],
+    poolId: 0,
   },
 ]
 export const setUIData =
@@ -58,17 +43,17 @@ export const getTokenPriceInUsd = (dispatch: Dispatch<AnyAction>) => {
     .then((value) => {
       let tokenValue = {}
       value.forEach((data) => {
-        if (data.liquidity.pool_id === 6) {
+        if (data.liquidity.pool_id === 0) {
           tokenValue[data.liquidity.tokens[1]] =
-            (data.liquidity.reserve[0] / data.liquidity.reserve[1]) *
-            tokenValue[data.liquidity.tokens[0]]
+            data.liquidity.reserve[0] / data.liquidity.reserve[1]
         }
         tokenValue[data.liquidity.tokens[0]] =
-          data.liquidity.reserve[1] / data.liquidity.reserve[0]
+          (data.liquidity.reserve[1] / data.liquidity.reserve[0]) *
+          tokenValue['artex.marbledao.near']
       })
       dispatch({
         type: TOKEN_IN_USD,
-        payload: { ...tokenValue, 'wrap.testnet': 1 },
+        payload: { ...tokenValue, 'wrap.near': 1 },
       })
     })
     .catch((err) => {

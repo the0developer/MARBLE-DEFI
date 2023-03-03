@@ -32,19 +32,19 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
   const token = useBaseTokenInfo()
   const tokenInfo = useTokenInfoByPoolId(Number(poolId))
   const nearPrice = useSelector((state: any) => state.coinData.near_value)
-  const dustPriceInNear = useSelector(
+  const artexPriceInNear = useSelector(
     (state: any) => state.uiData.token_value[rewardToken]
   )
-  const dustPrice = dustPriceInNear * nearPrice
+  const artexPrice = artexPriceInNear * nearPrice
 
   if (!poolId) return null
   const currentTimeStamp = Math.floor(new Date().getTime() / 1000)
   const rewardCount = Math.ceil(
     (currentTimeStamp - Number(start_at)) / Number(reward_interval)
   )
-  const dateTo =
-    (Number(start_at) + Number(reward_interval) * rewardCount) * 1000
-
+  // const dateTo =
+  //   (Number(start_at) + Number(reward_interval) * rewardCount) * 1000
+  const dateTo = Number(start_at) * 1000
   const onClaimReward = async () => {
     const now = new Date()
     if (
@@ -59,8 +59,8 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
   return (
     <StyledElementForCard>
       <StyledElementForToken>
-        <Title>Dust Price</Title>
-        <Value>${dustPrice.toFixed(2)}</Value>
+        <Title>Artex Price</Title>
+        <Value>${artexPrice.toFixed(2)}</Value>
       </StyledElementForToken>
       <StyledElementForToken>
         <Title>Rewards distribution in</Title>
@@ -69,8 +69,8 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
             dateTo={dateTo || Number(new Date()) / 1000}
             loop
             interval={Number(reward_interval) || 0}
-            mostSignificantFigure="hour"
-            numberOfFigures={3}
+            mostSignificantFigure="day"
+            numberOfFigures={4}
           />
         </Value>
       </StyledElementForToken>
@@ -155,7 +155,7 @@ const StyledImageForToken = styled.img`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: #ccc;
+  background-color: white;
   margin-right: 10px;
 `
 

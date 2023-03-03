@@ -170,7 +170,7 @@ const StyledImageForToken = styled('img', {
   width: 20,
   height: 20,
   borderRadius: '50%',
-  backgroundColor: '#ccc',
+  backgroundColor: 'white',
   boxShadow: '0 0 0 1px #e7d9e3',
   '&:not(&:first-of-type)': {
     marginLeft: -3,

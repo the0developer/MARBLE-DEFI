@@ -17,6 +17,7 @@ import { DEFAULT_PAGE_LIMIT } from 'util/pool'
 import db from 'store/RefDatabase'
 import DepositCard from './components/DepositCard'
 import { useSelector } from 'react-redux'
+import { rewardToken } from 'util/constants'
 import { GradientBackground, SecondGradientBackground } from 'styles/styles'
 
 const page = 1
@@ -27,8 +28,9 @@ export const Dashboard = () => {
   const [isLoading, setIsloading] = useState(false)
   const [liquidity, setLiquidity] = useState<LiquidityInfoType[]>()
   const coinPrice = useSelector((state: any) => state.uiData.token_value)
+  const nearPrice = useSelector((state: any) => state.coinData.near_value)
+  console.log('nearPrice: ', nearPrice)
   const [farms, setFarms] = useState<FarmInfo[]>()
-  const rewardToken = 'dust.cmdev0.testnet'
   const [supportedTokens, pools] = useMemo(() => {
     const safePoolList = tokenList?.pools || []
 
@@ -44,7 +46,7 @@ export const Dashboard = () => {
     // eslint-disable-line react-hooks/exhaustive-deps
   }, [tokenList?.pools])
   const getNearDollarValue = async () => {
-    return '4.5405'
+    return '2.11'
   }
   useEffect(() => {
     setIsloading(true)
@@ -113,10 +115,11 @@ export const Dashboard = () => {
     })
     return tvl.toLocaleString()
   }
+  console.log('farms: ', farms)
   return (
     <StyledDivForWrapper>
       <StyldedGrid>
-        <StyledCard
+        {/* <StyledCard
           color="#99E39E"
           icon={<Staked />}
           title={
@@ -127,7 +130,7 @@ export const Dashboard = () => {
             </CTitle>
           }
           value={<CValue>51.76%</CValue>}
-        />
+        /> */}
         <StyledCard
           color="#FE9A45"
           icon={<Bonded />}
@@ -138,7 +141,7 @@ export const Dashboard = () => {
               Ratio
             </CTitle>
           }
-          value={<CValue>59.86%</CValue>}
+          value={<CValue>Coming Soon</CValue>}
         />
         <StyledCard
           color="#B0954A"
@@ -150,7 +153,7 @@ export const Dashboard = () => {
               Reward
             </CTitle>
           }
-          value={<CValue>136986.3</CValue>}
+          value={<CValue>Coming Soon</CValue>}
         />
         <StyledCard
           color="#FF5368"
@@ -162,7 +165,7 @@ export const Dashboard = () => {
               APR
             </CTitle>
           }
-          value={<CValue>260.41%</CValue>}
+          value={<CValue>Coming Soon</CValue>}
         />
       </StyldedGrid>
       <Value style={{ fontFamily: 'Trajan' }}>Protocol Stats</Value>
@@ -173,21 +176,21 @@ export const Dashboard = () => {
         </StateElement>
         <StateElement>
           <Title>Bonded Liquidity</Title>
-          <Value>$61,971.74</Value>
+          <Value style={{ opacity: '0.5' }}>Coming Soon</Value>
         </StateElement>
-        <StateElement>
+        {/* <StateElement>
           <Title>Staked Marble</Title>
           <Value>$61,971.74</Value>
         </StateElement>
         <StateElement>
           <Title>Treasury</Title>
           <Value>$61,971.74</Value>
-        </StateElement>
+        </StateElement> */}
       </StateContent>
       {farms && (
         <DepositCardWrapper>
-          <DepositCard param={farms[1]} />
-          <DepositCard param={farms[2]} />
+          <DepositCard param={farms[0]} />
+          {/* <DepositCard param={farms[2]} /> */}
         </DepositCardWrapper>
       )}
     </StyledDivForWrapper>
@@ -210,7 +213,7 @@ const StyledDivForWrapper = styled.div`
 `
 const StyldedGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 30px;
   @media (max-width: 1550px) {
     grid-column-gap: 15px;
@@ -255,6 +258,7 @@ const CValue = styled.div`
   font-size: 18px;
   font-weight: 600;
   color: white;
+  opacity: 0.5;
   @media (max-width: 1550px) {
     font-size: 14px;
   }
@@ -262,7 +266,7 @@ const CValue = styled.div`
 const StateContent = styled(GradientBackground)`
   padding: 20px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   @media (max-width: 1550px) {
     padding: 12px;
   }

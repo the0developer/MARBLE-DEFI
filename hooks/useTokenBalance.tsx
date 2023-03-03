@@ -54,7 +54,7 @@ export const FetchCoinInfo = () => {
     //   setNearData(NEAR_STATUS, 2.89, dispatch)
     // })
     getTokenPriceInUsd(dispatch)
-    setCoinData(NEAR_STATUS, 2.89, dispatch)
+    setCoinData(NEAR_STATUS, 2.13, dispatch)
   }, [])
   return null
 }

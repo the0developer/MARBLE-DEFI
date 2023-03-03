@@ -13,7 +13,7 @@ export function getExtendConfig(env: string = process.env.NEAR_ENV) {
             simpleName: 'blockpi rpc',
           },
         },
-      };
+      }
     case 'development':
     case 'pub-testnet':
       return {
@@ -27,7 +27,7 @@ export function getExtendConfig(env: string = process.env.NEAR_ENV) {
             simpleName: 'blockpi rpc',
           },
         },
-      };
+      }
     case 'testnet':
       return {
         RPC_LIST: {
@@ -40,7 +40,7 @@ export function getExtendConfig(env: string = process.env.NEAR_ENV) {
             simpleName: 'blockpi rpc',
           },
         },
-      };
+      }
     default:
       return {
         RPC_LIST: {
@@ -53,15 +53,17 @@ export function getExtendConfig(env: string = process.env.NEAR_ENV) {
             simpleName: 'blockpi rpc',
           },
         },
-      };
+      }
   }
 }
-export default function getConfig(env: string = process.env.NEXT_PUBLIC_NODE_URL) {
-  const RPC_LIST = getExtendConfig().RPC_LIST;
-  let endPoint = 'defaultRpc';
+export default function getConfig(
+  env: string = process.env.NEXT_PUBLIC_NODE_URL
+) {
+  const RPC_LIST = getExtendConfig().RPC_LIST
+  let endPoint = 'defaultRpc'
   try {
-    endPoint = window.localStorage.getItem('endPoint') || endPoint;
-  } catch (error) { }
+    endPoint = window.localStorage.getItem('endPoint') || endPoint
+  } catch (error) {}
   switch (env) {
     case 'production':
     case 'mainnet':
@@ -74,8 +76,7 @@ export default function getConfig(env: string = process.env.NEXT_PUBLIC_NODE_URL
         indexerUrl: 'https://indexer.ref-finance.net',
         sodakiApiUrl: 'https://api.stats.ref.finance/api',
         blackList: process.env.FARM_BLACK_LIST || ['1371#3', '2769#2'],
-        CONTRACT_NAME:
-          process.env.NEXT_PUBLIC_CONTRACT_NAME || 'dex.cmdev0.testnet',
+        CONTRACT_NAME: process.env.NEXT_PUBLIC_CONTRACT_NAME,
         WRAP_NEAR_CONTRACT_ID: process.env.WRAP_NEAR_CONTRACT_ID || 'wrap.near',
         REF_ADBOARD_CONTRACT_ID: 'ref-adboard.near',
         REF_FARM_CONTRACT_ID:
@@ -119,118 +120,7 @@ export default function getConfig(env: string = process.env.NEXT_PUBLIC_NODE_URL
         CUMULATIVE_REF_BUYBACK:
           process.env.CUMULATIVE_REF_BUYBACK || '132011.3147',
         BLACKLIST_POOL_IDS: [''],
-      };
-    case 'pub-testnet':
-      return {
-        networkId: 'testnet',
-        nodeUrl: RPC_LIST[endPoint].url,
-        walletUrl: 'https://wallet.testnet.near.org',
-        helperUrl: 'https://helper.testnet.near.org',
-        explorerUrl: 'https://testnet.nearblocks.io',
-        indexerUrl: 'https://testnet-indexer.ref-finance.com',
-        sodakiApiUrl: 'https://api.stats.ref.finance/api',
-        blackList: process.env.FARM_BLACK_LIST || ['1371#3'],
-        CONTRACT_NAME:
-          process.env.NEXT_PUBLIC_CONTRACT_NAME || 'dex.cmdev0.testnet',
-        WRAP_NEAR_CONTRACT_ID:
-          process.env.WRAP_NEAR_CONTRACT_ID || 'wrap.testnet',
-        REF_ADBOARD_CONTRACT_ID: 'ref-adboard.near',
-        REF_FARM_CONTRACT_ID:
-          process.env.REF_FARM_CONTRACT_ID || 'v2.ref-farming.testnet',
-        REF_TOKEN_ID: 'ref.fakes.testnet',
-        XREF_TOKEN_ID: 'xref.ref-finance.testnet',
-        REF_AIRDROP_CONTRACT_ID: 'locker002.ref-dev.testnet',
-        TOP_POOLS_TOKEN_REFRESH_INTERVAL:
-          process.env.POOL_TOKEN_REFRESH_INTERVAL || 60,
-        POOL_TOKEN_REFRESH_INTERVAL:
-          process.env.POOL_TOKEN_REFRESH_INTERVAL || 20,
-        STABLE_POOL_ID: process.env.STABLE_POOL_ID || 218,
-        STABLE_POOL_IDS: process.env.STABLE_POOL_IDS || [
-          '218',
-          '356',
-          '456',
-          '494',
-        ],
-
-        STABLE_POOL_USN_ID: process.env.STABLE_POOL_USN_ID || 356,
-        STABLE_TOKEN_IDS: [
-          'usdt.fakes.testnet',
-          'usdc.fakes.testnet',
-          'dai.fakes.testnet',
-        ],
-        STABLE_TOKEN_USN_IDS: ['usdn.testnet', 'usdt.fakes.testnet'],
-        STABLE_TOKEN_USN_INDEX: {
-          'usdn.testnet': 0,
-          'usdt.fakes.testnet': 1,
-        },
-        STABLE_TOKEN_INDEX: {
-          'usdt.fakes.testnet': 0,
-          'usdc.fakes.testnet': 1,
-          'dai.fakes.testnet': 2,
-        },
-        TOTAL_PLATFORM_FEE_REVENUE:
-          process.env.TOTAL_PLATFORM_FEE_REVENUE || '105561.75',
-        CUMULATIVE_REF_BUYBACK:
-          process.env.CUMULATIVE_REF_BUYBACK || '132011.3147',
-        BLACKLIST_POOL_IDS: [''],
-      };
-    case 'testnet':
-      return {
-        networkId: 'testnet',
-        nodeUrl: RPC_LIST[endPoint].url,
-        walletUrl: 'https://wallet.testnet.near.org',
-        helperUrl: 'https://helper.testnet.near.org',
-        explorerUrl: 'https://testnet.nearblocks.io',
-        indexerUrl: 'https://dev-indexer.ref-finance.com',
-        sodakiApiUrl: 'https://api.stats.ref.finance/api',
-        blackList: process.env.FARM_BLACK_LIST || ['1371#3'],
-        CONTRACT_NAME:
-          process.env.NEXT_PUBLIC_CONTRACT_NAME || 'dex.cmdev0.testnet',
-        WRAP_NEAR_CONTRACT_ID:
-          process.env.WRAP_NEAR_CONTRACT_ID || 'wrap.testnet',
-        REF_ADBOARD_CONTRACT_ID: 'ref-adboard.near',
-        REF_FARM_CONTRACT_ID:
-          process.env.REF_FARM_CONTRACT_ID || 'farm110.ref-dev.testnet',
-        REF_TOKEN_ID: 'ref.fakes.testnet',
-        XREF_TOKEN_ID: 'xref.ref-dev.testnet',
-        REF_AIRDROP_CONTRACT_ID: 'locker002.ref-dev.testnet',
-        TOP_POOLS_TOKEN_REFRESH_INTERVAL:
-          process.env.POOL_TOKEN_REFRESH_INTERVAL || 60,
-        POOL_TOKEN_REFRESH_INTERVAL:
-          process.env.POOL_TOKEN_REFRESH_INTERVAL || 20,
-        STABLE_POOL_ID: process.env.STABLE_POOL_ID || 79,
-        STABLE_POOL_IDS: process.env.STABLE_POOL_IDS || [
-          '79',
-          '603',
-          '604',
-          '608',
-        ],
-        USN_ID: 'usdn.testnet',
-        STABLE_POOL_USN_ID: process.env.STABLE_POOL_USN_ID || 603,
-        STABLE_TOKEN_IDS: [
-          'usdt.fakes.testnet',
-          'usdc.fakes.testnet',
-          'dai.fakes.testnet',
-        ],
-        STABLE_TOKEN_USN_IDS: ['usdn.testnet', 'usdt.fakes.testnet'],
-        STABLE_TOKEN_USN_INDEX: {
-          'usdn.testnet': 0,
-          'usdt.fakes.testnet': 1,
-        },
-        STABLE_TOKEN_INDEX: {
-          'usdt.fakes.testnet': 0,
-          'usdc.fakes.testnet': 1,
-          'dai.fakes.testnet': 2,
-        },
-        TOTAL_PLATFORM_FEE_REVENUE:
-          process.env.TOTAL_PLATFORM_FEE_REVENUE || '105561.75',
-        CUMULATIVE_REF_BUYBACK:
-          process.env.CUMULATIVE_REF_BUYBACK || '132011.3147',
-        BLACKLIST_POOL_IDS: [''],
-        NFT_CONTRACT_NAME:'marblenft.marbledao.testnet',
-        MARKETPLACE_CONTRACT_NAME: "marketplace.marbledao.testnet",
-        HERA_CONTRACT_NAME: "hera.cmdev0.testnet"
-      };
+      }
     default:
       return {
         networkId: 'mainnet',
@@ -295,7 +185,7 @@ export default function getConfig(env: string = process.env.NEXT_PUBLIC_NODE_URL
         CUMULATIVE_REF_BUYBACK:
           process.env.CUMULATIVE_REF_BUYBACK || '132011.3147',
         BLACKLIST_POOL_IDS: [''],
-      };
+      }
   }
 }
 
@@ -319,7 +209,7 @@ export function getExtraStablePoolConfig(env: string = process.env.NEAR_ENV) {
           'cusd.token.a11bd.near': 1,
         },
         CUSD_STABLE_POOL_ID: '3433',
-      };
+      }
     case 'development':
     case 'pub-testnet':
       return {
@@ -335,7 +225,7 @@ export function getExtraStablePoolConfig(env: string = process.env.NEAR_ENV) {
           'cusd.fakes.testnet': 1,
         },
         CUSD_STABLE_POOL_ID: '494',
-      };
+      }
     case 'testnet':
       return {
         BTCIDS: ['wbtc.fakes.testnet', 'hbtc.fakes.testnet'],
@@ -350,7 +240,7 @@ export function getExtraStablePoolConfig(env: string = process.env.NEAR_ENV) {
           'cusd.fakes.testnet': 1,
         },
         CUSD_STABLE_POOL_ID: '608',
-      };
+      }
     default:
       return {
         BTCIDS: [
@@ -368,6 +258,6 @@ export function getExtraStablePoolConfig(env: string = process.env.NEAR_ENV) {
           'cusd.token.a11bd.near': 1,
         },
         CUSD_STABLE_POOL_ID: '3433',
-      };
+      }
   }
 }

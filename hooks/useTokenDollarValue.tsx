@@ -5,7 +5,7 @@ export const useNearDollarValue = () => {
   // const res = await axios.get(url)
   // if (res.data?.near.usd)
   //   return res.data?.near.usd
-  return 2.89
+  return 2.13
 }
 
 export const useHeraDollarValue = async () => {
@@ -18,7 +18,7 @@ export const useHeraDollarValue = async () => {
 
 export const getTokenPrice = (name: string) => {
   if (name === 'HERA') return 0.25
-  if (name === 'NEAR') return 4.5405
+  if (name === 'NEAR') return 2.13
   return 4.5405
 }
 

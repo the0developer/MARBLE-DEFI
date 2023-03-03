@@ -14,7 +14,7 @@ export const TokenOptionsList = ({
   const tokens = isDeposit
     ? [tokenList?.native_token, tokenList.wrap_token]
     : tokenList?.tokens
-
+  console.log('tokens: ', tokens)
   return (
     <>
       {tokens.length > 0 &&
@@ -115,7 +115,7 @@ const StyledImgForTokenLogo = styled('img', {
   width: '30px',
   height: '30px',
   borderRadius: '50%',
-  backgroundColor: '#ccc',
+  backgroundColor: 'white',
 })
 const Symbol = styled('div', {
   fontSize: '24px',

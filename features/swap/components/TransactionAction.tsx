@@ -110,9 +110,11 @@ export const TransactionAction = ({
           <StyledDivColumnForInfo className="fee-selector" kind="slippage">
             {tokenB.tokenAddress && (
               <TokenRateWrapper>
-                {`1${tokenA.tokenSymbol} = ${rate.toFixed(4)}${
+                {`1 ${tokenA.tokenSymbol} = ${Number(rate.toFixed(4))} ${
                   tokenB.tokenSymbol
-                } = $${NearValue * tokenValues[tokenA.tokenAddress]}`}
+                } = $ ${Number(
+                  (NearValue * tokenValues[tokenA.tokenAddress]).toFixed(4)
+                )}`}
               </TokenRateWrapper>
             )}
           </StyledDivColumnForInfo>

@@ -62,6 +62,7 @@ export const getMultiplePoolsLiquidity = async ({
   if (!account?.accountId) {
     return { liquidity: [] }
   }
+
   const hera = new nearAPI.Contract(
     account, // the account object that is connecting
     process.env.NEXT_PUBLIC_CONTRACT_NAME,

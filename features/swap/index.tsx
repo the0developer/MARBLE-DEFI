@@ -71,6 +71,7 @@ export const TokenSwap = () => {
       tokenA ? { ...tokenA, amount: tokenB.amount } : tokenA,
     ])
   }
+  console.log('info: ', tokenA, tokenB, balances)
   return (
     <StyledDivForWrapper>
       <SelectorPart>
