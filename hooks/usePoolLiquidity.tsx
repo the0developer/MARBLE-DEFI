@@ -3,7 +3,7 @@ import { convertMicroDenomToDenom, protectAgainstNaN } from 'util/conversion'
 import * as nearAPI from 'near-api-js'
 import { unsafelyGetTokenInfoFromAddress } from 'hooks/useTokenInfo'
 import { useConnectWallet } from './useConnectWallet'
-import { backend_url } from 'util/constants'
+import { backend_url, dex_subgraph_url } from 'util/constants'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 // import {refFiViewFunction} from "../util/near"
@@ -22,6 +22,7 @@ export type LiquidityInfoType = {
   tokens: [string, string]
   /* pretty hacky - refactor when implementing decimals support */
   tokenDollarValue: number
+  tradingVolume: number
 }
 
 export type PoolRequestType = {
@@ -92,6 +93,23 @@ export const getMultiplePoolsLiquidity = async ({
         })
       })
     )
+    const tradingVolumes = await Promise.all(
+      pools.map(async (p) => {
+        const tokenA = p?.token_address[0]
+        const tokenB = p?.token_address[1]
+        const poolId =
+          tokenA > tokenB ? `${tokenA}:${tokenB}` : `${tokenB}:${tokenA}`
+        const query = `{
+          pools(where: {id: "${poolId}"}) {
+            tradingVolume
+          }
+        }`
+        const {
+          data: { data },
+        } = await axios.post(dex_subgraph_url, { query })
+        return data?.pools.length > 0 && data?.pools[0].tradingVolume
+      })
+    )
     // Todo: Add TOken price calculation algorithm
     const axiosData = await axios.get(`${backend_url}/coins/get_coin_price`, {
       params: { token: 'near' },
@@ -130,6 +148,10 @@ export const getMultiplePoolsLiquidity = async ({
         },
         tokens,
         tokenDollarValue: coinPrice[tokens[0]] * nearPrice,
+        tradingVolume: convertMicroDenomToDenom(
+          tradingVolumes[index],
+          p.decimals
+        ),
       }
     })
 

@@ -47,3 +47,5 @@ export const __TRANSFERS_ENABLED__ = JSON.parse(
 )
 /* /feature flags */
 export const backend_url = 'https://near-api.marbledao.finance'
+export const dex_subgraph_url =
+  'https://api.thegraph.com/subgraphs/name/rafleberry/marble-dex-mainnet'

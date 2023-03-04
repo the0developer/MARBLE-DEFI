@@ -29,7 +29,6 @@ export const Dashboard = () => {
   const [liquidity, setLiquidity] = useState<LiquidityInfoType[]>()
   const coinPrice = useSelector((state: any) => state.uiData.token_value)
   const nearPrice = useSelector((state: any) => state.coinData.near_value)
-  console.log('nearPrice: ', nearPrice)
   const [farms, setFarms] = useState<FarmInfo[]>()
   const [supportedTokens, pools] = useMemo(() => {
     const safePoolList = tokenList?.pools || []
@@ -45,9 +44,6 @@ export const Dashboard = () => {
     return [tokenList, poolIdsCollection]
     // eslint-disable-line react-hooks/exhaustive-deps
   }, [tokenList?.pools])
-  const getNearDollarValue = async () => {
-    return '2.11'
-  }
   useEffect(() => {
     setIsloading(true)
     // eslint-disable-line react-hooks/rules-of-hooks
@@ -71,7 +67,7 @@ export const Dashboard = () => {
       getStakedListByAccountId({}),
       getRewards({}),
       getSeeds({}),
-      getNearDollarValue(),
+      nearPrice,
     ]
 
     const resolvedParams: [
@@ -115,7 +111,16 @@ export const Dashboard = () => {
     })
     return tvl.toLocaleString()
   }
-  console.log('farms: ', farms)
+  const getTradingVolume = () => {
+    let tradingVolume = 0
+    if (!liquidity) return 0
+    liquidity.forEach((_liquidity) => {
+      if (!_liquidity) return
+      tradingVolume +=
+        _liquidity.tradingVolume * coinPrice['artex.marbledao.near'] * nearPrice
+    })
+    return tradingVolume.toFixed(2)
+  }
   return (
     <StyledDivForWrapper>
       <StyldedGrid>
@@ -134,42 +139,24 @@ export const Dashboard = () => {
         <StyledCard
           color="#FE9A45"
           icon={<Bonded />}
-          title={
-            <CTitle>
-              Bonded Liquidity
-              <br />
-              Ratio
-            </CTitle>
-          }
-          value={<CValue>Coming Soon</CValue>}
+          title={<CTitle>Total Liquidity</CTitle>}
+          value={<CValue>$ {getTVL()}</CValue>}
         />
         <StyledCard
           color="#B0954A"
           icon={<Reward />}
-          title={
-            <CTitle>
-              Daily Dao Staking
-              <br />
-              Reward
-            </CTitle>
-          }
-          value={<CValue>Coming Soon</CValue>}
+          title={<CTitle>Trading Volume</CTitle>}
+          value={<CValue>$ {getTradingVolume()}</CValue>}
         />
         <StyledCard
           color="#FF5368"
           icon={<APR />}
-          title={
-            <CTitle>
-              Liquidity Staking
-              <br />
-              APR
-            </CTitle>
-          }
-          value={<CValue>Coming Soon</CValue>}
+          title={<CTitle>Liquidity Staking APR</CTitle>}
+          value={<CValue>{farms[0].apr} %</CValue>}
         />
       </StyldedGrid>
       <Value style={{ fontFamily: 'Trajan' }}>Protocol Stats</Value>
-      <StateContent>
+      {/* <StateContent>
         <StateElement>
           <Title>Liquidity Pools</Title>
           <Value>${getTVL()}</Value>
@@ -178,15 +165,15 @@ export const Dashboard = () => {
           <Title>Bonded Liquidity</Title>
           <Value style={{ opacity: '0.5' }}>Coming Soon</Value>
         </StateElement>
-        {/* <StateElement>
+        <StateElement>
           <Title>Staked Marble</Title>
           <Value>$61,971.74</Value>
         </StateElement>
         <StateElement>
           <Title>Treasury</Title>
           <Value>$61,971.74</Value>
-        </StateElement> */}
-      </StateContent>
+        </StateElement>
+      </StateContent> */}
       {farms && (
         <DepositCardWrapper>
           <DepositCard param={farms[0]} />
@@ -258,7 +245,6 @@ const CValue = styled.div`
   font-size: 18px;
   font-weight: 600;
   color: white;
-  opacity: 0.5;
   @media (max-width: 1550px) {
     font-size: 14px;
   }

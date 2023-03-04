@@ -5,7 +5,13 @@ const StyledCard = ({ icon, color, title, value }) => {
   return (
     <Container>
       <IconWrapper color={color}>{icon}</IconWrapper>
-      <div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          rowGap: '10px',
+        }}
+      >
         {title}
         {value}
       </div>
@@ -16,6 +22,7 @@ const StyledCard = ({ icon, color, title, value }) => {
 const Container = styled(GradientBackground)`
   padding: 14px;
   display: flex;
+  align-items: center;
   @media (max-width: 1550px) {
     padding: 10px;
   }
