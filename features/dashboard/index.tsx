@@ -121,6 +121,10 @@ export const Dashboard = () => {
     })
     return tradingVolume.toFixed(2)
   }
+  const getApr = () => {
+    if (!farms) return 0
+    return farms[0].apr
+  }
   return (
     <StyledDivForWrapper>
       <StyldedGrid>
@@ -152,7 +156,7 @@ export const Dashboard = () => {
           color="#FF5368"
           icon={<APR />}
           title={<CTitle>Liquidity Staking APR</CTitle>}
-          value={<CValue>{farms[0].apr} %</CValue>}
+          value={<CValue>{getApr()} %</CValue>}
         />
       </StyldedGrid>
       <Value style={{ fontFamily: 'Trajan' }}>Protocol Stats</Value>
