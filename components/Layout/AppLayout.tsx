@@ -7,6 +7,8 @@ import TagManager from 'react-gtm-module'
 import { ChakraProvider, HStack, Stack } from '@chakra-ui/react'
 import { FetchCoinInfo } from 'hooks/useTokenBalance'
 import { isPC } from 'util/device'
+import { getTokenBalances, TokenBalancesView } from 'util/token'
+import { convertMicroDenomToDenom } from 'util/conversion'
 import { SecondGradientBackground } from 'styles/styles'
 // import { useDb } from 'hooks/useDb'
 
@@ -21,17 +23,26 @@ export const AppLayout = ({
   children,
   fullWidth = true,
 }) => {
+  const [deposits, setDeposits] = useState<TokenBalancesView>()
   FetchCoinInfo()
   useEffect(() => {
     const _tempaccount = localStorage.getItem('accountId')
-    if (_tempaccount && _tempaccount.endsWith('testnet')) {
+    if (!_tempaccount || _tempaccount.endsWith('testnet')) {
       localStorage.clear()
+      return
     }
+    getTokenBalances().then((data) => {
+      setDeposits(data)
+    })
   }, [])
   // useDb()
   useEffect(() => {
     TagManager.initialize(tagManagerArgs)
   }, [])
+  const getBadgeInfo = () => {
+    const status = localStorage.getItem('accountId')
+    return '123'
+  }
   return (
     <ChakraProvider>
       <StyledWrapper>
