@@ -42,6 +42,7 @@ export default function Pools() {
   const [farms, setFarms] = useState<FarmInfo[]>()
   const nearValue = useSelector((state: any) => state.coinData.near_value)
   const coinPrice = useSelector((state: any) => state.uiData.token_value)
+  console.log('coinPrice: ', coinPrice)
   const page = 1
   const perPage = DEFAULT_PAGE_LIMIT
   const rewardToken = 'artex.marbledao.near'
@@ -96,7 +97,6 @@ export default function Pools() {
       getSeeds({}),
       nearValue.toString(),
     ]
-
     const resolvedParams: [
       Record<string, string>,
       Record<string, string>,
@@ -111,7 +111,7 @@ export default function Pools() {
     const tokenPriceList = {
       // Todo: this needs to be changed to dust
       [rewardToken]: {
-        price: tokenPrice,
+        price: Number(tokenPrice) * coinPrice[rewardToken],
       },
     }
     setStakedList(stakedList)
