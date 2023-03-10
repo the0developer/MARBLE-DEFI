@@ -136,7 +136,7 @@ export const getFarms = async ({
   const index = (page - 1) * perPage
   let farms: Farm[] = await refFarmViewFunction({
     methodName: 'list_farms',
-    args: { from_index: index, limit: perPage },
+    args: { from_index: 1, limit: perPage },
   })
   // filter  unexpected farm data
   const blackFarmList = new Set(config.blackList || [])
