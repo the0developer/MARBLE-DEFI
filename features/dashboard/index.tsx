@@ -84,7 +84,7 @@ export const Dashboard = () => {
     const tokenPriceList = {
       // Todo: this needs to be changed to dust
       [rewardToken]: {
-        price: tokenPrice,
+        price: Number(tokenPrice) * coinPrice[rewardToken],
       },
     }
 
