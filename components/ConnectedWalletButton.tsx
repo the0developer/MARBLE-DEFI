@@ -8,6 +8,7 @@ import { getTokenBalance } from '../hooks/useTokenBalance'
 import {
   convertMicroDenomToDenom,
   formatTokenBalance,
+  convertToFixedDecimals,
 } from '../util/conversion'
 import { getTokenBalances } from 'util/token'
 import { CSS } from '@stitches/react'
@@ -70,7 +71,6 @@ export const ConnectedWalletButton = ({
   useEffect(() => {
     if (!connected) return
     getTokenBalances().then((data) => {
-      console.log('data: ', data)
       const tokenAddresses = Object.keys(data)
       const tokens = tokenAddresses.map((_tokenAddress) => {
         return {
@@ -204,7 +204,9 @@ export const ConnectedWalletButton = ({
                 <img src={_depositedToken.logoURI} alt="token" />
                 {_depositedToken.symbol}
               </ImgDiv>
-              <TokenValue>{_depositedToken.amount}</TokenValue>
+              <TokenValue>
+                {convertToFixedDecimals(_depositedToken.amount)}
+              </TokenValue>
             </UnusedTokenItem>
           ))}
           <RefundButton onClick={handleWithdraw}>Withdraw</RefundButton>

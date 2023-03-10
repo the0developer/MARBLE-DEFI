@@ -27,7 +27,7 @@ export function convertFromMicroDenom(denom: string) {
 
 export function convertToFixedDecimals(value: number | string): string {
   const amount = Number(value)
-  return amount > 0.01 ? amount.toFixed(2) : String(amount)
+  return amount > 0.01 ? amount.toFixed(2) : '0'
 }
 
 export const formatTokenName = (name: string) => {
