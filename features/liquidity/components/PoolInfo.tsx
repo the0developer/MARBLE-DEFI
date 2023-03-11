@@ -42,9 +42,9 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
   const rewardCount = Math.ceil(
     (currentTimeStamp - Number(start_at)) / Number(reward_interval)
   )
-  // const dateTo =
-  //   (Number(start_at) + Number(reward_interval) * rewardCount) * 1000
-  const dateTo = Number(start_at) * 1000
+  const dateTo =
+    (Number(start_at) + Number(reward_interval) * rewardCount) * 1000
+  // const dateTo = Number(start_at) * 1000
   const onClaimReward = async () => {
     const now = new Date()
     if (
