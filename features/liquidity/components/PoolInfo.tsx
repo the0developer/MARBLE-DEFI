@@ -83,7 +83,7 @@ export const PoolInfo: React.FC<PoolInfoProps> = ({
               src={token?.logoURI}
               alt=""
             />
-            <Value>{myDailyReward}</Value>
+            <Value>{Number(myDailyReward).toFixed(3)}</Value>
             <Button
               css={{
                 width: '68px',
