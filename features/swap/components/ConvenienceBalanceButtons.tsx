@@ -22,8 +22,8 @@ export const ConvenienceBalanceButtons = ({
       <>
         <StyledButton
           onClick={() => {
-            let amount =
-              tokenSymbol === 'NEAR' ? availableAmount - 0.1 : availableAmount
+            let amount = availableAmount - 0.1
+            if (amount < 0) amount = 0
             onChange(amount)
           }}
         >
