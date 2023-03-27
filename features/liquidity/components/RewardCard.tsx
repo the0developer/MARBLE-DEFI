@@ -11,7 +11,7 @@ import { GradientBackground } from 'styles/styles'
 
 export const RewardCard: React.FC = ({}) => {
   const [reward, setReward] = useState('0')
-  const REWARD_TOKEN_DECIMAL = 8
+  const REWARD_TOKEN_DECIMAL = 24
   const nearPrice = useSelector((state: any) => state.coinData.near_value)
   const dustPriceInNear = useSelector(
     (state: any) => state.uiData.token_value[rewardToken]
@@ -25,10 +25,9 @@ export const RewardCard: React.FC = ({}) => {
   }, [])
 
   const withdraw = () => {
-    return
+    if (Number(reward) < 10000000) return
     withdrawReward({ token_id: rewardToken, amount: reward })
   }
-
   return (
     <StyledElementForCard>
       <StyledHeader>My reward</StyledHeader>
