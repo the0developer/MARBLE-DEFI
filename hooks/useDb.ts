@@ -38,7 +38,7 @@ export const useDb = () => {
     return [tokenList, poolIdsCollection]
     // eslint-disable-line react-hooks/exhaustive-deps
   }, [tokenList?.pools, coinPrice])
-  const rewardToken = 'dust.cmdev0.testnet'
+  const rewardToken = 'artex.marbledao.near'
   // Todo: Change this to Dust vaule
   useEffect(() => {
     // eslint-disable-line react-hooks/rules-of-hooks
@@ -79,7 +79,7 @@ export const useDb = () => {
     const tokenPriceList = {
       // Todo: this needs to be changed to dust
       [rewardToken]: {
-        price: tokenPrice,
+        price: Number(tokenPrice) * coinPrice[rewardToken],
       },
     }
     const farms = await getFarms({
