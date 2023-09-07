@@ -104,11 +104,10 @@ export const Dashboard = () => {
   }
   const getTVL = () => {
     let tvl = 0
-    if (!farms) return '0'
-    console.log('farms: ', farms)
-    farms.forEach((farm) => {
-      if (!farm) return
-      tvl += farm.pool.tvl
+    if (!liquidity) return '0'
+    liquidity.forEach((_liquidity) => {
+      if (!_liquidity) return
+      tvl += _liquidity.totalLiquidity.dollarValue
     })
     return tvl.toLocaleString()
   }

@@ -92,7 +92,7 @@ export default function Pool() {
     if (!isNaN(Number(pool))) {
       if (!accountId) return
       db.queryFarms().then((farms) => {
-        console.log('farms: ', farms)
+        console.log('farms: ', farms, pool)
         const index = farms.map((r) => Number(r.pool_id)).indexOf(Number(pool))
         const farmInfo = farms[index]
         setFarmInfo(farmInfo)
